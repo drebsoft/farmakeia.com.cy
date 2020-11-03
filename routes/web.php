@@ -20,3 +20,6 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::view('map', 'map', ['maps_api_key' => env('MAPS_API_KEY')]);
+Route::view('single', 'single', ['maps_api_key' => env('MAPS_API_KEY')]);
