@@ -9,5 +9,5 @@ class Pharmacy extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'town', 'municipality', 'address', 'add_address', 'phone', 'am'];
+    protected $guarded = [];
 }

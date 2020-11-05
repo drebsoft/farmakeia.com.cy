@@ -11,6 +11,7 @@ use Tests\TestCase;
 class ManagePharmaciesTest extends TestCase
 {
     use RefreshDatabase;
+
     /** @test */
     public function anyone_can_view_a_list_of_pharmacies()
     {
@@ -37,5 +38,29 @@ class ManagePharmaciesTest extends TestCase
                 $pharmacy->phone,
                 $pharmacy->am
             ]);
+    }
+
+    /** @test */
+    public function a_user_can_create_a_pharmacy()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->get('/pharmacies/create')->assertStatus(200);
+
+        $attributes = [
+            'name' => 'Test pharmacy',
+            'town' => 'Test town',
+            'municipality' => 'Test mun',
+            'address' => 'Test address',
+            'add_address' => 'Test additional',
+            'phone' => '1231231',
+            'am' => '1234'
+        ];
+
+        $this->followingRedirects()
+            ->post('/pharmacies', $attributes)
+            ->assertSee($attributes);
+
+        $this->assertDatabaseHas('pharmacies', $attributes);
     }
 }

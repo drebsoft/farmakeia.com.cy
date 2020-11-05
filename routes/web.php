@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PharmacyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pharmacies', [\App\Http\Controllers\PharmacyController::class, 'index']);
+Route::get('/pharmacies', [PharmacyController::class, 'index']);
+Route::post('/pharmacies', [PharmacyController::class, 'store']);
+Route::get('/pharmacies/create', [PharmacyController::class, 'create']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
