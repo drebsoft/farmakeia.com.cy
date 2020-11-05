@@ -22,4 +22,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::view('map', 'map', ['maps_api_key' => env('MAPS_API_KEY')]);
-Route::view('single', 'single', ['maps_api_key' => env('MAPS_API_KEY')]);
+Route::view('single', 'single', [
+    'maps_api_key' => env('MAPS_API_KEY'),
+    'location' => 'Iremias 17, Lakatamia, Nicosia'
+]);
