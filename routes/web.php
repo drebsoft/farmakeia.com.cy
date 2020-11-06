@@ -19,8 +19,11 @@ Route::get('/', function () {
 });
 
 Route::get('/pharmacies', [PharmacyController::class, 'index']);
-Route::post('/pharmacies', [PharmacyController::class, 'store']);
-Route::get('/pharmacies/create', [PharmacyController::class, 'create']);
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::post('/pharmacies', [PharmacyController::class, 'store']);
+    Route::get('/pharmacies/create', [PharmacyController::class, 'create']);
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

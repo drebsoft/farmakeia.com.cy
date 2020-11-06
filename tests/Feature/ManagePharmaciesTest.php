@@ -45,6 +45,8 @@ class ManagePharmaciesTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->asAuthenticated();
+
         $this->get('/pharmacies/create')->assertStatus(200);
 
         $attributes = [
@@ -53,7 +55,7 @@ class ManagePharmaciesTest extends TestCase
             'municipality' => 'Test mun',
             'address' => 'Test address',
             'add_address' => 'Test additional',
-            'phone' => '1231231',
+            'phone' => '123456',
             'am' => '1234'
         ];
 
