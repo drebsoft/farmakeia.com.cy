@@ -10,4 +10,9 @@ class Pharmacy extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    public function path()
+    {
+        return "/pharmacies/{$this->id}";
+    }
 }

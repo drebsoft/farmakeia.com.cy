@@ -41,7 +41,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_create_a_pharmacy()
     {
-
         $this->asAuthenticated();
 
         $this->get('/pharmacies/create')->assertStatus(200);
@@ -64,6 +63,17 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
+    public function an_unauthenticated_user_cannot_manage_a_pharmacy()
+    {
+        $pharmacy = Pharmacy::factory()->create();
+        $this->get($pharmacy->path())->assertRedirect('/login');
+        $this->get('/pharmacies/create')->assertRedirect('/login');
+        $this->post('/pharmacies')->assertRedirect('/login');
+        $this->get($pharmacy->path().'/edit')->assertRedirect('/login');
+        $this->patch($pharmacy->path())->assertRedirect('/login');
+    }
+
+    /** @test */
     public function a_user_can_update_a_pharmacy()
     {
         $this->withoutExceptionHandling();
@@ -72,7 +82,7 @@ class ManagePharmaciesTest extends TestCase
 
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->get('/pharmacies/'.$pharmacy->id.'/edit')->assertOk();
+        $this->get($pharmacy->path().'/edit')->assertOk();
 
         $attributes = [
             'name' => 'Edited',
@@ -85,7 +95,7 @@ class ManagePharmaciesTest extends TestCase
         ];
 
         $this->followingRedirects()
-            ->patch('/pharmacies/'.$pharmacy->id, $attributes)
+            ->patch($pharmacy->path(), $attributes)
             ->assertSee($attributes);
 
         $this->assertDatabaseHas('pharmacies', $attributes);
@@ -109,7 +119,7 @@ class ManagePharmaciesTest extends TestCase
 
         $pharmacy = Pharmacy::factory()->create($attributes);
 
-        $this->get('/pharmacies/'.$pharmacy->id)
+        $this->get($pharmacy->path())
                 ->assertStatus(200)
                 ->assertSee([
                     $pharmacy->name,
