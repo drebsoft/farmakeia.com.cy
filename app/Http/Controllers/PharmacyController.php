@@ -43,11 +43,11 @@ class PharmacyController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Pharmacy  $pharmacy
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Pharmacy $pharmacy)
     {
-        //
+        return view('pharmacies.show', compact('pharmacy'));
     }
 
     /**

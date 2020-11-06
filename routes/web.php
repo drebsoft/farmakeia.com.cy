@@ -21,9 +21,10 @@ Route::get('/', function () {
 Route::get('/pharmacies', [PharmacyController::class, 'index']);
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::post('/pharmacies', [PharmacyController::class, 'store']);
-    Route::patch('/pharmacies/{pharmacy}', [PharmacyController::class, 'update']);
     Route::get('/pharmacies/create', [PharmacyController::class, 'create']);
+    Route::post('/pharmacies', [PharmacyController::class, 'store']);
+    Route::get('/pharmacies/{pharmacy}', [PharmacyController::class, 'show']);
+    Route::patch('/pharmacies/{pharmacy}', [PharmacyController::class, 'update']);
     Route::get('/pharmacies/{pharmacy}/edit', [PharmacyController::class, 'edit']);
 });
 

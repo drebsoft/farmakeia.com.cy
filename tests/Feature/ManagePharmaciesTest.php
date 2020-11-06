@@ -15,7 +15,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function anyone_can_view_a_list_of_pharmacies()
     {
-
         $pharmacy = Pharmacy::factory()->create([
             'name' => 'Test pharmacy',
             'town' => 'Test town',
@@ -88,6 +87,39 @@ class ManagePharmaciesTest extends TestCase
         $this->followingRedirects()
             ->patch('/pharmacies/'.$pharmacy->id, $attributes)
             ->assertSee($attributes);
+
+        $this->assertDatabaseHas('pharmacies', $attributes);
+    }
+
+    /** @test */
+    public function a_user_can_view_a_pharmacy_created()
+    {
+        $this->withoutExceptionHandling();
+
+        $this->asAuthenticated();
+        $attributes = [
+            'name' => 'Test pharmacy',
+            'town' => 'Test town',
+            'municipality' => 'Test mun',
+            'address' => 'Test address',
+            'add_address' => 'Test additional',
+            'phone' => '123456',
+            'am' => '1234'
+        ];
+
+        $pharmacy = Pharmacy::factory()->create($attributes);
+
+        $this->get('/pharmacies/'.$pharmacy->id)
+                ->assertStatus(200)
+                ->assertSee([
+                    $pharmacy->name,
+                    $pharmacy->town,
+                    $pharmacy->municipality,
+                    $pharmacy->address,
+                    $pharmacy->add_address,
+                    $pharmacy->phone,
+                    $pharmacy->am
+                ]);
 
         $this->assertDatabaseHas('pharmacies', $attributes);
     }
