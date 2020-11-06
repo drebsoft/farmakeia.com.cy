@@ -29,7 +29,7 @@ class PharmacyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorePharmacy  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StorePharmacy $request)
@@ -54,23 +54,26 @@ class PharmacyController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Pharmacy  $pharmacy
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit(Pharmacy $pharmacy)
     {
-        //
+        return view('pharmacies.edit', compact('pharmacy'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StorePharmacy  $request
      * @param  \App\Models\Pharmacy  $pharmacy
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Pharmacy $pharmacy)
+    public function update(StorePharmacy $request, Pharmacy $pharmacy)
     {
-        //
+        $validated = $request->validated();
+        $pharmacy->update($validated);
+
+        return redirect('/pharmacies');
     }
 
     /**

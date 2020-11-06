@@ -1,0 +1,1 @@
+edit: {{ $pharmacy->name }}
