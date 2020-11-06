@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePharmacy;
 use App\Models\Pharmacy;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PharmacyController extends Controller
 {
 
     public function index()
     {
-        $pharmacy = Pharmacy::find(1);
-        return view('pharmacies.index', compact('pharmacy'));
+        $pharmacies = Pharmacy::all();
+        return view('pharmacies.index', compact('pharmacies'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('pharmacies.create');
     }
 
     /**
@@ -30,9 +32,10 @@ class PharmacyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StorePharmacy $request)
     {
-        Pharmacy::create($request->all());
+        $validated = $request->validated();
+        Pharmacy::create($validated);
         return redirect('/pharmacies');
     }
 
