@@ -71,6 +71,8 @@ class ManagePharmaciesTest extends TestCase
         $this->post('/pharmacies')->assertRedirect('/login');
         $this->get($pharmacy->path().'/edit')->assertRedirect('/login');
         $this->patch($pharmacy->path())->assertRedirect('/login');
+        $this->delete($pharmacy->path())->assertRedirect('/login');
+
     }
 
     /** @test */
@@ -132,5 +134,29 @@ class ManagePharmaciesTest extends TestCase
                 ]);
 
         $this->assertDatabaseHas('pharmacies', $attributes);
+    }
+
+    // validation testing
+
+    /** @test */
+    public function a_user_can_delete_a_pharmacy()
+    {
+        $this->withoutExceptionHandling();
+        $this->asAuthenticated();
+        $attributes = [
+            'name' => 'Test pharmacy',
+            'town' => 'Test town',
+            'municipality' => 'Test mun',
+            'address' => 'Test address',
+            'add_address' => 'Test additional',
+            'phone' => '123456',
+            'am' => '1234'
+        ];
+
+        $pharmacy = Pharmacy::factory()->create($attributes);
+
+        $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
+
+        $this->assertDatabaseMissing('pharmacies', $attributes);
     }
 }

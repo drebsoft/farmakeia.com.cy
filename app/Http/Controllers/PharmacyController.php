@@ -80,10 +80,11 @@ class PharmacyController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Pharmacy  $pharmacy
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Pharmacy $pharmacy)
     {
-        //
+        $pharmacy->delete();
+        return redirect('/pharmacies');
     }
 }

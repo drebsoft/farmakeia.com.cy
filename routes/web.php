@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/pharmacies', [PharmacyController::class, 'store']);
     Route::get('/pharmacies/{pharmacy}', [PharmacyController::class, 'show']);
     Route::patch('/pharmacies/{pharmacy}', [PharmacyController::class, 'update']);
+    Route::delete('/pharmacies/{pharmacy}', [PharmacyController::class, 'destroy']);
     Route::get('/pharmacies/{pharmacy}/edit', [PharmacyController::class, 'edit']);
 });
 
