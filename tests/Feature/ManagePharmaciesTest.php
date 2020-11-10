@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\PharmacyController;
+use App\Http\Requests\StorePharmacy;
 use App\Models\Pharmacy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -136,8 +138,6 @@ class ManagePharmaciesTest extends TestCase
         $this->assertDatabaseHas('pharmacies', $attributes);
     }
 
-    // validation testing
-
     /** @test */
     public function a_user_can_delete_a_pharmacy()
     {
@@ -158,5 +158,16 @@ class ManagePharmaciesTest extends TestCase
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
         $this->assertDatabaseMissing('pharmacies', $attributes);
+    }
+
+    // form request validation
+    /** @test */
+    public function validation_for_pharmacy_creation()
+    {
+        $this->assertActionUsesFormRequest(
+            PharmacyController::class,
+            'store',
+            StorePharmacy::class
+        );
     }
 }
