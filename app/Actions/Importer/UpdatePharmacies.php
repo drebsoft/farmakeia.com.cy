@@ -1,17 +1,16 @@
-<?php
-
-
-namespace App\Actions\Importer;
+<?php namespace App\Actions\Importer;
 
 
 class UpdatePharmacies
 {
     public function handle()
     {
-        $file = app(RetrieveExcelFiles::class)->handle();
+        $files = app(RetrieveExcelFiles::class)->handle();
 
-        $pharmacies = app(ParsePharmacyListExcelFiles::class)->handle($file);
+        dd($files);
+        $pharmacies = app(ParsePharmacyListExcelFiles::class)->handle($files);
 
+        dd($pharmacies);
         $records = app(CreateOrUpdatePharmacy::class)->handle($pharmacies);
 
         return $records + [];

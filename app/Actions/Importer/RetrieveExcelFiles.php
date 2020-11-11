@@ -35,18 +35,26 @@ class RetrieveExcelFiles
             throw new \Exception('Something bad happened dude!');
         }
 
-        collect($linklist)
+        return collect($linklist)
             ->filter(function (DOMElement $element) {
                 return Str::contains($element->nodeValue, 'Διημερεύοντα Φαρμακεία');
+                    //|| Str::contains($element->nodeValue, 'Kατάλογος Ιδωτικών Φαρμακείων');
             })
             ->map(function (DOMElement $element) {
-                $city = last(array_filter(explode(' ', $element->nodeValue)));
+//                if (Str::contains($element->nodeValue, 'Διημερεύοντα Φαρμακεία')) {
+                    $filename = last(array_filter(explode(' ', $element->nodeValue)));
+//                } else {
+//                    $filename = 'Διημερεύοντα Φαρμακεία';
+//                }
                 $link = $element->getAttribute('href');
-                $this->downloadExcelFile($city, $link);
+                $path = $this->downloadExcelFile($filename, $link);
+
+                return $path;
             });
     }
 
     /**
+     * @param $url
      * @return false|string
      */
     private function getHTML($url)
@@ -57,7 +65,7 @@ class RetrieveExcelFiles
         return $html;
     }
 
-    protected function downloadExcelFile($city, string $link)
+    protected function downloadExcelFile($filename, string $link)
     {
         $html = $this->getHTML($this->baseUrl . $link);
 
@@ -72,16 +80,24 @@ class RetrieveExcelFiles
 
         $link = 'https://www.moh.gov.cy/moh/phs/phs.nsf/All/' . $linklist[0]->getAttribute('href');
 
-        $CurlConnect = curl_init();
-        curl_setopt($CurlConnect, CURLOPT_URL, $link);
-        curl_setopt($CurlConnect, CURLOPT_POST, 1);
-        curl_setopt($CurlConnect, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($CurlConnect, CURLOPT_POSTFIELDS, []);
-        $result = curl_exec($CurlConnect);
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $link);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $userAgent = 'Mozilla/5.0 (Windows NT 6.2; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0';
+        curl_setopt($curl, CURLOPT_USERAGENT, $userAgent);
+        curl_setopt($curl, CURLOPT_REFERER, 'https://www.moh.gov.cy/');
+        $result = curl_exec($curl);
 
-        $filename = $city . '-' . now()->toDateString() . '.xls'; // format 2020-12-25
+//        if (Str::contains($filename, 'Διημερεύοντα Φαρμακεία')) {
+            $filename = $filename . '-' . now()->toDateString() . '.xls'; // format 2020-12-25
+//        } else {
+//            $filename = '2020-2021 Φαρμακεία για διημερεύσεις.xls';
+//        }
 
-        Storage::put('app/mohfiles/' . $filename, $result);
+        $fullPath = 'mohfiles/' . $filename;
 
+        Storage::put($fullPath, $result);
+
+        return $fullPath;
     }
 }
