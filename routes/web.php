@@ -17,10 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return app(ParsePharmacyAvailabilityCsvFiles::class)->handle(
-        collect(File::glob(storage_path('app/mohfiles/City_*.csv')))
-    );
-
     return view('welcome');
 });
 
