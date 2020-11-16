@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePharmacy extends FormRequest
+class CreateUpdatePharmacyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class StorePharmacy extends FormRequest
             'municipality' => 'required',
             'address' => 'required',
             'add_address' => 'nullable',
-            'phone' => 'required|digits:6',
+            'phone' => 'required|digits:8',
             'am' => 'required|digits:4'
         ];
     }

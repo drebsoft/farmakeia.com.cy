@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Http\Controllers\PharmacyController;
-use App\Http\Requests\StorePharmacy;
+use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,6 +43,7 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_create_a_pharmacy()
     {
+        $this->withoutExceptionHandling();
         $this->asAuthenticated();
 
         $this->get('/pharmacies/create')->assertStatus(200);
@@ -53,7 +54,7 @@ class ManagePharmaciesTest extends TestCase
             'municipality' => 'Test mun',
             'address' => 'Test address',
             'add_address' => 'Test additional',
-            'phone' => '123456',
+            'phone' => '12345678',
             'am' => '1234'
         ];
 
@@ -94,7 +95,7 @@ class ManagePharmaciesTest extends TestCase
             'municipality' => 'Edited',
             'address' => 'Edited',
             'add_address' => 'Edited',
-            'phone' => '111111',
+            'phone' => '11111111',
             'am' => '1111'
         ];
 
@@ -117,7 +118,7 @@ class ManagePharmaciesTest extends TestCase
             'municipality' => 'Test mun',
             'address' => 'Test address',
             'add_address' => 'Test additional',
-            'phone' => '123456',
+            'phone' => '12345678',
             'am' => '1234'
         ];
 
@@ -149,7 +150,7 @@ class ManagePharmaciesTest extends TestCase
             'municipality' => 'Test mun',
             'address' => 'Test address',
             'add_address' => 'Test additional',
-            'phone' => '123456',
+            'phone' => '12345678',
             'am' => '1234'
         ];
 
@@ -167,7 +168,7 @@ class ManagePharmaciesTest extends TestCase
         $this->assertActionUsesFormRequest(
             PharmacyController::class,
             'store',
-            StorePharmacy::class
+            CreateUpdatePharmacyRequest::class
         );
     }
 }

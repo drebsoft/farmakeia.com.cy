@@ -2,12 +2,12 @@
 
 namespace Tests\Unit;
 
-use App\Http\Requests\StorePharmacy;
+use App\Http\Requests\CreateUpdatePharmacyRequest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Session\Store;
 use Tests\TestCase;
 
-class StorePharmacyTest extends TestCase
+class CreateUpdatePharmacyTest extends TestCase
 {
     use RefreshDatabase;
     private $pharmacy;
@@ -16,7 +16,7 @@ class StorePharmacyTest extends TestCase
     {
         parent::setUp();
 
-        $this->pharmacy = new StorePharmacy();
+        $this->pharmacy = new CreateUpdatePharmacyRequest();
     }
 
     /** @test */
@@ -28,7 +28,7 @@ class StorePharmacyTest extends TestCase
             'municipality' => 'required',
             'address' => 'required',
             'add_address' => 'nullable',
-            'phone' => 'required|digits:6',
+            'phone' => 'required|digits:8',
             'am' => 'required|digits:4'
         ],
             $this->pharmacy->rules()

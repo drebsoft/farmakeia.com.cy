@@ -13,6 +13,6 @@ class Pharmacy extends Model
 
     public function path()
     {
-        return "/pharmacies/{$this->id}";
+        return route('pharmacies.show', ['pharmacy' => $this->id]);
     }
 }

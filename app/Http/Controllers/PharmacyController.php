@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StorePharmacy;
+use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class PharmacyController extends Controller
 {
@@ -29,10 +27,10 @@ class PharmacyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePharmacy  $request
+     * @param  \App\Http\Requests\CreateUpdatePharmacyRequest  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StorePharmacy $request)
+    public function store(CreateUpdatePharmacyRequest $request)
     {
         $validated = $request->validated();
         Pharmacy::create($validated);
@@ -64,11 +62,11 @@ class PharmacyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\StorePharmacy  $request
+     * @param  \App\Http\Requests\CreateUpdatePharmacyRequest  $request
      * @param  \App\Models\Pharmacy  $pharmacy
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(StorePharmacy $request, Pharmacy $pharmacy)
+    public function update(CreateUpdatePharmacyRequest $request, Pharmacy $pharmacy)
     {
         $validated = $request->validated();
         $pharmacy->update($validated);

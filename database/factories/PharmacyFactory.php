@@ -27,7 +27,7 @@ class PharmacyFactory extends Factory
             'municipality' => $this->faker->word,
             'address' => $this->faker->word,
             'add_address' => $this->faker->word,
-            'phone' => $this->faker->randomNumber(6),
+            'phone' => $this->faker->randomNumber(8),
             'am' => $this->faker->randomNumber(4)
         ];
     }
