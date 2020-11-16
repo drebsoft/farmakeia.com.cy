@@ -37,15 +37,16 @@ class RetrieveExcelFiles
 
         return collect($linklist)
             ->filter(function (DOMElement $element) {
-                return Str::contains($element->nodeValue, 'Διημερεύοντα Φαρμακεία');
-                    //|| Str::contains($element->nodeValue, 'Kατάλογος Ιδωτικών Φαρμακείων');
+                return //Str::contains($element->nodeValue, 'Διημερεύοντα Φαρμακεία')
+                    //    ||
+                    Str::contains($element->nodeValue, 'Kατάλογος Ιδωτικών Φαρμακείων');
             })
             ->map(function (DOMElement $element) {
-//                if (Str::contains($element->nodeValue, 'Διημερεύοντα Φαρμακεία')) {
-                    $filename = last(array_filter(explode(' ', $element->nodeValue)));
-//                } else {
-//                    $filename = 'Διημερεύοντα Φαρμακεία';
-//                }
+                if (Str::contains($element->nodeValue, 'Kατάλογος Ιδωτικών Φαρμακείων')) {
+                    $filename = 'KατάλογοςΙδωτικώνΦαρμακείων';
+                } else {
+                    $filename = 'City_' . last(array_filter(explode(' ', $element->nodeValue)));
+                }
                 $link = $element->getAttribute('href');
                 $path = $this->downloadExcelFile($filename, $link);
 
@@ -88,11 +89,11 @@ class RetrieveExcelFiles
         curl_setopt($curl, CURLOPT_REFERER, 'https://www.moh.gov.cy/');
         $result = curl_exec($curl);
 
-//        if (Str::contains($filename, 'Διημερεύοντα Φαρμακεία')) {
+        if (Str::contains($filename, 'Kατάλογος Ιδωτικών Φαρμακείων')) {
+            $filename = '2020-2021 Φαρμακεία για διημερεύσεις.xls';
+        } else {
             $filename = $filename . '-' . now()->toDateString() . '.xls'; // format 2020-12-25
-//        } else {
-//            $filename = '2020-2021 Φαρμακεία για διημερεύσεις.xls';
-//        }
+        }
 
         $fullPath = 'mohfiles/' . $filename;
 

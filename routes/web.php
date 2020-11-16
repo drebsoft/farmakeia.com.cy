@@ -1,6 +1,8 @@
 <?php
 
+use App\Actions\Importer\ParsePharmacyAvailabilityCsvFiles;
 use App\Http\Controllers\PharmacyController;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return app(ParsePharmacyAvailabilityCsvFiles::class)->handle(
+        collect(File::glob(storage_path('app/mohfiles/City_*.csv')))
+    );
+
     return view('welcome');
 });
 
