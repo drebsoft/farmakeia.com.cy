@@ -17,27 +17,16 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function anyone_can_view_a_list_of_pharmacies()
     {
-        $pharmacy = Pharmacy::factory()->create([
-            'name' => 'Test pharmacy',
-            'town' => 'Test town',
-            'municipality' => 'Test mun',
-            'address' => 'Test address',
-            'add_address' => 'Test additional',
-            'phone' => '1231231',
-            'am' => '1234'
-        ]);
+        $pharmacies = Pharmacy::factory(5)->create();
 
+        // needs refactoring
         $this->get('/pharmacies')
             ->assertStatus(200)
-            ->assertSee([
-                $pharmacy->name,
-                $pharmacy->town,
-                $pharmacy->municipality,
-                $pharmacy->address,
-                $pharmacy->add_address,
-                $pharmacy->phone,
-                $pharmacy->am
-            ]);
+            ->assertSee($pharmacies[0]->name)
+            ->assertSee($pharmacies[1]->name)
+            ->assertSee($pharmacies[2]->name)
+            ->assertSee($pharmacies[3]->name)
+            ->assertSee($pharmacies[4]->name);
     }
 
     /** @test */
@@ -112,17 +101,8 @@ class ManagePharmaciesTest extends TestCase
         $this->withoutExceptionHandling();
 
         $this->asAuthenticated();
-        $attributes = [
-            'name' => 'Test pharmacy',
-            'town' => 'Test town',
-            'municipality' => 'Test mun',
-            'address' => 'Test address',
-            'add_address' => 'Test additional',
-            'phone' => '12345678',
-            'am' => '1234'
-        ];
 
-        $pharmacy = Pharmacy::factory()->create($attributes);
+        $pharmacy = Pharmacy::factory()->create();
 
         $this->get($pharmacy->path())
                 ->assertStatus(200)
@@ -136,29 +116,21 @@ class ManagePharmaciesTest extends TestCase
                     $pharmacy->am
                 ]);
 
-        $this->assertDatabaseHas('pharmacies', $attributes);
+        $this->assertDatabaseHas('pharmacies', $pharmacy->getAttributes());
     }
 
     /** @test */
     public function a_user_can_delete_a_pharmacy()
     {
         $this->withoutExceptionHandling();
-        $this->asAuthenticated();
-        $attributes = [
-            'name' => 'Test pharmacy',
-            'town' => 'Test town',
-            'municipality' => 'Test mun',
-            'address' => 'Test address',
-            'add_address' => 'Test additional',
-            'phone' => '12345678',
-            'am' => '1234'
-        ];
 
-        $pharmacy = Pharmacy::factory()->create($attributes);
+        $this->asAuthenticated();
+
+        $pharmacy = Pharmacy::factory()->create();
 
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
-        $this->assertDatabaseMissing('pharmacies', $attributes);
+        $this->assertDatabaseMissing('pharmacies', $pharmacy->getAttributes());
     }
 
     // form request validation
