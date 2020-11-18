@@ -19,7 +19,7 @@ class ManagePharmaciesTest extends TestCase
     {
         $pharmacies = Pharmacy::factory(5)->create();
 
-        // needs refactoring
+        //TODO needs refactoring
         $this->get('/pharmacies')
             ->assertStatus(200)
             ->assertSee($pharmacies[0]->name)
@@ -32,7 +32,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_create_a_pharmacy()
     {
-        $this->withoutExceptionHandling();
         $this->asAuthenticated();
 
         $this->get('/pharmacies/create')->assertStatus(200);
@@ -70,8 +69,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_update_a_pharmacy()
     {
-        $this->withoutExceptionHandling();
-
         $this->asAuthenticated();
 
         $pharmacy = Pharmacy::factory()->create();
@@ -98,8 +95,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_view_a_pharmacy_created()
     {
-        $this->withoutExceptionHandling();
-
         $this->asAuthenticated();
 
         $pharmacy = Pharmacy::factory()->create();
@@ -122,8 +117,6 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function a_user_can_delete_a_pharmacy()
     {
-        $this->withoutExceptionHandling();
-
         $this->asAuthenticated();
 
         $pharmacy = Pharmacy::factory()->create();
