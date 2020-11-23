@@ -21,7 +21,6 @@ class PharmacyExcelParser implements WithHeadingRow, OnEachRow
         $pharmacy = Pharmacy::firstOrCreate([
             'am' => $row['am'],
         ], [
-            'am'         => $row['am'],
             'name'       => "{$row['onoma']} {$row['epitheto']}",
             'address'    => $row['dieuthinsi'],
             'address2'   => $row['simpliromatiki_dieuthinsi'],

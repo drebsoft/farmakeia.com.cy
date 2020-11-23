@@ -62,7 +62,7 @@ class RetrieveExcelFiles
     {
         $html = Crawler::get($url);
         $html = mb_convert_encoding($html, 'UTF-8', 'auto');
-        $html = mb_convert_encoding($html, "HTML-ENTITIES", "UTF-8");
+        $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
         return $html;
     }
 
