@@ -6,4 +6,5 @@
     <li>Additional Address: {{ $pharmacy->add_address }}</li>
     <li>Phone number: {{ $pharmacy->phone }}</li>
     <li>AM: {{ $pharmacy->am }}</li>
+    <li>Owner: {{ $pharmacy->owner->name ?? 'Not assigned' }}</li>
 </ul>

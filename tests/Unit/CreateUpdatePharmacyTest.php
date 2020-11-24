@@ -29,7 +29,8 @@ class CreateUpdatePharmacyTest extends TestCase
             'address' => 'required',
             'add_address' => 'nullable',
             'phone' => 'required|digits:8',
-            'am' => 'required|digits:4'
+            'am' => 'required|digits:4',
+            'owner_id' => 'nullable|exists:users,id'
         ],
             $this->pharmacy->rules()
         );

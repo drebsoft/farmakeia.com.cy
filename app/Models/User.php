@@ -58,4 +58,9 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function pharmacy()
+    {
+        return $this->hasOne(Pharmacy::class, 'owner_id');
+    }
 }

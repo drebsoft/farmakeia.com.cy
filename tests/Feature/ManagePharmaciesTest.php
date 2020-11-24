@@ -136,4 +136,45 @@ class ManagePharmaciesTest extends TestCase
             CreateUpdatePharmacyRequest::class
         );
     }
+
+
+    /** @test */
+    public function an_admin_can_assign_owner_to_pharmacy()
+    {
+        $this->asAuthenticated();
+
+        $owner = User::factory()->create();
+
+        $pharmacy = Pharmacy::factory()->create();
+        $attributes = [
+            'name' => 'Edited',
+            'town' => 'Edited',
+            'municipality' => 'Edited',
+            'address' => 'Edited',
+            'add_address' => 'Edited',
+            'phone' => '11111111',
+            'am' => '1111',
+            'owner_id' => $owner->id
+        ];
+
+        $this->get($pharmacy->path().'/edit')->assertOk();
+
+        $this->followingRedirects()
+            ->patch($pharmacy->path(), $attributes)
+            ->assertSee($owner->name);
+
+        $this->assertDatabaseHas('pharmacies', $attributes);
+    }
+
+//    /** @test */
+//    public function an_owner_can_edit_their_pharmacy()
+//    {
+//        $owner = User::factory()->create();
+//        $pharmacy = Pharmacy::factory()->create(['owner_id' => $owner->id]);
+//
+//
+//    }
+
+    // add coordinates to pharmacy
+    // add model timetable - values only that make sense
 }

@@ -15,4 +15,9 @@ class Pharmacy extends Model
     {
         return route('pharmacies.show', ['pharmacy' => $this->id]);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
