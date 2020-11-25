@@ -7,7 +7,6 @@ use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ManagePharmaciesTest extends TestCase
@@ -166,20 +165,4 @@ class ManagePharmaciesTest extends TestCase
         $this->assertDatabaseHas('pharmacies', $attributes);
     }
 
-//    /** @test */
-//    public function an_owner_can_edit_their_pharmacy()
-//    {
-//        $owner = User::factory()->create();
-//        $pharmacy = Pharmacy::factory()->create(['owner_id' => $owner->id]);
-//
-//
-//    }
-
-    // add coordinates to pharmacy
-//    /** @test */
-//    public function a_pharmacy_can_have_coordinates()
-//    {
-//
-//    }
-    // add model timetable - values only that make sense
 }
