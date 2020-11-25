@@ -23,6 +23,8 @@ class CreatePharmaciesTable extends Migration
             $table->integer('phone');
             $table->integer('am');
             $table->foreignId('owner_id')->nullable()->constrained('users');
+            $table->decimal('lat', 10, 8)->nullable();
+            $table->decimal('lng', 11, 8)->nullable();
             $table->timestamps();
         });
     }
