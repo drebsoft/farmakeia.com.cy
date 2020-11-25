@@ -15,17 +15,21 @@ class CreatePharmaciesTable extends Migration
     {
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
             $table->string('region');
-            $table->string('area');
+            $table->string('area')->nullable();
             $table->string('address');
-            $table->string('additional_address');
-            $table->integer('phone');
-            $table->integer('am');
+            $table->string('additional_address')->nullable();
+            $table->integer('phone')->nullable();
+            $table->integer('home_phone')->nullable();
+            $table->unsignedInteger('am')->nullable()->unique();
             $table->foreignId('owner_id')->nullable()->constrained('users');
             $table->decimal('lat', 10, 8)->nullable();
             $table->decimal('lng', 11, 8)->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
