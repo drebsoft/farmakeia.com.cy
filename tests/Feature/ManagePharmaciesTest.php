@@ -38,10 +38,10 @@ class ManagePharmaciesTest extends TestCase
 
         $attributes = [
             'name' => 'Test pharmacy',
-            'town' => 'Test town',
-            'municipality' => 'Test mun',
+            'region' => 'Test town',
+            'area' => 'Test mun',
             'address' => 'Test address',
-            'add_address' => 'Test additional',
+            'additional_address' => 'Test additional',
             'phone' => '12345678',
             'am' => '1234'
         ];
@@ -77,10 +77,10 @@ class ManagePharmaciesTest extends TestCase
 
         $attributes = [
             'name' => 'Edited',
-            'town' => 'Edited',
-            'municipality' => 'Edited',
+            'region' => 'Edited',
+            'area' => 'Edited',
             'address' => 'Edited',
-            'add_address' => 'Edited',
+            'additional_address' => 'Edited',
             'phone' => '11111111',
             'am' => '1111'
         ];
@@ -103,10 +103,10 @@ class ManagePharmaciesTest extends TestCase
                 ->assertStatus(200)
                 ->assertSee([
                     $pharmacy->name,
-                    $pharmacy->town,
-                    $pharmacy->municipality,
+                    $pharmacy->region,
+                    $pharmacy->are,
                     $pharmacy->address,
-                    $pharmacy->add_address,
+                    $pharmacy->additional_address,
                     $pharmacy->phone,
                     $pharmacy->am
                 ]);
@@ -148,10 +148,10 @@ class ManagePharmaciesTest extends TestCase
         $pharmacy = Pharmacy::factory()->create();
         $attributes = [
             'name' => 'Edited',
-            'town' => 'Edited',
-            'municipality' => 'Edited',
+            'region' => 'Edited',
+            'area' => 'Edited',
             'address' => 'Edited',
-            'add_address' => 'Edited',
+            'additional_address' => 'Edited',
             'phone' => '11111111',
             'am' => '1111',
             'owner_id' => $owner->id
@@ -176,5 +176,10 @@ class ManagePharmaciesTest extends TestCase
 //    }
 
     // add coordinates to pharmacy
+//    /** @test */
+//    public function a_pharmacy_can_have_coordinates()
+//    {
+//
+//    }
     // add model timetable - values only that make sense
 }

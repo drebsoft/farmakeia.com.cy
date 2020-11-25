@@ -16,10 +16,10 @@ class CreatePharmaciesTable extends Migration
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('town');
-            $table->string('municipality');
+            $table->string('region');
+            $table->string('area');
             $table->string('address');
-            $table->string('add_address');
+            $table->string('additional_address');
             $table->integer('phone');
             $table->integer('am');
             $table->foreignId('owner_id')->nullable()->constrained('users');

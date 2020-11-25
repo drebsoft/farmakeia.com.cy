@@ -25,10 +25,10 @@ class CreateUpdatePharmacyRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:pharmacies|max:25',
-            'town' => 'required',
-            'municipality' => 'required',
+            'region' => 'required',
+            'area' => 'required',
             'address' => 'required',
-            'add_address' => 'nullable',
+            'additional_address' => 'nullable',
             'phone' => 'required|digits:8',
             'am' => 'required|digits:4',
             'owner_id' => 'nullable|exists:users,id'
