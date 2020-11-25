@@ -19,6 +19,11 @@ class Pharmacy extends Model
         return route('pharmacies.show', ['pharmacy' => $this->id]);
     }
 
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function availabilities() : HasMany
     {
         return $this->hasMany(Availability::class);

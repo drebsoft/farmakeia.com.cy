@@ -23,10 +23,10 @@ class PharmacyFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'town' => $this->faker->word,
-            'municipality' => $this->faker->word,
+            'region' => $this->faker->word,
+            'area' => $this->faker->word,
             'address' => $this->faker->word,
-            'add_address' => $this->faker->word,
+            'additional_address' => $this->faker->word,
             'phone' => $this->faker->randomNumber(8),
             'am' => $this->faker->randomNumber(4)
         ];

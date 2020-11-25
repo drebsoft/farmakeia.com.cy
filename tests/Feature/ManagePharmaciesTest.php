@@ -7,7 +7,6 @@ use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ManagePharmaciesTest extends TestCase
@@ -38,10 +37,10 @@ class ManagePharmaciesTest extends TestCase
 
         $attributes = [
             'name' => 'Test pharmacy',
-            'town' => 'Test town',
-            'municipality' => 'Test mun',
+            'region' => 'Test town',
+            'area' => 'Test mun',
             'address' => 'Test address',
-            'add_address' => 'Test additional',
+            'additional_address' => 'Test additional',
             'phone' => '12345678',
             'am' => '1234'
         ];
@@ -77,10 +76,10 @@ class ManagePharmaciesTest extends TestCase
 
         $attributes = [
             'name' => 'Edited',
-            'town' => 'Edited',
-            'municipality' => 'Edited',
+            'region' => 'Edited',
+            'area' => 'Edited',
             'address' => 'Edited',
-            'add_address' => 'Edited',
+            'additional_address' => 'Edited',
             'phone' => '11111111',
             'am' => '1111'
         ];
@@ -103,10 +102,10 @@ class ManagePharmaciesTest extends TestCase
                 ->assertStatus(200)
                 ->assertSee([
                     $pharmacy->name,
-                    $pharmacy->town,
-                    $pharmacy->municipality,
+                    $pharmacy->region,
+                    $pharmacy->are,
                     $pharmacy->address,
-                    $pharmacy->add_address,
+                    $pharmacy->additional_address,
                     $pharmacy->phone,
                     $pharmacy->am
                 ]);
@@ -123,7 +122,13 @@ class ManagePharmaciesTest extends TestCase
 
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
-        $this->assertDatabaseMissing('pharmacies', $pharmacy->getAttributes());
+        $this->assertEquals(
+            1,
+            Pharmacy::withTrashed()
+                ->where('id', $pharmacy->id)
+                ->whereNotNull('deleted_at')
+                ->count()
+        );
     }
 
     // form request validation
@@ -136,4 +141,34 @@ class ManagePharmaciesTest extends TestCase
             CreateUpdatePharmacyRequest::class
         );
     }
+
+
+    /** @test */
+    public function an_admin_can_assign_owner_to_pharmacy()
+    {
+        $this->asAuthenticated();
+
+        $owner = User::factory()->create();
+
+        $pharmacy = Pharmacy::factory()->create();
+        $attributes = [
+            'name' => 'Edited',
+            'region' => 'Edited',
+            'area' => 'Edited',
+            'address' => 'Edited',
+            'additional_address' => 'Edited',
+            'phone' => '11111111',
+            'am' => '1111',
+            'owner_id' => $owner->id
+        ];
+
+        $this->get($pharmacy->path().'/edit')->assertOk();
+
+        $this->followingRedirects()
+            ->patch($pharmacy->path(), $attributes)
+            ->assertSee($owner->name);
+
+        $this->assertDatabaseHas('pharmacies', $attributes);
+    }
+
 }
