@@ -21,12 +21,12 @@ class PharmacyExcelParser implements WithHeadingRow, OnEachRow
         $pharmacy = Pharmacy::firstOrCreate([
             'am' => $row['am'],
         ], [
-            'name'       => "{$row['onoma']} {$row['epitheto']}",
-            'address'    => $row['dieuthinsi'],
-            'address2'   => $row['simpliromatiki_dieuthinsi'],
-            'area'       => $row['dimos_koinotita'],
-            'phone'      => $row['tilefono_farmakioy'],
-            'home_phone' => $row['tilefono_oikias'],
+            'name'               => "{$row['onoma']} {$row['epitheto']}",
+            'address'            => $row['dieuthinsi'],
+            'additional_address' => $row['simpliromatiki_dieuthinsi'],
+            'area'               => $row['dimos_koinotita'],
+            'phone'              => $row['tilefono_farmakioy'],
+            'home_phone'         => $row['tilefono_oikias'],
         ]);
 
         // This works!
