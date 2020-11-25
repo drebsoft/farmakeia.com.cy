@@ -122,7 +122,13 @@ class ManagePharmaciesTest extends TestCase
 
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
-        $this->assertDatabaseMissing('pharmacies', $pharmacy->getAttributes());
+        $this->assertEquals(
+            1,
+            Pharmacy::withTrashed()
+                ->where('id', $pharmacy->id)
+                ->whereNotNull('deleted_at')
+                ->count()
+        );
     }
 
     // form request validation
