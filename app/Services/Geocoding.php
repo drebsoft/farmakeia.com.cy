@@ -53,7 +53,7 @@ class Geocoding
 
     public function getCoordinatesArray()
     {
-        if ($this->coordinates === null) {
+        if (empty($this->coordinates)) {
             return null;
         }
 
@@ -76,7 +76,11 @@ class Geocoding
             . $origin . '=' . $this->original
             . '&key=' . $api_key;
         $result = '';
-        $response = Http::get($url)['results'][0];
+        $response = Http::get($url)['results'][0] ?? null;
+
+        if ($response === null) {
+            return $result;
+        }
 
         if ($origin === 'address') {
             $result = $response['geometry']['location']['lat'] . ',' . $response['geometry']['location']['lng'];
