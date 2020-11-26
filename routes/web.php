@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PharmacyController;
 use App\Services\Geocoding;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/pharmacies', [PharmacyController::class, 'index']);
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::resource('pharmacies', PharmacyController::class)->except(['index']);
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
