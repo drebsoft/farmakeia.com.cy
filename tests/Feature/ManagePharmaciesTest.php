@@ -146,7 +146,7 @@ class ManagePharmaciesTest extends TestCase
     /** @test */
     public function an_admin_can_assign_owner_to_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $owner = User::factory()->create();
 
