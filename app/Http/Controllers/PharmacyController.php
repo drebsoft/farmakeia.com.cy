@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
+use Illuminate\Support\Facades\Auth;
 
 class PharmacyController extends Controller
 {
@@ -21,6 +22,9 @@ class PharmacyController extends Controller
      */
     public function create()
     {
+        if (!Auth::user()->is_admin) {
+            abort(403);
+        }
         return view('pharmacies.create');
     }
 
@@ -56,6 +60,9 @@ class PharmacyController extends Controller
      */
     public function edit(Pharmacy $pharmacy)
     {
+        if (!Auth::user()->is_admin && (Auth::user()->id !== $pharmacy->owner_id)) {
+            abort(403);
+        }
         return view('pharmacies.edit', compact('pharmacy'));
     }
 
@@ -82,6 +89,9 @@ class PharmacyController extends Controller
      */
     public function destroy(Pharmacy $pharmacy)
     {
+        if (!Auth::user()->is_admin) {
+            abort(403);
+        }
         $pharmacy->delete();
         return redirect('/pharmacies');
     }

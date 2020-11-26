@@ -35,10 +35,4 @@ class CreateUpdatePharmacyTest extends TestCase
             $this->pharmacy->rules()
         );
     }
-
-    /** @test */
-    public function testAuthorize()
-    {
-        $this->assertTrue($this->pharmacy->authorize());
-    }
 }

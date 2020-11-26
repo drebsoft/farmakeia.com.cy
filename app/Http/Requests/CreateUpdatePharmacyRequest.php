@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Pharmacy;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUpdatePharmacyRequest extends FormRequest
@@ -13,7 +14,17 @@ class CreateUpdatePharmacyRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        if ($this->user()->is_admin) {
+            return true;
+        }
+
+        if (empty($this->route('pharmacy'))) {
+            return false;
+        }
+
+        $pharmacy = Pharmacy::find($this->route('pharmacy'))->first();
+
+        return $this->user()->id === $pharmacy->owner_id;
     }
 
     /**

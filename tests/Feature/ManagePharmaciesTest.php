@@ -29,9 +29,9 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_create_a_pharmacy()
+    public function an_admin_can_create_a_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $this->get('/pharmacies/create')->assertStatus(200);
 
@@ -66,9 +66,21 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_update_a_pharmacy()
+    public function a_user_cannot_manage_a_pharmacy()
     {
         $this->asAuthenticated();
+        $pharmacy = Pharmacy::factory()->create();
+        $this->get('/pharmacies/create')->assertForbidden();
+        $this->post('/pharmacies')->assertForbidden();
+        $this->get($pharmacy->path().'/edit')->assertForbidden();
+        $this->patch($pharmacy->path())->assertForbidden();
+        $this->delete($pharmacy->path())->assertForbidden();
+    }
+
+    /** @test */
+    public function an_admin_can_update_a_pharmacy()
+    {
+        $this->asAdmin();
 
         $pharmacy = Pharmacy::factory()->create();
 
@@ -114,9 +126,9 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_delete_a_pharmacy()
+    public function an_admin_can_delete_a_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $pharmacy = Pharmacy::factory()->create();
 
@@ -170,5 +182,7 @@ class ManagePharmaciesTest extends TestCase
 
         $this->assertDatabaseHas('pharmacies', $attributes);
     }
+
+
 
 }
