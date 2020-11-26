@@ -25,11 +25,12 @@ class CreateUpdatePharmacyTest extends TestCase
         $this->assertEquals([
             'name' => 'required|unique:pharmacies|max:25',
             'region' => 'required',
-            'area' => 'required',
+            'area' => 'nullable',
             'address' => 'required',
             'additional_address' => 'nullable',
-            'phone' => 'required|digits:8',
-            'am' => 'required|digits:4',
+            'phone' => 'nullable|digits:8',
+            'home_phone' => 'nullable|digits:8',
+            'am' => 'nullable|unique:pharmacies',
             'owner_id' => 'nullable|exists:users,id'
         ],
             $this->pharmacy->rules()
