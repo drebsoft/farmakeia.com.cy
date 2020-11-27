@@ -37,8 +37,8 @@ class ManagePharmaciesTest extends TestCase
 
         $attributes = [
             'name' => 'Test pharmacy',
-            'region' => 'Test town',
-            'area' => 'Test mun',
+            'region' => 'Test region',
+            'area' => 'Test area',
             'address' => 'Test address',
             'additional_address' => 'Test additional',
             'phone' => '12345678',
@@ -115,7 +115,7 @@ class ManagePharmaciesTest extends TestCase
                 ->assertSee([
                     $pharmacy->name,
                     $pharmacy->region,
-                    $pharmacy->are,
+                    $pharmacy->area,
                     $pharmacy->address,
                     $pharmacy->additional_address,
                     $pharmacy->phone,
@@ -134,13 +134,7 @@ class ManagePharmaciesTest extends TestCase
 
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
-        $this->assertEquals(
-            1,
-            Pharmacy::withTrashed()
-                ->where('id', $pharmacy->id)
-                ->whereNotNull('deleted_at')
-                ->count()
-        );
+        $this->assertSoftDeleted('pharmacies', $pharmacy->getAttributes());
     }
 
     // form request validation
@@ -150,6 +144,12 @@ class ManagePharmaciesTest extends TestCase
         $this->assertActionUsesFormRequest(
             PharmacyController::class,
             'store',
+            CreateUpdatePharmacyRequest::class
+        );
+
+        $this->assertActionUsesFormRequest(
+            PharmacyController::class,
+            'update',
             CreateUpdatePharmacyRequest::class
         );
     }
