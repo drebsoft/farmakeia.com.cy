@@ -32,14 +32,14 @@ class Geocoding
         return $this;
     }
 
-    public function setCoordinates(string $coordinates)
+    public function setCoordinates($coordinates)
     {
         $this->coordinates = $coordinates;
 
         return $this;
     }
 
-    public function setAddress(string $address)
+    public function setAddress($address)
     {
         $this->address = $address;
 
@@ -75,21 +75,20 @@ class Geocoding
         $url = 'https://maps.googleapis.com/maps/api/geocode/json?'
             . $origin . '=' . $this->original
             . '&key=' . $api_key;
-        $result = '';
         $response = Http::get($url)['results'][0] ?? null;
 
         if ($response === null) {
-            return $result;
+            return null;
         }
 
         if ($origin === 'address') {
-            $result = $response['geometry']['location']['lat'] . ',' . $response['geometry']['location']['lng'];
+            return $response['geometry']['location']['lat'] . ',' . $response['geometry']['location']['lng'];
         }
 
         if ($origin === 'latlng') {
-            $result = $response['formatted_address'];
+            return $response['formatted_address'];
         }
 
-        return $result;
+        return null;
     }
 }
