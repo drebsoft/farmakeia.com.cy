@@ -26,7 +26,7 @@
         <script>
             let map;
 
-            @if(isset($locations) && is_array($locations) && count($locations) > 0)
+            @if(!empty($locations))
             const coors = @json($locations)
             @endif
 
@@ -36,7 +36,7 @@
                     zoom: 10,
                 });
 
-                @if(isset($locations) && is_array($locations) && count($locations) > 0)
+                @if(!empty($locations))
                 for (let i = 0; i < coors.length; i++) {
                     const latLng = new google.maps.LatLng(coors[i].lat, coors[i].lng);
                     new google.maps.Marker({
