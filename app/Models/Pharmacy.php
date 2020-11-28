@@ -13,6 +13,9 @@ class Pharmacy extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    protected $casts = [
+        'is_admin' => 'boolean'
+    ];
 
     public function path()
     {
