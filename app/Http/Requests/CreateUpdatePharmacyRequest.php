@@ -22,9 +22,7 @@ class CreateUpdatePharmacyRequest extends FormRequest
             return false;
         }
 
-        $pharmacy = Pharmacy::find($this->route('pharmacy'))->first();
-
-        return $this->user()->id === $pharmacy->owner_id;
+        return $this->user()->id === $this->route('pharmacy')->owner_id;
     }
 
     /**

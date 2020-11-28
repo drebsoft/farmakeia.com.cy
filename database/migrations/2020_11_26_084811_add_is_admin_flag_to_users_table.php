@@ -14,7 +14,7 @@ class AddIsAdminFlagToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->tinyInteger('is_admin')->default(0);
+            $table->tinyInteger('is_admin')->after('profile_photo_path')->default(0);
         });
     }
 
