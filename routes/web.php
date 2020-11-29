@@ -37,7 +37,3 @@ Route::view('map', 'map', [
         (new Geocoding)->translate('11 Vyzantiou and 52A Agiou Mamantos, Lakatamia, Nicosia')->toCoordinates()->getCoordinatesArray(),
     ],
 ]);
-Route::view('single', 'single', [
-    'maps_api_key' => config('googlemaps.api_key'),
-    'location' => Str::of('Iremias 17, Lakatamia, Nicosia')->replace(' ', '+'),
-]);

@@ -31,4 +31,18 @@ class Pharmacy extends Model
     {
         return $this->hasMany(Availability::class);
     }
+
+    public function getMapAddressAttribute()
+    {
+        $address = $this->address ?? '';
+        $area = $this->area ?? '';
+        $region = $this->region ?? '';
+        if ($area != '') {
+            $address = $address . ', ' . $area;
+        }
+        if ($region != '') {
+            $address = $address . ', ' . $region;
+        }
+        return $address;
+    }
 }

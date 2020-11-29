@@ -34,6 +34,9 @@ class PagesController extends Controller
     public function pharmacy(string $am)
     {
         return view('pages.pharmacies.single',
-            ['pharmacy' => Pharmacy::where('am', $am)->first()]);
+            [
+                'pharmacy' => Pharmacy::where('am', $am)->first(),
+                'maps_api_key' => config('googlemaps.api_key')
+            ]);
     }
 }
