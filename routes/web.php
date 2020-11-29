@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PagesController;
 use App\Http\Controllers\PharmacyController;
 use App\Services\Geocoding;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
+Route::get('/farmakeia-{region}', [PagesController::class, 'pharmacies'])->name('farmakeia');
+Route::get('/{am}/farmakeio-{name}', [PagesController::class, 'pharmacy'])->name('farmakeio');
 
 Route::get('/pharmacies', [PharmacyController::class, 'index']);
 
