@@ -23,22 +23,17 @@ class CreateUpdatePharmacyTest extends TestCase
     public function testRules()
     {
         $this->assertEquals([
-            'name' => 'required|unique:pharmacies|max:25',
+            'name' => 'required|unique:pharmacies|max:255',
             'region' => 'required',
-            'area' => 'required',
+            'area' => 'nullable',
             'address' => 'required',
             'additional_address' => 'nullable',
-            'phone' => 'required|digits:8',
-            'am' => 'required|digits:4',
+            'phone' => 'nullable|digits:8',
+            'home_phone' => 'nullable|digits:8',
+            'am' => 'nullable|digits_between:1,10|unique:pharmacies',
             'owner_id' => 'nullable|exists:users,id'
         ],
             $this->pharmacy->rules()
         );
-    }
-
-    /** @test */
-    public function testAuthorize()
-    {
-        $this->assertTrue($this->pharmacy->authorize());
     }
 }

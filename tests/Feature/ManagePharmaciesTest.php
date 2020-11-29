@@ -29,16 +29,16 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_create_a_pharmacy()
+    public function an_admin_can_create_a_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $this->get('/pharmacies/create')->assertStatus(200);
 
         $attributes = [
             'name' => 'Test pharmacy',
-            'region' => 'Test town',
-            'area' => 'Test mun',
+            'region' => 'Test region',
+            'area' => 'Test area',
             'address' => 'Test address',
             'additional_address' => 'Test additional',
             'phone' => '12345678',
@@ -66,9 +66,21 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_update_a_pharmacy()
+    public function a_user_cannot_manage_a_pharmacy()
     {
         $this->asAuthenticated();
+        $pharmacy = Pharmacy::factory()->create();
+        $this->get('/pharmacies/create')->assertForbidden();
+        $this->post('/pharmacies')->assertForbidden();
+        $this->get($pharmacy->path().'/edit')->assertForbidden();
+        $this->patch($pharmacy->path())->assertForbidden();
+        $this->delete($pharmacy->path())->assertForbidden();
+    }
+
+    /** @test */
+    public function an_admin_can_update_a_pharmacy()
+    {
+        $this->asAdmin();
 
         $pharmacy = Pharmacy::factory()->create();
 
@@ -103,7 +115,7 @@ class ManagePharmaciesTest extends TestCase
                 ->assertSee([
                     $pharmacy->name,
                     $pharmacy->region,
-                    $pharmacy->are,
+                    $pharmacy->area,
                     $pharmacy->address,
                     $pharmacy->additional_address,
                     $pharmacy->phone,
@@ -114,21 +126,15 @@ class ManagePharmaciesTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_delete_a_pharmacy()
+    public function an_admin_can_delete_a_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $pharmacy = Pharmacy::factory()->create();
 
         $this->delete($pharmacy->path())->assertRedirect('/pharmacies');
 
-        $this->assertEquals(
-            1,
-            Pharmacy::withTrashed()
-                ->where('id', $pharmacy->id)
-                ->whereNotNull('deleted_at')
-                ->count()
-        );
+        $this->assertSoftDeleted('pharmacies', $pharmacy->getAttributes());
     }
 
     // form request validation
@@ -140,13 +146,19 @@ class ManagePharmaciesTest extends TestCase
             'store',
             CreateUpdatePharmacyRequest::class
         );
+
+        $this->assertActionUsesFormRequest(
+            PharmacyController::class,
+            'update',
+            CreateUpdatePharmacyRequest::class
+        );
     }
 
 
     /** @test */
     public function an_admin_can_assign_owner_to_pharmacy()
     {
-        $this->asAuthenticated();
+        $this->asAdmin();
 
         $owner = User::factory()->create();
 
@@ -170,5 +182,7 @@ class ManagePharmaciesTest extends TestCase
 
         $this->assertDatabaseHas('pharmacies', $attributes);
     }
+
+
 
 }
