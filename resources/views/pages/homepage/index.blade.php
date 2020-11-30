@@ -6,7 +6,7 @@
                     <li><a href="{{ route('farmakeia', ['region' => 'lefkosia']) }}">Λευκωσία</a></li>
                     <li><a href="{{ route('farmakeia', ['region' => 'lemesos']) }}">Λεμεσός</a></li>
                     <li><a href="{{ route('farmakeia', ['region' => 'larnaka']) }}">Λάρνακα</a></li>
-                    <li><a href="{{ route('farmakeia', ['region' => 'pafos']) }}">Πάφος</a></li>
+                    <li><a href="{{ route('farmakeia', ['region' => 'paphos']) }}">Πάφος</a></li>
                     <li><a href="{{ route('farmakeia', ['region' => 'paralimni']) }}">Παραλίμνι</a></li>
                 </ul>
             </div>

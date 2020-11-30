@@ -15,7 +15,7 @@ class PagesController extends Controller
             'lefkosia' => 'Nicosia',
             'lemesos' => 'Limassol',
             'larnaka' => 'Larnaca',
-            'pafos' => 'Pafos',
+            'paphos' => 'Paphos',
             'paralimni' => 'Paralimni',
         ];
     }
