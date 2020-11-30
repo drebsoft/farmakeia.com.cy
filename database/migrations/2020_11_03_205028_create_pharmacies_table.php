@@ -21,8 +21,8 @@ class CreatePharmaciesTable extends Migration
             $table->string('area')->nullable();
             $table->string('address');
             $table->string('additional_address')->nullable();
-            $table->integer('phone')->nullable();
-            $table->integer('home_phone')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('home_phone')->nullable();
             $table->unsignedInteger('am')->nullable()->unique();
             $table->foreignId('owner_id')->nullable()->constrained('users');
             $table->decimal('lat', 10, 8)->nullable();

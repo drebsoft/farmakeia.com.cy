@@ -12,7 +12,8 @@ class Pharmacy extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
+
     protected $casts = [
         'is_admin' => 'boolean'
     ];
@@ -27,7 +28,7 @@ class Pharmacy extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function availabilities() : HasMany
+    public function availabilities(): HasMany
     {
         return $this->hasMany(Availability::class);
     }
