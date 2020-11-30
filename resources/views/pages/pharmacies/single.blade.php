@@ -149,7 +149,7 @@
             </div>
             <div class="mt-8 md:mt-0 md:order-1">
                 <p class="text-center text-base leading-6 text-gray-400">
-                    &copy; 2020 farmakeia.com.cy, Inc. All rights reserved.
+                    &copy; 2020 farmakeia.com.cy. All rights reserved.
                 </p>
             </div>
         </div>
