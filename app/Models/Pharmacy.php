@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Str;
 
 class Pharmacy extends Model
 {
@@ -36,14 +37,17 @@ class Pharmacy extends Model
     public function getMapAddressAttribute()
     {
         $address = $this->address ?? '';
+        $address = Str::of($address)->slug(' ');
         $area = $this->area ?? '';
+        $area = Str::of($area)->slug(' ');
         $region = $this->region ?? '';
+        $region = Str::of($region)->slug(' ');
         if ($area != '') {
             $address = $address . ', ' . $area;
         }
         if ($region != '') {
             $address = $address . ', ' . $region;
         }
-        return $address;
+        return Str::of($address)->replace(' ', '+');
     }
 }
