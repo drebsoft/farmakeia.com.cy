@@ -36,7 +36,16 @@ class PagesController extends Controller
         return view('pages.pharmacies.single',
             [
                 'pharmacy' => Pharmacy::where('am', $am)->first(),
-                'maps_api_key' => config('googlemaps.api_key')
+                'maps_api_key' => config('googlemaps.api_key'),
+            ]);
+    }
+
+    public function map()
+    {
+        return view('pages.map.index',
+            [
+                'pharmacies' => Pharmacy::all(),
+                'maps_api_key' => config('googlemaps.api_key'),
             ]);
     }
 }

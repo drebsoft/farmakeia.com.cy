@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
 Route::get('/farmakeia-{region}', [PagesController::class, 'pharmacies'])->name('farmakeia');
 Route::get('/{am}/farmakeio-{name}', [PagesController::class, 'pharmacy'])->name('farmakeio');
+Route::get('/map', [PagesController::class, 'map'])->name('map');
 
 Route::get('/pharmacies', [PharmacyController::class, 'index']);
 
@@ -29,11 +30,3 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
-
-Route::view('map', 'map', [
-    'maps_api_key' => config('googlemaps.api_key'),
-    'locations' => [
-        (new Geocoding)->translate('Iremias 17, Lakatamia, Nicosia')->toCoordinates()->getCoordinatesArray(),
-        (new Geocoding)->translate('11 Vyzantiou and 52A Agiou Mamantos, Lakatamia, Nicosia')->toCoordinates()->getCoordinatesArray(),
-    ],
-]);
