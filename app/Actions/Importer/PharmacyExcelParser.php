@@ -8,8 +8,9 @@ use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithProgressBar;
 
-class PharmacyExcelParser implements OnEachRow, WithHeadingRow
+class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
 {
     use Importable;
 

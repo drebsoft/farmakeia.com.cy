@@ -25,7 +25,7 @@ class UpdatePharmacyAvailability extends Command
             $city = Str::beforeLast(Str::afterLast($filePath, 'City_'), '.csv');
             $this->info('Parsing file for ' . $city);
             $parser = new PharmacyExcelParser($city);
-            Excel::import($parser, $filePath, null, \Maatwebsite\Excel\Excel::CSV);
+            $parser->withOutput($this->output)->import($filePath, null, \Maatwebsite\Excel\Excel::CSV);
             $counts = $parser->getCounts();
             $this->info('Parsed a total of ' . $counts['rows'] . ' rows (' . $counts['failed'] . ' failed).');
             $this->info('Pharmacies: ' . $counts['pharmacies']['added'] . ' added / ' . $counts['pharmacies']['updated'] . ' updated / ' . $counts['pharmacies']['alreadyFine'] . ' already fine.');
