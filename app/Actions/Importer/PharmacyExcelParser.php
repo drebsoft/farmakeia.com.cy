@@ -15,23 +15,27 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
 
     private $city;
     private $rowCount;
-    private $addedCount;
-    private $updatedCount;
-    private $alreadyFineCount;
     private $failedCount;
-    private $addedAvailabilitiesCount;
+    private $pharmacyCounts;
     private $touchedIds;
+    private $availabilityCounts;
 
     public function __construct(string $city)
     {
         $this->city = $city;
         $this->rowCount = 0;
-        $this->addedCount = 0;
-        $this->updatedCount = 0;
-        $this->alreadyFineCount = 0;
         $this->failedCount = 0;
-        $this->addedAvailabilitiesCount = 0;
+        $this->pharmacyCounts = [
+            'added' => 0,
+            'updated' => 0,
+            'alreadyFine' => 0,
+        ];
         $this->touchedIds = [];
+        $this->availabilityCounts = [
+            'added' => 0,
+            'updated' => 0,
+            'alreadyFine' => 0,
+        ];
     }
 
     public function onRow($row)
@@ -47,31 +51,43 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
         $pharmacy = Pharmacy::updateOrCreate([
             'am' => $row['am'],
         ], [
-            'name'               => "{$row['onoma']} {$row['epitheto']}",
-            'region'             => $this->city,
-            'address'            => $row['dieuthinsi'],
+            'name' => "{$row['onoma']} {$row['epitheto']}",
+            'region' => $this->city,
+            'address' => $row['dieuthinsi'],
             'additional_address' => $this->checkForZero($row['simpliromatiki_dieuthinsi']),
-            'area'               => $this->checkForZero($row['dimos_koinotita'] ?? null),
-            'phone'              => $this->checkForZero($row['tilefono_farmakioy']),
-            'home_phone'         => $this->checkForZero($row['tilefono_oikias'] ?? null),
+            'area' => $this->checkForZero($row['dimos_koinotita'] ?? null),
+            'phone' => $this->checkForZero($row['tilefono_farmakioy']),
+            'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? null),
         ]);
 
         if (!in_array($pharmacy->id, $this->touchedIds)) {
             if ($pharmacy->wasRecentlyCreated) {
-                $this->addedCount++;
+                $this->pharmacyCounts['added']++;
             }
 
             if (!$pharmacy->wasRecentlyCreated) {
-                $pharmacy->wasChanged() ? $this->updatedCount++ : $this->alreadyFineCount++;
+                $pharmacy->wasChanged()
+                    ? $this->pharmacyCounts['updated']++
+                    : $this->pharmacyCounts['alreadyFine']++;
             }
 
             $this->touchedIds[] = $pharmacy->id;
         }
 
-        $this->addedAvailabilitiesCount += Availability::insertOrIgnore([
+        $availability = Availability::updateOrCreate([
             'pharmacy_id' => $pharmacy->id,
             'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia']),
         ]);
+
+        if ($availability->wasRecentlyCreated) {
+            $this->availabilityCounts['added']++;
+        }
+
+        if (!$availability->wasRecentlyCreated) {
+            $availability->wasChanged()
+                ? $this->availabilityCounts['updated']++
+                : $this->availabilityCounts['alreadyFine']++;
+        }
     }
 
     public function checkForZero($value)
@@ -83,11 +99,9 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
     {
         return [
             'rows' => $this->rowCount,
-            'added' => $this->addedCount,
-            'updated' => $this->updatedCount,
-            'alreadyFine' => $this->alreadyFineCount,
+            'pharmacies' => $this->pharmacyCounts,
+            'availabilities' => $this->availabilityCounts,
             'failed' => $this->failedCount,
-            'addedAvailabilities' => $this->addedAvailabilitiesCount,
         ];
     }
 }

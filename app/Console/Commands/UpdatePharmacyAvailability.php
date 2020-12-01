@@ -28,8 +28,8 @@ class UpdatePharmacyAvailability extends Command
             Excel::import($parser, $filePath, null, \Maatwebsite\Excel\Excel::CSV);
             $counts = $parser->getCounts();
             $this->info('Parsed a total of ' . $counts['rows'] . ' rows (' . $counts['failed'] . ' failed).');
-            $this->info('Pharmacies: ' . $counts['added'] . ' added / ' . $counts['updated'] . ' updated / ' . $counts['alreadyFine'] . ' already fine.');
-            $this->info('Added ' . $counts['addedAvailabilities'] . ' availability entries.');
+            $this->info('Pharmacies: ' . $counts['pharmacies']['added'] . ' added / ' . $counts['pharmacies']['updated'] . ' updated / ' . $counts['pharmacies']['alreadyFine'] . ' already fine.');
+            $this->info('Availabilities: ' . $counts['availabilities']['added'] . ' added / ' . $counts['availabilities']['updated'] . ' updated / ' . $counts['availabilities']['alreadyFine'] . ' already fine.');
             $filesparsed++;
             $this->info('====================');
         });
