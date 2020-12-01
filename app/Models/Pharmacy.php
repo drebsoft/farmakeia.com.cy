@@ -34,6 +34,22 @@ class Pharmacy extends Model
         return $this->hasMany(Availability::class);
     }
 
+    public function getSeoRegionAlias()
+    {
+        switch ($this->region) {
+            case 'Nicosia':
+                return 'lefkosia';
+            case 'Limassol':
+                return 'lemesos';
+            case 'Paphos':
+                return 'paphos';
+            case 'Paralimni':
+                return 'paralimni';
+            case 'Larnaca':
+                return 'larnaka';
+        }
+    }
+
     public function getMapAddressAttribute()
     {
         $address = $this->address ?? '';

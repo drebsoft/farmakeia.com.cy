@@ -3,22 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pharmacy;
-use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    private $regionMap;
-
-    public function __construct()
-    {
-        $this->regionMap = [
-            'lefkosia' => 'Nicosia',
-            'lemesos' => 'Limassol',
-            'larnaka' => 'Larnaca',
-            'paphos' => 'Paphos',
-            'paralimni' => 'Paralimni',
-        ];
-    }
+    protected $regionMap = [
+        'lefkosia' => 'Nicosia',
+        'lemesos' => 'Limassol',
+        'larnaka' => 'Larnaca',
+        'paphos' => 'Paphos',
+        'paralimni' => 'Paralimni',
+    ];
 
     public function homepage()
     {
@@ -27,6 +21,8 @@ class PagesController extends Controller
 
     public function pharmacies(string $region)
     {
+        $region = strtolower($region);
+
         return view('pages.pharmacies.index',
             ['pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get()]);
     }
