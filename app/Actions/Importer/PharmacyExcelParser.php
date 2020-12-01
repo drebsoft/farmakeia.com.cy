@@ -19,6 +19,8 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
     private $updatedCount;
     private $alreadyFineCount;
     private $failedCount;
+    private $addedAvailabilitiesCount;
+    private $touchedIds;
 
     public function __construct(string $city)
     {
@@ -28,6 +30,8 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
         $this->updatedCount = 0;
         $this->alreadyFineCount = 0;
         $this->failedCount = 0;
+        $this->addedAvailabilitiesCount = 0;
+        $this->touchedIds = [];
     }
 
     public function onRow($row)
@@ -52,24 +56,22 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
             'home_phone'         => $this->checkForZero($row['tilefono_oikias'] ?? null),
         ]);
 
-        if ($pharmacy->wasRecentlyCreated) {
-            $this->addedCount++;
+        if (!in_array($pharmacy->id, $this->touchedIds)) {
+            if ($pharmacy->wasRecentlyCreated) {
+                $this->addedCount++;
+            }
+
+            if (!$pharmacy->wasRecentlyCreated) {
+                $pharmacy->wasChanged() ? $this->updatedCount++ : $this->alreadyFineCount++;
+            }
+
+            $this->touchedIds[] = $pharmacy->id;
         }
 
-        if (!$pharmacy->wasRecentlyCreated) {
-            $pharmacy->wasChanged() ? $this->updatedCount++ : $this->alreadyFineCount++;
-        }
-
-        // This works!
-        Availability::insertOrIgnore([
+        $this->addedAvailabilitiesCount += Availability::insertOrIgnore([
             'pharmacy_id' => $pharmacy->id,
             'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia']),
         ]);
-
-        // This doesn't
-        // $pharmacy->availabilities()->insertOrIgnore([
-        //     'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia']),
-        // ]);
     }
 
     public function checkForZero($value)
@@ -85,6 +87,7 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
             'updated' => $this->updatedCount,
             'alreadyFine' => $this->alreadyFineCount,
             'failed' => $this->failedCount,
+            'addedAvailabilities' => $this->addedAvailabilitiesCount,
         ];
     }
 }
