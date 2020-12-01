@@ -15,14 +15,18 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
 
     private $city;
     private $rowCount;
-    private $parsedCount;
+    private $addedCount;
+    private $updatedCount;
+    private $alreadyFineCount;
     private $failedCount;
 
     public function __construct(string $city)
     {
         $this->city = $city;
         $this->rowCount = 0;
-        $this->parsedCount = 0;
+        $this->addedCount = 0;
+        $this->updatedCount = 0;
+        $this->alreadyFineCount = 0;
         $this->failedCount = 0;
     }
 
@@ -48,7 +52,13 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
             'home_phone'         => $this->checkForZero($row['tilefono_oikias'] ?? null),
         ]);
 
-        $this->parsedCount++;
+        if ($pharmacy->wasRecentlyCreated) {
+            $this->addedCount++;
+        }
+
+        if (!$pharmacy->wasRecentlyCreated) {
+            $pharmacy->wasChanged() ? $this->updatedCount++ : $this->alreadyFineCount++;
+        }
 
         // This works!
         Availability::insertOrIgnore([
@@ -71,7 +81,9 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow
     {
         return [
             'rows' => $this->rowCount,
-            'parsed' => $this->parsedCount,
+            'added' => $this->addedCount,
+            'updated' => $this->updatedCount,
+            'alreadyFine' => $this->alreadyFineCount,
             'failed' => $this->failedCount,
         ];
     }
