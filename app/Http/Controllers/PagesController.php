@@ -29,11 +29,13 @@ class PagesController extends Controller
 
     public function pharmacy(string $am)
     {
-        return view('pages.pharmacies.single',
-            [
-                'pharmacy' => Pharmacy::where('am', $am)->first(),
-                'maps_api_key' => config('googlemaps.api_key'),
-            ]);
+        $pharmacy = Pharmacy::where('am', $am)->first();
+        $nextAvailabilities = $pharmacy->futureAvailabilities();
+
+        return view('pages.pharmacies.single', [
+            'pharmacy' => $pharmacy,
+            'nextAvailabilities' => $nextAvailabilities
+        ]);
     }
 
     public function map()

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 use Str;
 
 class Pharmacy extends Model
@@ -32,6 +33,11 @@ class Pharmacy extends Model
     public function availabilities(): HasMany
     {
         return $this->hasMany(Availability::class);
+    }
+
+    public function futureAvailabilities(): Collection
+    {
+        return $this->availabilities()->orderBy('date')->where('date', '>=', now())->get();
     }
 
     public function getSeoRegionAlias()
