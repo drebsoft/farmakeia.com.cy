@@ -24,7 +24,10 @@ class PagesController extends Controller
         $region = strtolower($region);
 
         return view('pages.pharmacies.index',
-            ['pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get()]);
+            [
+                'pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get(),
+                'region' => $region
+            ]);
     }
 
     public function pharmacy(string $am)
