@@ -1,7 +1,4 @@
 <x-guest-layout>
-
-    @include('layouts.partials.header')
-
     <div class="py-10">
         <section>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +122,4 @@
             </div>
         </main>
     </div>
-
-    @include('layouts.partials.footer')
-
 </x-guest-layout>

@@ -1,7 +1,5 @@
 <x-guest-layout>
 
-    @include('layouts.partials.header')
-
     <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
         <div class="text-center">
             <h1 class="mt-1 text-xl leading-10 font-extrabold text-gray-900 sm:text-xl sm:leading-none sm:tracking-tight md:text-2xl lg:text-4xl">
@@ -116,7 +114,5 @@
             </g>
         </svg>
     </div>
-
-    @include('layouts.partials.footer')
 
 </x-guest-layout>

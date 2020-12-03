@@ -19,7 +19,13 @@
     </head>
     <body>
         <div class="font-sans text-gray-900 antialiased bg-gray-100">
+
+            @include('layouts.partials.header')
+
             {{ $slot }}
+
+            @include('layouts.partials.footer')
+
         </div>
         {{ $scripts ?? '' }}
     </body>
