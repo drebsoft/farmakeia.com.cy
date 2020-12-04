@@ -33,6 +33,11 @@ class PagesController extends Controller
     public function pharmacy(string $am)
     {
         $pharmacy = Pharmacy::where('am', $am)->first();
+
+        if (!$pharmacy) {
+            return view('pages.pharmacies.not_found');
+        }
+
         $nextAvailabilities = $pharmacy->futureAvailabilities();
 
         return view('pages.pharmacies.single', [
