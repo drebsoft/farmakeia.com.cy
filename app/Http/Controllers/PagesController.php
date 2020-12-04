@@ -25,7 +25,7 @@ class PagesController extends Controller
 
         return view('pages.pharmacies.index',
             [
-                'pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get(),
+                'pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get()->sortByDesc('is_available'),
                 'region' => $region
             ]);
     }

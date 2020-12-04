@@ -37,7 +37,7 @@ class Pharmacy extends Model
 
     public function futureAvailabilities(): Collection
     {
-        return $this->availabilities()->orderBy('date')->where('date', '>=', now())->get();
+        return $this->availabilities()->orderBy('date')->where('date', '>=', now()->format('Y-m-d'))->get();
     }
 
     public function getSeoRegionAlias()
@@ -71,5 +71,10 @@ class Pharmacy extends Model
             $address = $address . ', ' . $region;
         }
         return Str::of($address)->replace(' ', '+');
+    }
+
+    public function getIsAvailableAttribute()
+    {
+        return $this->availabilities()->where('date', now()->format('Y-m-d'))->exists();
     }
 }

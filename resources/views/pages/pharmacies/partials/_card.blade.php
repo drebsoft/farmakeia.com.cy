@@ -11,6 +11,17 @@
                     <a href="{{ route('farmakeio', ['am' => $pharmacy->am, 'name' => \Str::slug($pharmacy->name)]) }}">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
                             Φαρμακείο {{ $pharmacy->name }}
+                            @if($pharmacy->is_available)
+                                <span
+                                    class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800"
+                                >
+                                    <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-400" fill="currentColor"
+                                         viewBox="0 0 8 8">
+                                        <circle cx="4" cy="4" r="3"></circle>
+                                    </svg>
+                                    Εφημερεύει
+                                </span>
+                            @endif
                         </h3>
                     </a>
                     <p class="text-sm leading-5 text-gray-500">
