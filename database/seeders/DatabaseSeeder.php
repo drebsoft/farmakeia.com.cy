@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         \Artisan::call('pharmacies:update-availability');
+        \Artisan::call('pharmacies:fill-coordinates');
     }
 }
