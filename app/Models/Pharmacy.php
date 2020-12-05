@@ -20,6 +20,8 @@ class Pharmacy extends Model
         'is_admin' => 'boolean'
     ];
 
+    protected $appends = ['seo_url'];
+
     public function path()
     {
         return route('pharmacies.show', ['pharmacy' => $this->id]);
@@ -76,5 +78,10 @@ class Pharmacy extends Model
     public function getIsAvailableAttribute()
     {
         return $this->availabilities()->where('date', now()->format('Y-m-d'))->exists();
+    }
+
+    public function getSeoUrlAttribute()
+    {
+        return route('farmakeio', ['am' => $this->am, 'name' => \Str::slug($this->name)]);
     }
 }

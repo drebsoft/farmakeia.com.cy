@@ -8,7 +8,7 @@
                          alt="">
                 </div>
                 <div class="ml-4">
-                    <a href="{{ route('farmakeio', ['am' => $pharmacy->am, 'name' => \Str::slug($pharmacy->name)]) }}">
+                    <a href="{{ $pharmacy->seo_url }}">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
                             Φαρμακείο {{ $pharmacy->name }}
                             @if($pharmacy->is_available)

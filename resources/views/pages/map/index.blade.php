@@ -9,13 +9,7 @@
         </x-slot>
     @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <div id="map" style="height: 600px"></div>
-            </div>
-        </div>
-    </div>
+    <div id="map" style="height: 100vh"></div>
 
     @if(!empty($maps_api_key))
         <x-slot name="scripts">
@@ -29,7 +23,7 @@
                 function initMap() {
                     map = new google.maps.Map(document.getElementById("map"), {
                         center: {lat: 35.121, lng: 33.406},
-                        zoom: 10,
+                        zoom: 9,
                     });
 
                     const infoWindow = new google.maps.InfoWindow();
@@ -42,9 +36,16 @@
                             title: 'Φαρμακείο ' + pharmacies[i].name,
                             map: map,
                         });
+                        const content = `
+                            <div id="infowindow">
+                                <span>Φαρμακείο ${pharmacies[i].name}</span><br>
+                                <a href="${pharmacies[i].seo_url}" class="text-blue-500">Προβολή</a> |
+                                <a href="tel:${pharmacies[i].phone}" class="text-blue-500">Τηλέφωνο</a> |
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=${pharmacies[i].lat},${pharmacies[i].lng}" target="_blank" class="text-blue-500">Οδηγίες</a>
+                            </div>`;
                         marker.addListener("click", () => {
                             infoWindow.close();
-                            infoWindow.setContent(`<div id="infowindow">Φαρμακείο ${pharmacies[i].name}</div>`);
+                            infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
                     }

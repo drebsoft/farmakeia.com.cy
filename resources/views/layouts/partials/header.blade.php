@@ -20,8 +20,8 @@
                         <a href="{{ route('homepage') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                             Αρχική
                         </a>
-                        <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                            Φαρμακεία
+                        <a href="{{ route('map') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Προβολή Χάρτη
                         </a>
                     </nav>
 {{--                    <div class="flex items-center md:ml-12">--}}
