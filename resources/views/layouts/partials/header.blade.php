@@ -23,7 +23,7 @@
                     <a href="{{ route('map') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                         Προβολή Χάρτη
                     </a>
-                    <a href="{{ route('sxetika', ['page' => 'pos-leitourgei']) }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                    <a href="{{ route('how-it-works') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                         Πώς Λειτουργεί
                     </a>
                 </nav>
