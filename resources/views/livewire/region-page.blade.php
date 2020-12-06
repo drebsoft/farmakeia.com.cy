@@ -31,13 +31,13 @@
 
                         <div x-data="{ open: false }" @keydown.window.escape="open = false" @click.away="open = false"
                              class="relative inline-block text-left">
-                            <div>
-                                  <span class="rounded-md shadow-sm">
+                            <div class="h-full">
+                                  <span class="rounded-md shadow-sm h-full">
 
                                     <button
                                         @click="open = !open" aria-haspopup="true" x-bind:aria-expanded="open"
                                         aria-expanded="true"
-                                        class="-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                                        class="h-full -ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-r-md text-gray-700 bg-gray-50 hover:text-gray-500 hover:bg-white focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
                                         <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
                                              viewBox="0 0 20 20"
                                              fill="currentColor">
