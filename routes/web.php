@@ -20,7 +20,9 @@ Route::get('/', [PagesController::class, 'homepage'])->name('homepage');
 Route::get('/farmakeia-{region}', [PagesController::class, 'pharmacies'])->name('farmakeia');
 Route::get('/{am}/farmakeio-{name}', [PagesController::class, 'pharmacy'])->name('farmakeio');
 Route::get('/map', [PagesController::class, 'map'])->name('map');
-Route::get('/sxetika/{page}', [PagesController::class, 'about'])->name('sxetika');
+
+Route::view('/sxetika/pos-leitourgei', 'pages.about.pos-leitourgei')->name('how-it-works');
+Route::view('/sxetika/politiki-aporritou', 'pages.about.politiki-aporritou')->name('privacy-policy');
 
 Route::get('/pharmacies', [PharmacyController::class, 'index']);
 
