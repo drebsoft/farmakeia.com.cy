@@ -25,7 +25,7 @@
                         </h3>
                     </a>
                     <p class="text-sm leading-5 text-gray-500">
-                        {{ $pharmacy->area }} ({{ $pharmacy->address }}{{ $pharmacy->additional_address ? ' - ' . $pharmacy->additional_address : '' }})
+                        {{ $pharmacy->area }} {{ $pharmacy->address }}{{ $pharmacy->additional_address ? ' - ' . $pharmacy->additional_address : '' }}
                     </p>
                 </div>
             </div>

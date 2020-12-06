@@ -6,35 +6,6 @@ use App\Models\Pharmacy;
 
 class PagesController extends Controller
 {
-    protected $regionMap = [
-        'lefkosia' => 'Nicosia',
-        'lemesos' => 'Limassol',
-        'larnaka' => 'Larnaca',
-        'paphos' => 'Paphos',
-        'paralimni' => 'Paralimni',
-    ];
-
-    public function homepage()
-    {
-        return view('pages.homepage.index');
-    }
-
-    public function pharmacies(string $region)
-    {
-        $region = strtolower($region);
-        $pharmacies = [];
-
-        if (in_array($region, array_keys($this->regionMap))) {
-            $pharmacies = Pharmacy::where('region', $this->regionMap[$region])->get()->sortByDesc('is_available');
-        }
-
-        return view('pages.pharmacies.index',
-            [
-                'pharmacies' => $pharmacies,
-                'region' => $this->regionMap[$region] ?? null
-            ]);
-    }
-
     public function pharmacy(string $am)
     {
         $pharmacy = Pharmacy::where('am', $am)->first();

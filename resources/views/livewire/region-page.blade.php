@@ -1,7 +1,6 @@
-<x-guest-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-            @if($region)
+<div class="py-12">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        @if($region)
             <div
                 class="pb-5 border-b border-gray-200 space-y-3 sm:flex sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">
@@ -21,7 +20,9 @@
                             </div>
                             <input id="search_pharmacy"
                                    class="form-input block w-full rounded-none rounded-l-md pl-10 transition ease-in-out duration-150 sm:hidden"
-                                   placeholder="Search">
+                                   placeholder="Search"
+                                   wire:model="search"
+                            >
                             <input id="search_pharmacy"
                                    class="hidden form-input w-full rounded-none rounded-l-md pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
                                    placeholder="Αναζήτηση φαρμακείου">
@@ -92,18 +93,17 @@
                     </div>
                 </div>
             </div>
-            @endif
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <ul>
-                    @if(isset($pharmacies) && count($pharmacies) > 0)
-                        @foreach($pharmacies as $pharmacy)
-                            @include('pages.pharmacies.partials._card', $pharmacy)
-                        @endforeach
-                    @else
-                        @include('pages.pharmacies.partials._empty')
-                    @endif
-                </ul>
-            </div>
+        @endif
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <ul>
+                @if(isset($pharmacies) && count($pharmacies) > 0)
+                    @foreach($pharmacies as $pharmacy)
+                        @include('pages.pharmacies.partials._card', $pharmacy)
+                    @endforeach
+                @else
+                    @include('pages.pharmacies.partials._empty')
+                @endif
+            </ul>
         </div>
     </div>
-</x-guest-layout>
+</div>
