@@ -59,4 +59,11 @@ class PagesController extends Controller
                 'maps_api_key' => config('googlemaps.api_key'),
             ]);
     }
+
+    public function about(string $page)
+    {
+        $view = 'pages.about.' . strtolower($page);
+
+        return view()->exists($view) ? view($view) : redirect(route('homepage'));
+    }
 }
