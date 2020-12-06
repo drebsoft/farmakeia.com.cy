@@ -22,11 +22,16 @@ class PagesController extends Controller
     public function pharmacies(string $region)
     {
         $region = strtolower($region);
+        $pharmacies = [];
+
+        if (in_array($region, array_keys($this->regionMap))) {
+            $pharmacies = Pharmacy::where('region', $this->regionMap[$region])->get()->sortByDesc('is_available');
+        }
 
         return view('pages.pharmacies.index',
             [
-                'pharmacies' => Pharmacy::where('region', $this->regionMap[$region])->get()->sortByDesc('is_available'),
-                'region' => $region
+                'pharmacies' => $pharmacies,
+                'region' => $this->regionMap[$region] ?? null
             ]);
     }
 
