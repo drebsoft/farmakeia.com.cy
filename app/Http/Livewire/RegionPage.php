@@ -34,15 +34,15 @@ class RegionPage extends Component
     {
         $this->selectedRegion = strtolower($region);
         $this->fill(request()->only('search'));
-
-        if (!in_array($this->selectedRegion, array_keys($this->regionMap))) {
-            abort(404);
-        }
     }
 
     public function render()
     {
-        $this->refreshPharmacies();
+        $this->pharmacies = [];
+
+        if (in_array($this->selectedRegion, array_keys($this->regionMap))) {
+            $this->refreshPharmacies();
+        }
 
         return view('livewire.region-page', [
             'pharmacies' => $this->pharmacies,
