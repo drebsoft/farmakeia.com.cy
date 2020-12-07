@@ -11,7 +11,7 @@
                     <a href="{{ $pharmacy->seo_url }}">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
                             Φαρμακείο {{ $pharmacy->name }}
-                            @if($pharmacy->is_available)
+                            @if($pharmacy->next_availability === now()->format('Y-m-d'))
                                 <span
                                     class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800"
                                 >

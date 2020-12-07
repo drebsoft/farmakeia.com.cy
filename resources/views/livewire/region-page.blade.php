@@ -25,7 +25,9 @@
                             >
                             <input id="search_pharmacy"
                                    class="hidden form-input w-full rounded-none rounded-l-md pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
-                                   placeholder="Αναζήτηση φαρμακείου">
+                                   placeholder="Αναζήτηση φαρμακείου"
+                                   wire:model="search"
+                            >
                         </div>
 
 
