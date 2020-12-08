@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \Artisan::call('pharmacies:update-availability');
+        \Artisan::call('pharmacies:fill-coordinates');
     }
 }

@@ -38,17 +38,8 @@ class FillCoordinatesForPharmacies extends Command
         $updated = 0;
         $failed = 0;
         foreach ($pharmacies as $pharmacy) {
-            $address = $pharmacy->address ?? '';
-            $area = $pharmacy->area ?? '';
-            $region = $pharmacy->region ?? '';
-            if ($area != '') {
-                $address = $address . ', ' . $area;
-            }
-            if ($region != '') {
-                $address = $address . ', ' . $region;
-            }
             try {
-                $coordinates = (new Geocoding)->translate($address)->toCoordinates()->getCoordinatesArray();
+                $coordinates = (new Geocoding)->translate($pharmacy->map_address)->toCoordinates()->getCoordinatesArray();
                 if (empty($coordinates)) {
                     $not_found++;
                     continue;
