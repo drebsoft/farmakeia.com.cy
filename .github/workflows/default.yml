@@ -30,12 +30,16 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@v2
       - name: Restore cached vendor files
+        id: cache
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
+          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}-2
           restore-keys: |
             ${{ runner.os }}-vendor-
+      - name: Fail without cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: exit 1
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: Generate key
