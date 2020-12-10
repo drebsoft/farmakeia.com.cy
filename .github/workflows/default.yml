@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-      - name: Cache vendor files
+      - name: Restore cached vendor files if any
         uses: actions/cache@v2
         env:
           cache-name: composer-vendor-cache
@@ -24,6 +24,13 @@ jobs:
           key: composer-${{ hashFiles('composer.lock') }}
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Cache vendor files if changed
+        uses: actions/cache@v2
+        env:
+          cache-name: composer-vendor-cache
+        with:
+          path: ~/vendor
+          key: composer-${{ hashFiles('composer.lock') }}
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
