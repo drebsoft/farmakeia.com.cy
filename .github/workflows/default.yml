@@ -34,7 +34,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: vendor
-          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}-2
+          key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
       - name: Fail without cache
         if: steps.cache.outputs.cache-hit != 'true'
         run: exit 1
