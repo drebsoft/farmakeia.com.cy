@@ -18,7 +18,7 @@ jobs:
       - name: Cache vendor files
         uses: actions/cache@v2
         with:
-          path: ~/vendor
+          path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-vendor-
@@ -35,10 +35,10 @@ jobs:
     needs: build
 
     steps:
-      - name: Restore composer cache
+      - name: Restore cached vendor files
         uses: actions/cache@v2
         with:
-          path: ~/vendor
+          path: vendor
           key: ${{ runner.os }}-vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
           restore-keys: |
             ${{ runner.os }}-vendor-
