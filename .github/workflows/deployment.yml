@@ -21,6 +21,10 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: exit 1
       - name: Connect to server
+      - name: Send app to maintenance
+        run: php artisan down
       - name: Rsync changes
       - name: Migrate database
         run: php artisan migrate
+      - name: Restore app from maintenance
+        run: php artisan up
