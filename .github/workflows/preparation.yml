@@ -39,7 +39,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: exit 1
       - name: Copy .env
-        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        run: php -r "file_exists('.env') || copy('.env.github', '.env');"
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
