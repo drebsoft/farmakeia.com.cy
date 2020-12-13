@@ -69,16 +69,16 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
         run: exit 1
       - name: Test Remote Commands
-          uses: appleboy/ssh-action@master
-          with:
-            key: ${{ secrets.SSH_KEY }}
-            username: ${{ secrets.SSH_USERNAME }}
-            host: ${{ secrets.SSH_HOST }}
-            port: ${{ secrets.SSH_PORT }}
-            passphrase: ${{ secrets.SSH_PASSPHRASE }}
-            script: |
-              cd ${{ secrets.SSH_PATH }}
-              ls -la
+        uses: appleboy/ssh-action@master
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          script: |
+            cd ${{ secrets.SSH_PATH }}
+            ls -la
       #- name: Send app to maintenance
       #  run: php artisan down >/dev/null
       #- name: Migrate database
