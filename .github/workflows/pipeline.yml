@@ -1,13 +1,13 @@
 name: pipeline
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
+  release:
+    types: [ published ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout codebase
@@ -23,21 +23,6 @@ jobs:
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v2
-      - name: Restore cached vendor files
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
-      - name: Fail without cache
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: exit 1
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.github', '.env');"
       - name: Generate key
@@ -54,21 +39,11 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: vendor/bin/phpunit
   deploy:
+    if: contains( github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout codebase
-        uses: actions/checkout@v2
-      - name: Restore cached vendor files
-        id: cache
-        uses: actions/cache@v2
-        with:
-          path: vendor
-          key: vendor-${{ hashFiles('**/composer.lock') }}-${{ secrets.CACHE_VERSION }}
-      - name: Fail without cache
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: exit 1
-      - name: Test Remote Commands
+      - name: Update remote project
         uses: appleboy/ssh-action@master
         with:
           key: ${{ secrets.SSH_KEY }}
@@ -78,10 +53,8 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd ${{ secrets.SSH_PATH }}
-            php --version
-      #- name: Send app to maintenance
-      #  run: php artisan down >/dev/null
-      #- name: Migrate database
-      #  run: php artisan migrate --force
-      #- name: Restore app from maintenance
-      #  run: php artisan up >/dev/null
+            php artisan down
+            git pull
+            composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+            php artisan migrate --force
+            php artisan up
