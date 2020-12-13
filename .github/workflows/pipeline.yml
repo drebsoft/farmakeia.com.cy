@@ -78,7 +78,7 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd ${{ secrets.SSH_PATH }}
-            ls -la
+            php --version
       #- name: Send app to maintenance
       #  run: php artisan down >/dev/null
       #- name: Migrate database
