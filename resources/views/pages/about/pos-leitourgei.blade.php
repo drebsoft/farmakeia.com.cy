@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="max-w-screen-xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
+        <div id="how-it-works-container" class="max-w-3xl mx-auto">
             <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
                 Πως λειτουργεί;
             </h2>
@@ -88,4 +88,16 @@
             </div>
         </div>
     </div>
+
+    @php
+        echo \Spatie\SchemaOrg\Schema::aboutPage()
+            ->name('How It Works')
+            ->lastReviewed(\Illuminate\Support\Carbon::create(2020, 12, 14, 12, 00, 00))
+            ->speakable(
+                \Spatie\SchemaOrg\Schema::speakableSpecification()
+                    ->xpath('//div[@id="how-it-works-container"]')
+                    ->description('How It Works')
+            )
+            ->toScript();
+    @endphp
 </x-guest-layout>

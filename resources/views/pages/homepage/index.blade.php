@@ -115,4 +115,11 @@
         </svg>
     </div>
 
+    @php
+        echo \Spatie\SchemaOrg\Schema::webSite()
+            ->name('farmakeia.com.cy')
+            ->email('support@farmakeia.com.cy')
+            ->contactPoint(\Spatie\SchemaOrg\Schema::contactPoint()->areaServed('Cyprus'))
+            ->toScript();
+    @endphp
 </x-guest-layout>

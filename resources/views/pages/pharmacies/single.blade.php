@@ -133,4 +133,20 @@
             </div>
         </main>
     </div>
+
+    @php
+        echo \Spatie\SchemaOrg\Schema::pharmacy()
+            ->name($pharmacy->name)
+            ->address(
+                \Spatie\SchemaOrg\Schema::postalAddress()
+                    ->streetAddress($pharmacy->address)
+                    ->addressRegion($pharmacy->region)
+                    ->addressCountry('Cyprus')
+            )
+            ->telephone($pharmacy->phone)
+            ->latitude($pharmacy->lat)
+            ->longitude($pharmacy->lng)
+            ->contactPoint(\Spatie\SchemaOrg\Schema::contactPoint()->areaServed('Cyprus'))
+            ->toScript();
+    @endphp
 </x-guest-layout>
