@@ -69,7 +69,8 @@
                             </svg>
                             <span>Εφημερεύει Σήμερα!</span>
                         @else
-                            Επόμενη εφημερία: {{ $nextAvailabilities->first()->date->dayName . ', ' . $nextAvailabilities->first()->date->format('d/m/Y') }}
+                            Επόμενη
+                            εφημερία: {{ $nextAvailabilities->first()->date->dayName . ', ' . $nextAvailabilities->first()->date->format('d/m/Y') }}
                         @endif
                     </div>
                 @endif
@@ -148,5 +149,20 @@
             ->longitude($pharmacy->lng)
             ->contactPoint(\Spatie\SchemaOrg\Schema::contactPoint()->areaServed('Cyprus'))
             ->toScript();
+
+        echo \Spatie\SchemaOrg\Schema::breadcrumbList()
+            ->itemListElement(
+                \Spatie\SchemaOrg\Schema::listItem()
+                    ->url(route('homepage'))
+                    ->position(1)
+                    ->name('Homepage'),
+            )
+            ->itemListElement(
+                \Spatie\SchemaOrg\Schema::listItem()
+                    ->url(route('farmakeia', ['region' => $pharmacy->region]))
+                    ->position(2)
+                    ->name('Φαρμακεία στην περιοχή '. $pharmacy->region),
+            )
+
     @endphp
 </x-guest-layout>
