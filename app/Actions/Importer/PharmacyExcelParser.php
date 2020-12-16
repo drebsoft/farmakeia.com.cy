@@ -77,7 +77,7 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
 
         $availability = Availability::updateOrCreate([
             'pharmacy_id' => $pharmacy->id,
-            'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia']),
+            'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia'])->format('Y-m-d'),
         ]);
 
         if ($availability->wasRecentlyCreated) {

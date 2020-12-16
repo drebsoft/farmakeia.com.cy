@@ -7,18 +7,36 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ url('/apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/favicon-16x16.png') }}">
+        <link rel="manifest" href="{{ url('/site.webmanifest') }}">
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        {{ $extrastyles ?? '' }}
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
+        {{ $scriptloads ?? '' }}
+        @livewireStyles
+
     </head>
     <body>
-        <div class="font-sans text-gray-900 antialiased">
+        <div class="font-sans text-gray-900 antialiased bg-gray-100">
+
+            @include('layouts.partials.header')
+
             {{ $slot }}
+
+            @include('layouts.partials.footer')
+
         </div>
+        {{ $scripts ?? '' }}
+
+        @livewireScripts
     </body>
 </html>

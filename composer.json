@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-curl": "*",
         "ext-dom": "*",
         "ext-libxml": "*",
         "fideloper/proxy": "^4.4",
@@ -21,9 +22,10 @@
         "livewire/livewire": "^2.0",
         "maatwebsite/excel": "^3.1",
         "spatie/browsershot": "^3.40",
-        "ext-curl": "*"
+        "spatie/laravel-sitemap": "^5.9"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^1.0",

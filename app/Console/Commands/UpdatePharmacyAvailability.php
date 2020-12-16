@@ -6,7 +6,6 @@ use App\Actions\Importer\PharmacyExcelParser;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Maatwebsite\Excel\Facades\Excel;
 
 class UpdatePharmacyAvailability extends Command
 {
