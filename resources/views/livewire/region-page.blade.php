@@ -10,7 +10,7 @@
             <div
                 class="pb-5 border-b border-gray-200 space-y-3 sm:flex sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
                 <h1 class="text-lg leading-6 font-medium text-gray-900">
-                    Φαρμακεία στην {{ __($region) }}
+                    Φαρμακεία {{ __($region . '_with_article') }}
                 </h1>
                 <div>
                     <label for="search_pharmacy" class="sr-only">Search</label>
