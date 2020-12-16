@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Πολιτική Απορρήτου - farmakeia.com.cy;</title>
+        <meta name="description"
+              content="Η πολιτική απορρήτου του farmakeia.com.cy.">
+    </x-slot>
+
     <div class="relative py-16 overflow-hidden">
         <div class="relative px-4 sm:px-6 lg:px-8">
             <div class="text-lg max-w-prose mx-auto mb-6">

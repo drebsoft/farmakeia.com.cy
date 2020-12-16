@@ -1,11 +1,17 @@
+<x-slot name="headerSlot">
+    <title>Φαρμακεία στην {{ __($region) }}</title>
+    <meta name="description"
+          content="Ψάχνεις τα εφημερέυοντα φαρμακεία στην {{ __($region) }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
+</x-slot>
+
 <div class="py-12">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         @if($region)
             <div
                 class="pb-5 border-b border-gray-200 space-y-3 sm:flex sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                <h1 class="text-lg leading-6 font-medium text-gray-900">
                     Φαρμακεία στην {{ __($region) }}
-                </h3>
+                </h1>
                 <div>
                     <label for="search_pharmacy" class="sr-only">Search</label>
                     <div class="flex rounded-md shadow-sm">

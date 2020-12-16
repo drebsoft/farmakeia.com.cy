@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Φαρμακείο {{ $pharmacy->name }}</title>
+        <meta name="description"
+              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} στην {{ __($region) }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
+    </x-slot>
+
     <div class="py-10">
         <section>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,9 +84,9 @@
                 <div class="flex px-4 py-8 sm:px-0">
                     <div class="w-1/5">
                         <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            <h2 class="text-lg leading-6 font-medium text-gray-900">
                                 Επόμενες εφημερίες
-                            </h3>
+                            </h2>
                         </div>
 
                         <ul aria-disabled="true" class="overflow-y-scroll" style="max-height: 330px">

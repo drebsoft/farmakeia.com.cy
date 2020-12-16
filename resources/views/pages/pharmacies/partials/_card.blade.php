@@ -5,11 +5,14 @@
                 <div class="flex-shrink-0">
                     <img class="h-12 w-12 rounded-full"
                          src="https://ui-avatars.com/api/?name={{ urlencode($pharmacy->name) }}&color=7F9CF5&background=EBF4FF"
-                         alt="">
+                         alt="{{ $pharmacy->name }}"
+                         title="{{ $pharmacy->name }}"
+                         loading="lazy"
+                    >
                 </div>
                 <div class="ml-4">
                     <a href="{{ $pharmacy->seo_url }}">
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        <h2 class="text-lg leading-6 font-medium text-gray-900">
                             Φαρμακείο {{ $pharmacy->name }}
                             @if($pharmacy->next_availability === now()->format('Y-m-d'))
                                 <span
@@ -22,7 +25,7 @@
                                     Εφημερεύει
                                 </span>
                             @endif
-                        </h3>
+                        </h2>
                     </a>
                     <p class="text-sm leading-5 text-gray-500">
                         {{ $pharmacy->area }} {{ $pharmacy->address }}{{ $pharmacy->additional_address ? ' - ' . $pharmacy->additional_address : '' }}

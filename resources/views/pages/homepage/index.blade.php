@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Ψάχνεις τα εφημερέυοντα φαρμακεία για σήμερα; - farmakeia.com.cy</title>
+        <meta name="description"
+              content="Ψάχνεις τα εφημερέυοντα φαρμακεία για σήμερα ή απλά τα φαρμακεία της περιοχής σου; Το farmakeia.com.cy μπορεί να σε βοηθήσει!">
+    </x-slot>
 
     <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
         <div class="text-center">

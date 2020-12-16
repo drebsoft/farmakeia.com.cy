@@ -1,4 +1,8 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Χάρτης φαρμακείων της Κύπρου</title>
+    </x-slot>
+
     @if(!empty($maps_api_key))
         <x-slot name="scriptloads">
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
