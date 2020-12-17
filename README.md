@@ -1,7 +1,7 @@
 <p align="center"><a href="https://farmakeia.com.cy" target="_blank"><img src="https://raw.githubusercontent.com/dodekatheon/zeus/master/public/logo.png" width="100"></a></p>
 
 <p align="center">
-![pipeline](https://github.com/dodekatheon/zeus/workflows/pipeline/badge.svg)
+<img src="https://github.com/dodekatheon/zeus/workflows/pipeline/badge.svg" alt="Pipeline Status">
 </p>
 
 ## About Project Zeus
