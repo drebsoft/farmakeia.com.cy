@@ -1,7 +1,7 @@
 <x-slot name="headerSlot">
-    <title>Φαρμακεία στην {{ __($region) }}</title>
+    <title>Φαρμακεία {{ __($region . '_with_article') }}</title>
     <meta name="description"
-          content="Ψάχνεις τα εφημερέυοντα φαρμακεία στην {{ __($region) }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
+          content="Ψάχνεις τα εφημερέυοντα φαρμακεία {{ __($region . '_with_article') }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
 </x-slot>
 
 <div class="py-12">

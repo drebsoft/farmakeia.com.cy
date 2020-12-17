@@ -12,7 +12,7 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ url('/favicon-16x16.png') }}">
         <link rel="manifest" href="{{ url('/site.webmanifest') }}">
         <link rel="canonical" href="{{ Request::url() }}" />
-        <meta name="theme-color" content="#63b440">
+        <meta name="theme-color" content="#77b251">
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">

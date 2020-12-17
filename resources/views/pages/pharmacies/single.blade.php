@@ -2,7 +2,7 @@
     <x-slot name="headerSlot">
         <title>Φαρμακείο {{ $pharmacy->name }}</title>
         <meta name="description"
-              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} στην {{ __($region) }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
+              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} {{ __($pharmacy->region . '_with_article') }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
     </x-slot>
 
     <div class="py-10">
@@ -130,7 +130,7 @@
                             <div class="rounded-md shadow-sm">
                                 <a href="{{ route('farmakeia', ['region' => $pharmacy->getSeoRegionAlias()]) }}"
                                    class="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-800 bg-white hover:text-gray-900 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
-                                    Φαρμακεία {{ __($pharmacy->region) }}
+                                    Φαρμακεία {{ __($pharmacy->region . '_with_article') }}
                                 </a>
                             </div>
                         </div>
