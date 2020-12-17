@@ -1,9 +1,15 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Πως λειτουργεί το farmakeia.com.cy;</title>
+        <meta name="description"
+              content="Θες να βρεις τα σημερινά εφημερέυοντα φαρμακεία ή τα φαρμακεία της περιοχής σου; Δες πως μπορεί να σε βοηθήσει το farmakeia.com.cy.">
+    </x-slot>
+
     <div class="max-w-screen-xl mx-auto py-12 px-4 sm:py-16 sm:px-6 lg:px-8">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-center text-3xl leading-9 font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
-                Πως λειτουργεί;
-            </h2>
+        <div id="how-it-works-container" class="max-w-3xl mx-auto">
+            <h1 class="text-center text-3xl leading-9 font-bold text-gray-900 sm:text-4xl sm:leading-10">
+                Πως λειτουργεί το farmakeia.com.cy;
+            </h1>
             <div class="mt-6 pt-6">
                 <p class="font-medium text-gray-900">Τι είναι το farmakeia.com.cy;</p>
                 <br>
@@ -88,4 +94,16 @@
             </div>
         </div>
     </div>
+
+    @php
+        echo \Spatie\SchemaOrg\Schema::aboutPage()
+            ->name('How It Works')
+            ->lastReviewed(\Illuminate\Support\Carbon::create(2020, 12, 14, 12, 00, 00))
+            ->speakable(
+                \Spatie\SchemaOrg\Schema::speakableSpecification()
+                    ->xpath('//div[@id="how-it-works-container"]')
+                    ->description('How It Works')
+            )
+            ->toScript();
+    @endphp
 </x-guest-layout>

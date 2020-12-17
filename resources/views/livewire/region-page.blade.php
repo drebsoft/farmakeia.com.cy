@@ -1,11 +1,17 @@
+<x-slot name="headerSlot">
+    <title>Φαρμακεία {{ __($region . '_with_article') }}</title>
+    <meta name="description"
+          content="Ψάχνεις τα εφημερέυοντα φαρμακεία {{ __($region . '_with_article') }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
+</x-slot>
+
 <div class="py-12">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         @if($region)
             <div
                 class="pb-5 border-b border-gray-200 space-y-3 sm:flex sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
-                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                <h1 class="text-lg leading-6 font-medium text-gray-900">
                     Φαρμακεία {{ __($region . '_with_article') }}
-                </h3>
+                </h1>
                 <div>
                     <label for="search_pharmacy" class="sr-only">Search</label>
                     <div class="flex rounded-md shadow-sm">
@@ -107,5 +113,14 @@
                 @endif
             </ul>
         </div>
+        @if(!empty($regionSeo))
+            <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
+                <div class="text-center">
+                    <p class="md:mt-5 mx-auto text-sm leading-7 text-gray-400 italic">
+                        {{ $regionSeo }}
+                    </p>
+                </div>
+            </div>
+        @endif
     </div>
 </div>

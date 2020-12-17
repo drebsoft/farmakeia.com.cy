@@ -1,4 +1,10 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Φαρμακείο {{ $pharmacy->name }}</title>
+        <meta name="description"
+              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} {{ __($pharmacy->region . '_with_article') }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
+    </x-slot>
+
     <div class="py-10">
         <section>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -69,7 +75,8 @@
                             </svg>
                             <span>Εφημερεύει Σήμερα!</span>
                         @else
-                            Επόμενη εφημερία: {{ $nextAvailabilities->first()->date->dayName . ', ' . $nextAvailabilities->first()->date->format('d/m/Y') }}
+                            Επόμενη
+                            εφημερία: {{ $nextAvailabilities->first()->date->dayName . ', ' . $nextAvailabilities->first()->date->format('d/m/Y') }}
                         @endif
                     </div>
                 @endif
@@ -77,9 +84,9 @@
                 <div class="flex px-4 py-8 sm:px-0">
                     <div class="w-1/5">
                         <div class="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                            <h2 class="text-lg leading-6 font-medium text-gray-900">
                                 Επόμενες εφημερίες
-                            </h3>
+                            </h2>
                         </div>
 
                         <ul aria-disabled="true" class="overflow-y-scroll" style="max-height: 330px">
@@ -123,7 +130,7 @@
                             <div class="rounded-md shadow-sm">
                                 <a href="{{ route('farmakeia', ['region' => $pharmacy->getSeoRegionAlias()]) }}"
                                    class="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-800 bg-white hover:text-gray-900 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
-                                    Φαρμακεία {{ __($pharmacy->region) }}
+                                    Φαρμακεία {{ __($pharmacy->region . '_with_article') }}
                                 </a>
                             </div>
                         </div>
@@ -133,4 +140,35 @@
             </div>
         </main>
     </div>
+
+    @php
+        echo \Spatie\SchemaOrg\Schema::pharmacy()
+            ->name($pharmacy->name)
+            ->address(
+                \Spatie\SchemaOrg\Schema::postalAddress()
+                    ->streetAddress($pharmacy->address)
+                    ->addressRegion($pharmacy->region)
+                    ->addressCountry('Cyprus')
+            )
+            ->telephone($pharmacy->phone)
+            ->latitude($pharmacy->lat)
+            ->longitude($pharmacy->lng)
+            ->contactPoint(\Spatie\SchemaOrg\Schema::contactPoint()->areaServed('Cyprus'))
+            ->toScript();
+
+        echo \Spatie\SchemaOrg\Schema::breadcrumbList()
+            ->itemListElement(
+                \Spatie\SchemaOrg\Schema::listItem()
+                    ->url(route('homepage'))
+                    ->position(1)
+                    ->name('Homepage'),
+            )
+            ->itemListElement(
+                \Spatie\SchemaOrg\Schema::listItem()
+                    ->url(route('farmakeia', ['region' => $pharmacy->region]))
+                    ->position(2)
+                    ->name('Φαρμακεία στην περιοχή '. $pharmacy->region),
+            )
+
+    @endphp
 </x-guest-layout>

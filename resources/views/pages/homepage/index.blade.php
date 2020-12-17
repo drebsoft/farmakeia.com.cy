@@ -1,4 +1,9 @@
 <x-guest-layout>
+    <x-slot name="headerSlot">
+        <title>Ψάχνεις τα εφημερέυοντα φαρμακεία για σήμερα; - farmakeia.com.cy</title>
+        <meta name="description"
+              content="Ψάχνεις τα εφημερέυοντα φαρμακεία για σήμερα ή απλά τα φαρμακεία της περιοχής σου; Το farmakeia.com.cy μπορεί να σε βοηθήσει!">
+    </x-slot>
     <x-slot name="extrastyles">
         <style>
             #nicosia_svg:hover text,
@@ -44,4 +49,19 @@
             <a href="{{ route('farmakeia', ['region' => 'paralimni']) }}" class="text-lg text-green-500">Παραλίμνι</a>
         </div>
     </div>
+    <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
+        <div class="text-center">
+            <p class="md:mt-5 mx-auto text-sm leading-7 text-gray-400 italic">
+                Όλα τα εφημερεύοντα φαρμακεία της Κύπρου απευθείας από τον κατάλογο φαρμακείων του Υπουργείου Υγείας. Βρείτε τα φαρμακεία της περιοχής σας και λάβετε απευθείας οδηγίες προς κάθε ένα από αυτά. Φαρμακεία για όλες τις επαρχίες της Κυπριακής Δημοκρατίας. Δείτε όλες τις εφημερίες φαρμακείων για τους επόμενους μήνες. Πληροφορίες για την ακριβή διεύθυνση κάθε φαρμακείου Παγκύπρια.
+            </p>
+        </div>
+    </div>
+
+    @php
+        echo \Spatie\SchemaOrg\Schema::webSite()
+            ->name('farmakeia.com.cy')
+            ->email('support@farmakeia.com.cy')
+            ->contactPoint(\Spatie\SchemaOrg\Schema::contactPoint()->areaServed('Cyprus'))
+            ->toScript();
+    @endphp
 </x-guest-layout>

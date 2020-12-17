@@ -5,12 +5,15 @@
                 <div class="flex-shrink-0">
                     <img class="h-12 w-12 rounded-full"
                          src="https://ui-avatars.com/api/?name=X&color=9B1C1C&background=FDE8E8"
-                         alt="">
+                         alt="Κανένα αποτέλεσμα"
+                         title="Κανένα αποτέλεσμα"
+                         loading="eager"
+                    >
                 </div>
                 <div class="ml-4">
-                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    <p class="text-lg leading-6 font-medium text-gray-900">
                         Δεν βρέθηκαν φαρμακεία με αυτές τις παραμέτρους
-                    </h3>
+                    </p>
                 </div>
             </div>
         </div>
