@@ -58,7 +58,7 @@ jobs:
             php artisan down
             git pull --ff-only
             composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-            composer dump-autoload
+            composer dump-autoload -q
             php artisan optimize
             php artisan migrate --force
             php artisan up
