@@ -56,7 +56,7 @@ jobs:
           script: |
             cd ${{ secrets.SSH_PATH }}
             php artisan down
-            git pull
+            git pull --ff-only
             composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
             composer dump-autoload
             php artisan optimize
