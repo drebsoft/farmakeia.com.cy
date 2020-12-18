@@ -65,7 +65,7 @@
         <main>
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-                @if($nextAvailabilities->first()->date->isBefore(now()->addDays(4)))
+                @if(!empty($nextAvailabilities->first()) && $nextAvailabilities->first()->date->isBefore(now()->addDays(4)))
                     <div
                         class="my-4 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800">
                         @if($nextAvailabilities->first()->date->isToday())
