@@ -11,7 +11,7 @@ class PharmacyController extends Controller
         $pharmacy = Pharmacy::where('am', $am)->where('slug', $slug)->first();
 
         if (!$pharmacy) {
-            return view('pages.pharmacies.not_found');
+            return response()->view('pages.pharmacies.not_found', [], 404);
         }
 
         $nextAvailabilities = $pharmacy->futureAvailabilities();
