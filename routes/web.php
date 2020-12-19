@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PharmacyController;
-use App\Http\Livewire\RegionPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.homepage.index')->name('homepage');
 
-Route::get('/farmakeia-{region}', RegionPage::class)->name('farmakeia');
+Route::get('/farmakeia-{region}', App\Http\Livewire\RegionPage::class)->name('farmakeia');
 
 Route::get('/{am}/farmakeio-{name}', [PharmacyController::class, 'pharmacy'])->name('farmakeio');
 Route::get('/map', [MapController::class, 'map'])->name('map');
