@@ -25,13 +25,13 @@ Route::get('/map', [MapController::class, 'map'])->name('map');
 Route::view('/sxetika/pos-leitourgei', 'pages.about.pos-leitourgei')->name('how-it-works');
 Route::view('/sxetika/politiki-aporritou', 'pages.about.politiki-aporritou')->name('privacy-policy');
 
-//Route::prefix('admin')->group(function () {
-//    Route::get('/pharmacies', [PharmacyController::class, 'index']);
-//
-//    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-//        Route::resource('pharmacies', PharmacyController::class)->except(['index']);
-//    });
-//});
+Route::prefix('admin')->group(function () {
+    Route::get('/pharmacies', [PharmacyController::class, 'index']);
+
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        Route::resource('pharmacies', PharmacyController::class)->except(['index']);
+    });
+});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
