@@ -27,7 +27,7 @@ class Pharmacy extends Model
 
     public function path()
     {
-        return route('pharmacies.show', ['pharmacy' => $this->id]);
+        return route('admin.pharmacies.show', ['pharmacy' => $this->id]);
     }
 
     public function owner()

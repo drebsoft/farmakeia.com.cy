@@ -39,7 +39,7 @@ class PharmacyController extends Controller
     {
         $validated = $request->validated();
         Pharmacy::create($validated);
-        return redirect('/pharmacies');
+        return redirect(route('admin.pharmacies.index'));
     }
 
     /**
@@ -79,7 +79,7 @@ class PharmacyController extends Controller
         $validated = $request->validated();
         $pharmacy->update($validated);
 
-        return redirect('/pharmacies');
+        return redirect(route('admin.pharmacies.index'));
     }
 
     /**
@@ -94,6 +94,6 @@ class PharmacyController extends Controller
             abort(403);
         }
         $pharmacy->delete();
-        return redirect('/pharmacies');
+        return redirect(route('admin.pharmacies.index'));
     }
 }
