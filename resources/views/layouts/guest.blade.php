@@ -40,5 +40,9 @@
         {{ $scripts ?? '' }}
 
         @livewireScripts
+
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+                data-cf-beacon='{"token": "a129c661ce744125ae8915fb461dd828"}'
+        ></script>
     </body>
 </html>
