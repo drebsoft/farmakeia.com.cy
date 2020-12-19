@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Str;
 
 class Pharmacy extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasSlug;
 
     protected $guarded = ['id'];
 
@@ -82,6 +85,13 @@ class Pharmacy extends Model
 
     public function getSeoUrlAttribute()
     {
-        return route('farmakeio', ['am' => $this->am, 'name' => \Str::slug($this->name)]);
+        return route('farmakeio', ['am' => $this->am, 'name' => $this->slug]);
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }

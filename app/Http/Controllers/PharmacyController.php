@@ -6,9 +6,9 @@ use App\Models\Pharmacy;
 
 class PharmacyController extends Controller
 {
-    public function pharmacy(string $am)
+    public function pharmacy($am, $slug)
     {
-        $pharmacy = Pharmacy::where('am', $am)->first();
+        $pharmacy = Pharmacy::where('am', $am)->where('slug', $slug)->first();
 
         if (!$pharmacy) {
             return view('pages.pharmacies.not_found');
