@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Http\Controllers\PharmacyController;
+use App\Http\Controllers\Admin\PharmacyController;
 use App\Http\Requests\CreateUpdatePharmacyRequest;
 use App\Models\Pharmacy;
 use App\Models\User;
