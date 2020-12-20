@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PharmacyController as AdminPharmacyController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PharmacyController;
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,7 @@ Route::prefix('admin')
     ->name('admin.')
     ->middleware(['auth:sanctum', 'verified'])
     ->group(function () {
-        Route::resource('pharmacies', \App\Http\Controllers\Admin\PharmacyController::class);
+        Route::resource('pharmacies', AdminPharmacyController::class);
     });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
