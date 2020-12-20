@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Pharmacy;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class PharmacyPageTests extends TestCase
+class PharmacyPageTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @test
      */
@@ -15,7 +18,7 @@ class PharmacyPageTests extends TestCase
         /** @var Pharmacy $pharmacy */
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->get(route('farmakeio', ['am' => $pharmacy->name]))
+        $this->get(route('farmakeio', ['am' => $pharmacy->am, 'name' => $pharmacy->name]))
             ->assertStatus(200)
             ->assertSeeText($pharmacy->name);
     }
