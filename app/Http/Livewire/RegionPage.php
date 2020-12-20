@@ -70,7 +70,8 @@ class RegionPage extends Component
             ])
             ->tap(function ($query) {
                 if (!empty($this->search)) {
-                    $query->where('name', 'like', '%' . $this->search . '%');
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                          ->orWhere('address', 'like', '%' . $this->search . '%');
                 }
             })
             ->where('region', $this->regionMap[$this->selectedRegion])
