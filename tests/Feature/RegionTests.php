@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Pharmacy;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class RegionTests extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @test
      */
