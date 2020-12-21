@@ -24,7 +24,7 @@
                         Προβολή Χάρτη
                     </a>
                     <a href="{{ route('how-it-works') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                        Πώς Λειτουργεί
+                        Πως Λειτουργεί
                     </a>
                 </nav>
             </div>
@@ -80,7 +80,7 @@
                                     </svg>
                                 </div>
                                 <div class="ml-4 text-base font-medium text-gray-900">
-                                    Πώς Λειτουργεί
+                                    Πως Λειτουργεί
                                 </div>
                             </a>
 
