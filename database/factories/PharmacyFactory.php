@@ -23,7 +23,7 @@ class PharmacyFactory extends Factory
     {
         return [
             'name' => $this->faker->sentence,
-            'region' => $this->faker->word,
+            'region' => \Arr::random(['Nicosia', 'Limassol', 'Paphos', 'Paralimni', 'Larnaca']),
             'area' => $this->faker->word,
             'address' => $this->faker->word,
             'additional_address' => $this->faker->word,
