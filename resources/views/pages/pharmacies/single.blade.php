@@ -17,7 +17,7 @@
                         </div>
                         <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
                             <div class="mt-2 flex items-center text-sm leading-5 text-gray-900 sm:mr-6">
-                                {{ $pharmacy->address }} ({{ $pharmacy->additional_address }})
+                                {{ $pharmacy->address }} @isset($pharmacy->additional_address){{ $pharmacy->additional_address }})@endisset
                             </div>
                         </div>
                     </div>
