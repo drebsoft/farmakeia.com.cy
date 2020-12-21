@@ -8,11 +8,12 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.4",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-libxml": "*",
         "bugsnag/bugsnag-laravel": "^2.0",
+        "doctrine/dbal": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -24,6 +25,7 @@
         "maatwebsite/excel": "^3.1",
         "spatie/browsershot": "^3.40",
         "spatie/laravel-sitemap": "^5.9",
+        "spatie/laravel-sluggable": "^2.6",
         "spatie/schema-org": "^3.2"
     },
     "require-dev": {
