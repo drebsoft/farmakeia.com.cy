@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print PHP Version
-        run: php --version
+        run: php7.4 --version
       - name: Checkout codebase
         uses: actions/checkout@v2
       - name: Cache vendor files
