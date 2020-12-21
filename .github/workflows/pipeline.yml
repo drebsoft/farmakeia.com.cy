@@ -16,7 +16,7 @@ jobs:
         run: |
           sudo update-alternatives --set php /usr/bin/php7.4
           php --version
-          git branch
+          ls tests/Feature
       - name: Checkout codebase
         uses: actions/checkout@v2
       - name: Cache vendor files
