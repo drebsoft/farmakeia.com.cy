@@ -14,11 +14,10 @@ jobs:
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v2
-      - name: Print PHP Version
+      - name: Set PHP Version
         run: |
           sudo update-alternatives --set php /usr/bin/php7.4
           php --version
-          ls tests/Feature
       - name: Cache vendor files
         id: cache
         uses: actions/cache@v2
