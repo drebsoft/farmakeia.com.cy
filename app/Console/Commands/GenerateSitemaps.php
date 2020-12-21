@@ -48,7 +48,7 @@ class GenerateSitemaps extends Command
         $sitemap->add(Url::create(route('how-it-works'))->setPriority(0.6));
         $sitemap->add(Url::create(route('privacy-policy'))->setPriority(0.5));
 
-        $sitemap->writeToFile(public_path('sitemaps.xml'));
+        $sitemap->writeToFile(public_path('sitemap.xml'));
 
         return 1;
     }
