@@ -25,7 +25,7 @@ class Pharmacy extends Model
 
     protected $appends = ['seo_url'];
 
-    public function path()
+    public function adminPath()
     {
         return route('admin.pharmacies.show', ['pharmacy' => $this->id]);
     }
@@ -85,7 +85,7 @@ class Pharmacy extends Model
 
     public function getSeoUrlAttribute()
     {
-        return route('farmakeio', ['am' => $this->am, 'name' => $this->slug]);
+        return route('farmakeio', ['am' => $this->am, 'slug' => $this->slug]);
     }
 
     public function getSlugOptions() : SlugOptions

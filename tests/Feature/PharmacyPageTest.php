@@ -18,7 +18,7 @@ class PharmacyPageTest extends TestCase
         /** @var Pharmacy $pharmacy */
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->get(route('farmakeio', ['am' => $pharmacy->am, 'name' => $pharmacy->slug]))
+        $this->get(route('farmakeio', ['am' => $pharmacy->am, 'slug' => $pharmacy->slug]))
             ->assertStatus(200)
             ->assertSeeText($pharmacy->name);
     }

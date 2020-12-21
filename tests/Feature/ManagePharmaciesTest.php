@@ -41,12 +41,12 @@ class ManagePharmaciesTest extends TestCase
     public function an_unauthenticated_user_cannot_manage_a_pharmacy()
     {
         $pharmacy = Pharmacy::factory()->create();
-        $this->get($pharmacy->path())->assertRedirect('/login');
+        $this->get($pharmacy->adminPath())->assertRedirect('/login');
         $this->get(route('admin.pharmacies.create'))->assertRedirect('/login');
         $this->post(route('admin.pharmacies.index'))->assertRedirect('/login');
-        $this->get($pharmacy->path() . '/edit')->assertRedirect('/login');
-        $this->patch($pharmacy->path())->assertRedirect('/login');
-        $this->delete($pharmacy->path())->assertRedirect('/login');
+        $this->get($pharmacy->adminPath() . '/edit')->assertRedirect('/login');
+        $this->patch($pharmacy->adminPath())->assertRedirect('/login');
+        $this->delete($pharmacy->adminPath())->assertRedirect('/login');
 
     }
 
@@ -57,9 +57,9 @@ class ManagePharmaciesTest extends TestCase
         $pharmacy = Pharmacy::factory()->create();
         $this->get(route('admin.pharmacies.create'))->assertForbidden();
         $this->post(route('admin.pharmacies.index'))->assertForbidden();
-        $this->get($pharmacy->path() . '/edit')->assertForbidden();
-        $this->patch($pharmacy->path())->assertForbidden();
-        $this->delete($pharmacy->path())->assertForbidden();
+        $this->get($pharmacy->adminPath() . '/edit')->assertForbidden();
+        $this->patch($pharmacy->adminPath())->assertForbidden();
+        $this->delete($pharmacy->adminPath())->assertForbidden();
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class ManagePharmaciesTest extends TestCase
 
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->get($pharmacy->path() . '/edit')->assertOk();
+        $this->get($pharmacy->adminPath() . '/edit')->assertOk();
 
         $attributes = [
             'name' => 'Edited',
@@ -82,7 +82,7 @@ class ManagePharmaciesTest extends TestCase
         ];
 
         $this->followingRedirects()
-            ->patch($pharmacy->path(), $attributes)
+            ->patch($pharmacy->adminPath(), $attributes)
             ->assertSee($attributes);
 
         $this->assertDatabaseHas('pharmacies', $attributes);
@@ -95,7 +95,7 @@ class ManagePharmaciesTest extends TestCase
 
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->get($pharmacy->path())
+        $this->get($pharmacy->adminPath())
             ->assertStatus(200)
             ->assertSee([
                 $pharmacy->name,
@@ -117,7 +117,7 @@ class ManagePharmaciesTest extends TestCase
 
         $pharmacy = Pharmacy::factory()->create();
 
-        $this->delete($pharmacy->path())->assertRedirect(route('admin.pharmacies.index'));
+        $this->delete($pharmacy->adminPath())->assertRedirect(route('admin.pharmacies.index'));
 
         $this->assertSoftDeleted('pharmacies', $pharmacy->getAttributes());
     }
@@ -160,10 +160,10 @@ class ManagePharmaciesTest extends TestCase
             'owner_id' => $owner->id
         ];
 
-        $this->get($pharmacy->path() . '/edit')->assertOk();
+        $this->get($pharmacy->adminPath() . '/edit')->assertOk();
 
         $this->followingRedirects()
-            ->patch($pharmacy->path(), $attributes)
+            ->patch($pharmacy->adminPath(), $attributes)
             ->assertSee($owner->name);
 
         $this->assertDatabaseHas('pharmacies', $attributes);
