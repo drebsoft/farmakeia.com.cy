@@ -119,7 +119,20 @@ class ManagePharmaciesTest extends TestCase
 
         $this->delete($pharmacy->adminPath())->assertRedirect(route('admin.pharmacies.index'));
 
-        $this->assertSoftDeleted('pharmacies', $pharmacy->getAttributes());
+        $this->assertSoftDeleted('pharmacies', [
+            'name' => $pharmacy->name,
+            'slug' => $pharmacy->slug,
+            'region' => $pharmacy->region,
+            'area' => $pharmacy->area,
+            'address' => $pharmacy->address,
+            'additional_address' => $pharmacy->additional_address,
+            'phone' => $pharmacy->phone,
+            'home_phone' => $pharmacy->home_phone,
+            'am' => $pharmacy->am,
+            'owner_id' => $pharmacy->owner_id,
+            'lat' => $pharmacy->lat,
+            'lng' => $pharmacy->lng,
+        ]);
     }
 
     // form request validation
