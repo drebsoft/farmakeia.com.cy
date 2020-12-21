@@ -39,7 +39,7 @@ jobs:
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit
+        run: php artisan test
   deploy:
     if: contains( github.ref, 'refs/tags/')
     runs-on: ubuntu-latest
