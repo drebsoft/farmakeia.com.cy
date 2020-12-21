@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Print PHP Version
         run: |
-          update-alternatives --set php /usr/bin/php7.4
+          sudo update-alternatives --set php /usr/bin/php7.4
           php --version
       - name: Checkout codebase
         uses: actions/checkout@v2
