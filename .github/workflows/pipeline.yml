@@ -15,9 +15,7 @@ jobs:
       - name: Checkout codebase
         uses: actions/checkout@v2
       - name: Set PHP Version
-        run: |
-          sudo update-alternatives --set php /usr/bin/php7.4
-          php --version
+        run: sudo update-alternatives --set php /usr/bin/php7.4
       - name: Cache vendor files
         id: cache
         uses: actions/cache@v2
