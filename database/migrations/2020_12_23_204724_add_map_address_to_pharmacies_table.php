@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Pharmacy;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +15,15 @@ class AddMapAddressToPharmaciesTable extends Migration
     public function up()
     {
         Schema::table('pharmacies', function (Blueprint $table) {
-            $table->text('map_address')->nullable();
+            $table->text('map_address')->nullable()->after('additional_address');
         });
+
+        foreach (Pharmacy::cursor() as $pharmacy) {
+            /** @var Pharmacy $pharmacy */
+            $pharmacy->update([
+                'map_address' => $pharmacy->generateMapAddress()
+            ]);
+        }
     }
 
     /**

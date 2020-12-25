@@ -61,14 +61,11 @@ class Pharmacy extends Model
         }
     }
 
-    public function getMapAddressAttribute()
+    public function generateMapAddress()
     {
-        $address = $this->address ?? '';
-        $address = Str::of($address)->slug(' ');
-        $area = $this->area ?? '';
-        $area = Str::of($area)->slug(' ');
-        $region = $this->region ?? '';
-        $region = Str::of($region)->slug(' ');
+        $address = Str::of($this->address ?? '')->slug(' ');
+        $area = Str::of($this->area ?? '')->slug(' ');
+        $region = Str::of($this->region ?? '')->slug(' ');
         if ($area != '') {
             $address = $address . ', ' . $area;
         }
