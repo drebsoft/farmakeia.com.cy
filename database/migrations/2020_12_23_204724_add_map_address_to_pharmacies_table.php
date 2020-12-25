@@ -19,7 +19,6 @@ class AddMapAddressToPharmaciesTable extends Migration
         });
 
         foreach (Pharmacy::cursor() as $pharmacy) {
-            /** @var Pharmacy $pharmacy */
             $pharmacy->update([
                 'map_address' => $pharmacy->generateMapAddress()
             ]);
