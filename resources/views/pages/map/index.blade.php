@@ -20,8 +20,7 @@
             <script>
                 let map;
 
-                @if(!empty($pharmacies))
-                const pharmacies = @json($pharmacies);
+                const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
                 function ShowPharmaciesControl(controlDiv) {
                     // Set CSS for the control border.
@@ -31,7 +30,7 @@
                     controlUI.style.borderRadius = "3px";
                     controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
                     controlUI.style.cursor = "pointer";
-                    controlUI.style.marginBottom = "22px";
+                    controlUI.style.marginBottom = "5px";
                     controlUI.style.textAlign = "center";
                     controlUI.title = "Πατήστε για προβολή όλων των φαρμακείων";
                     controlDiv.appendChild(controlUI);
@@ -55,9 +54,8 @@
                         }
                     });
                 }
-                @endif
-                @if(!empty($availables))
-                const availables = @json($availables);
+
+                const availables = @json((!empty($availables) && $availables->count() > 0) ? $availables : []);
                 let availableMarkers = [];
                 function ShowAvailablesControl(controlDiv) {
                     // Set CSS for the control border.
@@ -67,7 +65,7 @@
                     controlUI.style.borderRadius = "3px";
                     controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
                     controlUI.style.cursor = "pointer";
-                    controlUI.style.marginBottom = "22px";
+                    controlUI.style.marginBottom = "5px";
                     controlUI.style.textAlign = "center";
                     controlUI.title = "Πατήστε για προβολή των εφημερεύοντων φαρμακείων";
                     controlDiv.appendChild(controlUI);
@@ -91,7 +89,6 @@
                         }
                     });
                 }
-                @endif
 
                 function initMap() {
                     map = new google.maps.Map(document.getElementById("map"), {
@@ -102,8 +99,6 @@
                     const infoWindow = new google.maps.InfoWindow();
                     const centerControlDiv = document.createElement("div");
 
-                    @if(!empty($pharmacies))
-                    console.log(pharmacies);
                     for (let i = 0; i < pharmacies.length; i++) {
                         const latLng = new google.maps.LatLng(pharmacies[i].lat, pharmacies[i].lng);
                         const marker = new google.maps.Marker({
@@ -123,16 +118,13 @@
                             infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
-                        @if(!empty($availables))
+                        @if(!empty($availables) && $availables->count() > 0)
                         marker.setVisible(false);
                         @endif
                         pharmacyMarkers.push(marker);
                     }
                     ShowPharmaciesControl(centerControlDiv);
-                    @endif
 
-                    @if(!empty($availables))
-                    console.log(availables);
                     for (let i = 0; i < availables.length; i++) {
                         const latLng = new google.maps.LatLng(availables[i].lat, availables[i].lng);
                         const marker = new google.maps.Marker({
@@ -152,14 +144,11 @@
                             infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
-                        console.log(availables[i]);
                         availableMarkers.push(marker);
                     }
                     ShowAvailablesControl(centerControlDiv);
-                    @endif
 
                     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-                    console.log(pharmacyMarkers, availableMarkers);
                 }
             </script>
         </x-slot>
