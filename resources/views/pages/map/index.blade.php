@@ -59,7 +59,7 @@
         </x-slot>
     @endif
 
-    <div id="map" style="height: 100vh"></div>
+    <div id="map" style="height: 75vh"></div>
 
     @if(!empty($maps_api_key))
         <x-slot name="scripts">
@@ -124,10 +124,7 @@
                     const centerControlDiv = document.createElement("div");
                     centerControlDiv.style.margin = "10px";
                     centerControlDiv.style.zIndex = "0";
-                    centerControlDiv.style.position = "absolute";
                     centerControlDiv.style.cursor = "pointer";
-                    centerControlDiv.style.left = "0px";
-                    centerControlDiv.style.top = "0px";
 
                     for (let i = 0; i < pharmacies.length; i++) {
                         const latLng = new google.maps.LatLng(pharmacies[i].lat, pharmacies[i].lng);
