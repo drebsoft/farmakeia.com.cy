@@ -23,29 +23,42 @@
                 const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
                 function ShowPharmaciesControl(controlDiv) {
-                    // Set CSS for the control border.
-                    const controlUI = document.createElement("div");
-                    controlUI.style.backgroundColor = "#fff";
-                    controlUI.style.border = "2px solid #fff";
-                    controlUI.style.borderRadius = "3px";
-                    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-                    controlUI.style.cursor = "pointer";
-                    controlUI.style.marginBottom = "5px";
-                    controlUI.style.textAlign = "center";
-                    controlUI.title = "Πατήστε για προβολή όλων των φαρμακείων";
-                    controlDiv.appendChild(controlUI);
                     // Set CSS for the control interior.
                     const controlText = document.createElement("div");
-                    controlText.style.color = "rgb(25,25,25)";
-                    controlText.style.fontFamily = "Roboto,Arial,sans-serif";
-                    controlText.style.fontSize = "16px";
-                    controlText.style.lineHeight = "38px";
-                    controlText.style.paddingLeft = "5px";
-                    controlText.style.paddingRight = "5px";
+                    controlText.style.backgroundClip = "padding-box";
+                    controlText.style.backgroundColor = "rgb(235, 235, 235)";
+                    controlText.style.display = "table-cell";
+                    controlText.style.border = "0px";
+                    controlText.style.margin = "0px";
+                    controlText.style.padding = "0px 17px";
+                    controlText.style.textTransform = "none";
+                    controlText.style.webkitAppearance = "none";
+                    controlText.style.position = "relative";
+                    controlText.style.cursor = "pointer";
+                    controlText.style.webkitUserSelect = "none";
+                    controlText.style.direction = "ltr";
+                    controlText.style.overflow = "hidden";
+                    controlText.style.textAlign = "center";
+                    controlText.style.height = "40px";
+                    controlText.style.verticalAlign = "middle";
+                    controlText.style.color = "rgb(0, 0, 0)";
+                    controlText.style.fontFamily = "Roboto, Arial, sans-serif";
+                    controlText.style.fontSize = "18px";
+                    controlText.style.borderBottomLeftRadius = "2px";
+                    controlText.style.borderTopLeftRadius = "2px";
+                    controlText.style.webkitBackgroundClip = "padding-box";
+                    controlText.style.webkitBoxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
+                    controlText.style.boxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
+                    controlText.style.minWidth = "36px";
+                    controlText.style.fontWeight = "500";
+                    controlText.style.backgroundPosition = "initial initial";
+                    controlText.style.backgroundRepeat = "initial initial";
+                    controlText.className = "test qwerty";
                     controlText.innerHTML = "Όλα";
-                    controlUI.appendChild(controlText);
+                    controlText.title = "Πατήστε για προβολή όλων των φαρμακείων";
+                    controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
-                    controlUI.addEventListener("click", () => {
+                    controlText.addEventListener("click", () => {
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(true);
                         }
@@ -58,29 +71,41 @@
                 const availables = @json((!empty($availables) && $availables->count() > 0) ? $availables : []);
                 let availableMarkers = [];
                 function ShowAvailablesControl(controlDiv) {
-                    // Set CSS for the control border.
-                    const controlUI = document.createElement("div");
-                    controlUI.style.backgroundColor = "#fff";
-                    controlUI.style.border = "2px solid #fff";
-                    controlUI.style.borderRadius = "3px";
-                    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
-                    controlUI.style.cursor = "pointer";
-                    controlUI.style.marginBottom = "5px";
-                    controlUI.style.textAlign = "center";
-                    controlUI.title = "Πατήστε για προβολή των εφημερεύοντων φαρμακείων";
-                    controlDiv.appendChild(controlUI);
                     // Set CSS for the control interior.
                     const controlText = document.createElement("div");
-                    controlText.style.color = "rgb(25,25,25)";
-                    controlText.style.fontFamily = "Roboto,Arial,sans-serif";
-                    controlText.style.fontSize = "16px";
-                    controlText.style.lineHeight = "38px";
-                    controlText.style.paddingLeft = "5px";
-                    controlText.style.paddingRight = "5px";
+                    controlText.style.backgroundImage = "none";
+                    controlText.style.backgroundClip = "padding-box";
+                    controlText.style.backgroundColor = "rgb(255, 255, 255)";
+                    controlText.style.display = "table-cell";
+                    controlText.style.border = "0px";
+                    controlText.style.margin = "0px";
+                    controlText.style.padding = "0px 17px";
+                    controlText.style.textTransform = "none";
+                    controlText.style.webkitAppearance = "none";
+                    controlText.style.position = "relative";
+                    controlText.style.cursor = "pointer";
+                    controlText.style.webkitUserSelect = "none";
+                    controlText.style.direction = "ltr";
+                    controlText.style.overflow = "hidden";
+                    controlText.style.textAlign = "center";
+                    controlText.style.height = "40px";
+                    controlText.style.verticalAlign = "middle";
+                    controlText.style.color = "rgb(86, 86, 86)";
+                    controlText.style.fontFamily = "Roboto, Arial, sans-serif";
+                    controlText.style.fontSize = "18px";
+                    controlText.style.borderBottomLeftRadius = "2px";
+                    controlText.style.borderTopRightRadius = "2px";
+                    controlText.style.webkitBackgroundClip = "padding-box";
+                    controlText.style.webkitBoxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
+                    controlText.style.boxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
+                    controlText.style.minWidth = "66px";
+                    controlText.style.backgroundPosition = "initial initial";
+                    controlText.style.backgroundRepeat = "initial initial";
                     controlText.innerHTML = "Εφημερεύοντα";
-                    controlUI.appendChild(controlText);
+                    controlText.title = "Πατήστε για προβολή των εφημερεύοντων φαρμακείων";
+                    controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
-                    controlUI.addEventListener("click", () => {
+                    controlText.addEventListener("click", () => {
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(false);
                         }
@@ -97,7 +122,16 @@
                     });
 
                     const infoWindow = new google.maps.InfoWindow();
+
+                    // Set CSS for the control border.
                     const centerControlDiv = document.createElement("div");
+                    centerControlDiv.style.backgroundColor = "#fff";
+                    centerControlDiv.style.border = "2px solid #fff";
+                    centerControlDiv.style.borderRadius = "3px";
+                    centerControlDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+                    centerControlDiv.style.cursor = "pointer";
+                    centerControlDiv.style.marginBottom = "5px";
+                    centerControlDiv.style.textAlign = "center";
 
                     for (let i = 0; i < pharmacies.length; i++) {
                         const latLng = new google.maps.LatLng(pharmacies[i].lat, pharmacies[i].lng);
