@@ -3,6 +3,52 @@
         <title>Χάρτης φαρμακείων της Κύπρου</title>
     </x-slot>
 
+    <x-slot name="extrastyles">
+        <style>
+            .custom-default-map-button {
+                background-image: none;
+                background-clip: padding-box;
+                background-color: rgb(255, 255, 255);
+                display: table-cell;
+                border: 0px;
+                margin: 0px;
+                padding: 0px 17px;
+                text-transform: none;
+                -webkit-appearance: none;
+                position: relative;
+                cursor: pointer;
+                -webkit-user-select: none;
+                direction: ltr;
+                overflow: hidden;
+                text-align: center;
+                height: 40px;
+                vertical-align: middle;
+                color: rgb(86, 86, 86);
+                font-family: Roboto, Arial, sans-serif;
+                font-size: 18px;
+                border-bottom-left-radius: 2px;
+                border-top-left-radius: 2px;
+                -webkit-background-clip: padding-box;
+                -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+                box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+                min-width: 36px;
+                background-position: initial initial;
+                background-repeat: initial initial;
+            }
+
+            .custom-active-map-button {
+                font-weight: 500;
+                color: rgb(0, 0, 0);
+            }
+
+            .custom-default-map-button:hover,
+            .custom-active-map-button:hover {
+                background-color: rgb(235, 235, 235);
+                color: rgb(0, 0, 0);
+            }
+        </style>
+    </x-slot>
+
     @if(!empty($maps_api_key))
         <x-slot name="scriptloads">
             <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
@@ -22,38 +68,11 @@
 
                 const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
-                function ShowPharmaciesControl(controlDiv) {
+                function ShowPharmaciesControl(controlDiv, setActive) {
                     // Set CSS for the control interior.
                     const controlText = document.createElement("div");
-                    controlText.style.backgroundClip = "padding-box";
-                    controlText.style.backgroundColor = "rgb(235, 235, 235)";
-                    controlText.style.display = "table-cell";
-                    controlText.style.border = "0px";
-                    controlText.style.margin = "0px";
-                    controlText.style.padding = "0px 17px";
-                    controlText.style.textTransform = "none";
-                    controlText.style.webkitAppearance = "none";
-                    controlText.style.position = "relative";
-                    controlText.style.cursor = "pointer";
-                    controlText.style.webkitUserSelect = "none";
-                    controlText.style.direction = "ltr";
-                    controlText.style.overflow = "hidden";
-                    controlText.style.textAlign = "center";
-                    controlText.style.height = "40px";
-                    controlText.style.verticalAlign = "middle";
-                    controlText.style.color = "rgb(0, 0, 0)";
-                    controlText.style.fontFamily = "Roboto, Arial, sans-serif";
-                    controlText.style.fontSize = "18px";
-                    controlText.style.borderBottomLeftRadius = "2px";
-                    controlText.style.borderTopLeftRadius = "2px";
-                    controlText.style.webkitBackgroundClip = "padding-box";
-                    controlText.style.webkitBoxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
-                    controlText.style.boxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
-                    controlText.style.minWidth = "36px";
-                    controlText.style.fontWeight = "500";
-                    controlText.style.backgroundPosition = "initial initial";
-                    controlText.style.backgroundRepeat = "initial initial";
-                    controlText.className = "test qwerty";
+                    controlText.className = setActive ? "custom-default-map-button custom-active-map-button" : "custom-default-map-button";
+                    controlText.id = "custom-map-button-for-all";
                     controlText.innerHTML = "Όλα";
                     controlText.title = "Πατήστε για προβολή όλων των φαρμακείων";
                     controlDiv.appendChild(controlText);
@@ -61,46 +80,22 @@
                     controlText.addEventListener("click", () => {
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(true);
+                            document.getElementById('custom-map-button-for-all').className = "custom-default-map-button custom-active-map-button"
                         }
                         for (let i = 0; i < availableMarkers.length; i++) {
                             availableMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-available').className = "custom-default-map-button"
                         }
                     });
                 }
 
                 const availables = @json((!empty($availables) && $availables->count() > 0) ? $availables : []);
                 let availableMarkers = [];
-                function ShowAvailablesControl(controlDiv) {
+                function ShowAvailablesControl(controlDiv, setActive) {
                     // Set CSS for the control interior.
                     const controlText = document.createElement("div");
-                    controlText.style.backgroundImage = "none";
-                    controlText.style.backgroundClip = "padding-box";
-                    controlText.style.backgroundColor = "rgb(255, 255, 255)";
-                    controlText.style.display = "table-cell";
-                    controlText.style.border = "0px";
-                    controlText.style.margin = "0px";
-                    controlText.style.padding = "0px 17px";
-                    controlText.style.textTransform = "none";
-                    controlText.style.webkitAppearance = "none";
-                    controlText.style.position = "relative";
-                    controlText.style.cursor = "pointer";
-                    controlText.style.webkitUserSelect = "none";
-                    controlText.style.direction = "ltr";
-                    controlText.style.overflow = "hidden";
-                    controlText.style.textAlign = "center";
-                    controlText.style.height = "40px";
-                    controlText.style.verticalAlign = "middle";
-                    controlText.style.color = "rgb(86, 86, 86)";
-                    controlText.style.fontFamily = "Roboto, Arial, sans-serif";
-                    controlText.style.fontSize = "18px";
-                    controlText.style.borderBottomLeftRadius = "2px";
-                    controlText.style.borderTopRightRadius = "2px";
-                    controlText.style.webkitBackgroundClip = "padding-box";
-                    controlText.style.webkitBoxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
-                    controlText.style.boxShadow = "rgba(0, 0, 0, 0.3) 0px 1px 4px -1px";
-                    controlText.style.minWidth = "66px";
-                    controlText.style.backgroundPosition = "initial initial";
-                    controlText.style.backgroundRepeat = "initial initial";
+                    controlText.className = setActive ? "custom-default-map-button custom-active-map-button" : "custom-default-map-button";
+                    controlText.id = "custom-map-button-for-available";
                     controlText.innerHTML = "Εφημερεύοντα";
                     controlText.title = "Πατήστε για προβολή των εφημερεύοντων φαρμακείων";
                     controlDiv.appendChild(controlText);
@@ -108,9 +103,11 @@
                     controlText.addEventListener("click", () => {
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-all').className = "custom-default-map-button"
                         }
                         for (let i = 0; i < availableMarkers.length; i++) {
                             availableMarkers[i].setVisible(true);
+                            document.getElementById('custom-map-button-for-available').className = "custom-default-map-button custom-active-map-button"
                         }
                     });
                 }
@@ -125,13 +122,12 @@
 
                     // Set CSS for the control border.
                     const centerControlDiv = document.createElement("div");
-                    centerControlDiv.style.backgroundColor = "#fff";
-                    centerControlDiv.style.border = "2px solid #fff";
-                    centerControlDiv.style.borderRadius = "3px";
-                    centerControlDiv.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+                    centerControlDiv.style.margin = "10px";
+                    centerControlDiv.style.zIndex = "0";
+                    centerControlDiv.style.position = "absolute";
                     centerControlDiv.style.cursor = "pointer";
-                    centerControlDiv.style.marginBottom = "5px";
-                    centerControlDiv.style.textAlign = "center";
+                    centerControlDiv.style.left = "0px";
+                    centerControlDiv.style.top = "0px";
 
                     for (let i = 0; i < pharmacies.length; i++) {
                         const latLng = new google.maps.LatLng(pharmacies[i].lat, pharmacies[i].lng);
@@ -157,7 +153,6 @@
                         @endif
                         pharmacyMarkers.push(marker);
                     }
-                    ShowPharmaciesControl(centerControlDiv);
 
                     for (let i = 0; i < availables.length; i++) {
                         const latLng = new google.maps.LatLng(availables[i].lat, availables[i].lng);
@@ -180,7 +175,14 @@
                         });
                         availableMarkers.push(marker);
                     }
-                    ShowAvailablesControl(centerControlDiv);
+
+                    @if(!empty($availables) && $availables->count() > 0)
+                    ShowPharmaciesControl(centerControlDiv, false);
+                    ShowAvailablesControl(centerControlDiv, true);
+                    @else
+                    ShowPharmaciesControl(centerControlDiv, true);
+                    ShowAvailablesControl(centerControlDiv, false);
+                    @endif
 
                     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
                 }
