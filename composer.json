@@ -16,6 +16,7 @@
         "doctrine/dbal": "^2.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
+        "gregkos/greek-strings": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/jetstream": "^1.5",
