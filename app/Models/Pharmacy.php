@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use GregKos\GreekStrings\GreekString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -61,14 +62,12 @@ class Pharmacy extends Model
         }
     }
 
-    public function getMapAddressAttribute()
+    public function generateMapAddress()
     {
-        $address = $this->address ?? '';
-        $address = Str::of($address)->slug(' ');
-        $area = $this->area ?? '';
-        $area = Str::of($area)->slug(' ');
-        $region = $this->region ?? '';
-        $region = Str::of($region)->slug(' ');
+        $transliterationHelper = (new GreekString);
+        $address = $transliterationHelper->setString($this->address ?? '')->transliterate();
+        $area = $transliterationHelper->setString($this->area ?? '')->transliterate();
+        $region = $transliterationHelper->setString($this->region ?? '')->transliterate();
         if ($area != '') {
             $address = $address . ', ' . $area;
         }

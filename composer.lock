@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a0680083bcdf1dfdf5f07f94c7aabd61",
+    "content-hash": "74d56c516790679f707b9558421bc159",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1328,6 +1328,65 @@
                 }
             ],
             "time": "2020-04-13T13:17:36+00:00"
+        },
+        {
+            "name": "gregkos/greek-strings",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gregkos/greek-strings.git",
+                "reference": "a5238db59430b6053fba4d34c7c55588c93df5f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gregkos/greek-strings/zipball/a5238db59430b6053fba4d34c7c55588c93df5f9",
+                "reference": "a5238db59430b6053fba4d34c7c55588c93df5f9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "phpunit/phpunit": "^9.5",
+                "vimeo/psalm": "^4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "GregKos\\GreekStrings\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "GregKos",
+                    "email": "gregkos.dev@gmail.com",
+                    "homepage": "https://gregkos.github.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A manipulation library for Greek strings",
+            "homepage": "https://github.com/gregkos/greek-strings",
+            "keywords": [
+                "greek-strings",
+                "gregkos"
+            ],
+            "support": {
+                "issues": "https://github.com/gregkos/greek-strings/issues",
+                "source": "https://github.com/gregkos/greek-strings/tree/v1.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/gregkos",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-01-06T11:24:22+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
