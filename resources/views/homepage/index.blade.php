@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    @include('pages.homepage.partials._cyprusmap')
+    @include('homepage.partials._cyprusmap')
 
     <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
         <div class="text-center">
