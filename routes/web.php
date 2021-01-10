@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PharmacyController as AdminPharmacyController;
 use App\Http\Controllers\MapController;
 use App\Http\Controllers\PharmacyController;
+use App\Http\Livewire\RegionPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,15 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'pages.homepage.index')->name('homepage');
+Route::view('/', 'homepage.index')->name('homepage');
 
-Route::get('/farmakeia-{region}', \App\Http\Livewire\RegionPage::class)->name('farmakeia');
+Route::get('/farmakeia-{region}', RegionPage::class)->name('farmakeia');
 
 Route::get('/{am}/farmakeio-{slug}', [PharmacyController::class, 'pharmacy'])->name('farmakeio');
 Route::get('/map', [MapController::class, 'map'])->name('map');
 
-Route::view('/sxetika/pos-leitourgei', 'pages.about.pos-leitourgei')->name('how-it-works');
-Route::view('/sxetika/politiki-aporritou', 'pages.about.politiki-aporritou')->name('privacy-policy');
+Route::view('/sxetika/pos-leitourgei', 'pos-leitourgei')->name('how-it-works');
+Route::view('/sxetika/politiki-aporritou', 'politiki-aporritou')->name('privacy-policy');
 
 Route::prefix('admin')
     ->name('admin.')
@@ -34,5 +35,5 @@ Route::prefix('admin')
     });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->name('dashboard');

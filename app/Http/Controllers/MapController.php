@@ -21,7 +21,7 @@ class MapController extends Controller
                                                                      ->limit(1),
                               ])->get();
         $availables = $pharmacies->where('next_availability', now()->format('Y-m-d'))->values();
-        return view('pages.map.index',
+        return view('map',
             [
                 'pharmacies' => $pharmacies,
                 'availables' => $availables,
