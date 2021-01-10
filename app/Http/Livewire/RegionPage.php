@@ -75,6 +75,7 @@ class RegionPage extends Component
                 }
             })
             ->where('region', $this->regionMap[$this->selectedRegion])
+            ->orderByRaw('CASE WHEN next_availability IS NULL THEN 1 ELSE 0 END')
             ->orderBy('next_availability')
             ->paginate();
     }
