@@ -13,7 +13,7 @@ class PharmacyController extends Controller
     public function index()
     {
         $pharmacies = Pharmacy::all();
-        return view('pharmacies.index', compact('pharmacies'));
+        return view('admin.pharmacies.index', compact('pharmacies'));
     }
 
     /**
@@ -26,7 +26,7 @@ class PharmacyController extends Controller
         if (!Auth::user()->is_admin) {
             abort(403);
         }
-        return view('pharmacies.create');
+        return view('admin.pharmacies.create');
     }
 
     /**
@@ -50,7 +50,7 @@ class PharmacyController extends Controller
      */
     public function show(Pharmacy $pharmacy)
     {
-        return view('pharmacies.show', compact('pharmacy'));
+        return view('admin.pharmacies.show', compact('pharmacy'));
     }
 
     /**
@@ -64,7 +64,7 @@ class PharmacyController extends Controller
         if (!Auth::user()->is_admin && (Auth::user()->id !== $pharmacy->owner_id)) {
             abort(403);
         }
-        return view('pharmacies.edit', compact('pharmacy'));
+        return view('admin.pharmacies.edit', compact('pharmacy'));
     }
 
     /**

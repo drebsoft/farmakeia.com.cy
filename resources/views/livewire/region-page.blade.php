@@ -43,10 +43,10 @@
             <ul>
                 @if(isset($pharmacies) && count($pharmacies) > 0)
                     @foreach($pharmacies as $pharmacy)
-                        @include('pages.pharmacies.partials._card', $pharmacy)
+                        @include('pharmacies.partials._card', $pharmacy)
                     @endforeach
                 @else
-                    @include('pages.pharmacies.partials._empty')
+                    @include('pharmacies.partials._empty')
                 @endif
             </ul>
         </div>
