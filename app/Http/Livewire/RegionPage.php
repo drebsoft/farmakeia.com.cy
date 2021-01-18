@@ -47,6 +47,11 @@ class RegionPage extends Component
         $this->fill(request()->only('search'));
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $this->pharmacies = [];
