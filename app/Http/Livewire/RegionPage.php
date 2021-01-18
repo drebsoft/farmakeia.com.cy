@@ -6,9 +6,12 @@ use App\Models\Availability;
 use App\Models\Pharmacy;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class RegionPage extends Component
 {
+    use WithPagination;
+
     protected $regionMap = [
         'lefkosia' => 'Nicosia',
         'lemesos' => 'Limassol',
@@ -44,6 +47,11 @@ class RegionPage extends Component
         $this->fill(request()->only('search'));
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $this->pharmacies = [];
@@ -75,6 +83,7 @@ class RegionPage extends Component
                 }
             })
             ->where('region', $this->regionMap[$this->selectedRegion])
+            ->orderByRaw('CASE WHEN next_availability IS NULL THEN 1 ELSE 0 END')
             ->orderBy('next_availability')
             ->paginate();
     }

@@ -19,12 +19,12 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        {{ $extrastyles ?? '' }}
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.js" defer></script>
         {{ $scriptloads ?? '' }}
         @livewireStyles
+        @stack('header')
 
     </head>
     <body>
@@ -40,5 +40,11 @@
         {{ $scripts ?? '' }}
 
         @livewireScripts
+
+        <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+                data-cf-beacon='{"token": "a129c661ce744125ae8915fb461dd828"}'
+        ></script>
+        @stack('footer')
+
     </body>
 </html>

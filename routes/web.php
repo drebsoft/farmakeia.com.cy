@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\PagesController;
+use App\Http\Controllers\Admin\PharmacyController as AdminPharmacyController;
+use App\Http\Controllers\MapController;
 use App\Http\Controllers\PharmacyController;
-use App\Services\Geocoding;
+use App\Http\Livewire\RegionPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,22 +17,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'pages.homepage.index')->name('homepage');
+Route::view('/', 'homepage.index')->name('homepage');
 
-Route::get('/farmakeia-{region}', \App\Http\Livewire\RegionPage::class)->name('farmakeia');
+Route::get('/farmakeia-{region}', RegionPage::class)->name('farmakeia');
 
-Route::get('/{am}/farmakeio-{name}', [PagesController::class, 'pharmacy'])->name('farmakeio');
-Route::get('/map', [PagesController::class, 'map'])->name('map');
+Route::get('/{am}/farmakeio-{slug}', [PharmacyController::class, 'pharmacy'])->name('farmakeio');
+Route::get('/map', [MapController::class, 'map'])->name('map');
 
-Route::view('/sxetika/pos-leitourgei', 'pages.about.pos-leitourgei')->name('how-it-works');
-Route::view('/sxetika/politiki-aporritou', 'pages.about.politiki-aporritou')->name('privacy-policy');
+Route::view('/sxetika/pos-leitourgei', 'pos-leitourgei')->name('how-it-works');
+Route::view('/sxetika/politiki-aporritou', 'politiki-aporritou')->name('privacy-policy');
 
-Route::get('/pharmacies', [PharmacyController::class, 'index']);
-
-Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::resource('pharmacies', PharmacyController::class)->except(['index']);
-});
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth:sanctum', 'verified'])
+    ->group(function () {
+        Route::resource('pharmacies', AdminPharmacyController::class);
+    });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->name('dashboard');

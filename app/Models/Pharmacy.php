@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
+use GregKos\GreekStrings\GreekString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 use Str;
 
 class Pharmacy extends Model
 {
     use HasFactory;
     use SoftDeletes;
+    use HasSlug;
 
     protected $guarded = ['id'];
 
@@ -22,9 +26,9 @@ class Pharmacy extends Model
 
     protected $appends = ['seo_url'];
 
-    public function path()
+    public function adminPath()
     {
-        return route('pharmacies.show', ['pharmacy' => $this->id]);
+        return route('admin.pharmacies.show', ['pharmacy' => $this->id]);
     }
 
     public function owner()
@@ -58,14 +62,12 @@ class Pharmacy extends Model
         }
     }
 
-    public function getMapAddressAttribute()
+    public function generateMapAddress()
     {
-        $address = $this->address ?? '';
-        $address = Str::of($address)->slug(' ');
-        $area = $this->area ?? '';
-        $area = Str::of($area)->slug(' ');
-        $region = $this->region ?? '';
-        $region = Str::of($region)->slug(' ');
+        $transliterationHelper = (new GreekString);
+        $address = $transliterationHelper->setString($this->address ?? '')->transliterate();
+        $area = $transliterationHelper->setString($this->area ?? '')->transliterate();
+        $region = $transliterationHelper->setString($this->region ?? '')->transliterate();
         if ($area != '') {
             $address = $address . ', ' . $area;
         }
@@ -82,6 +84,13 @@ class Pharmacy extends Model
 
     public function getSeoUrlAttribute()
     {
-        return route('farmakeio', ['am' => $this->am, 'name' => \Str::slug($this->name)]);
+        return route('farmakeio', ['am' => $this->am, 'slug' => $this->slug]);
+    }
+
+    public function getSlugOptions() : SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom('name')
+            ->saveSlugsTo('slug');
     }
 }

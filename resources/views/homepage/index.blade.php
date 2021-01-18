@@ -4,25 +4,6 @@
         <meta name="description"
               content="Ψάχνεις τα εφημερέυοντα φαρμακεία για σήμερα ή απλά τα φαρμακεία της περιοχής σου; Το farmakeia.com.cy μπορεί να σε βοηθήσει!">
     </x-slot>
-    <x-slot name="extrastyles">
-        <style>
-            #nicosia_svg:hover text,
-            #limassol_svg:hover text,
-            #larnaca_svg:hover text,
-            #ammochostos_svg:hover text,
-            #paphos_svg:hover text {
-                display: block;
-            }
-
-            #nicosia_svg:hover path,
-            #limassol_svg:hover path,
-            #larnaca_svg:hover path,
-            #ammochostos_svg:hover path,
-            #paphos_svg:hover path {
-                fill: #77b251;
-            }
-        </style>
-    </x-slot>
 
     <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
         <div class="text-center">
@@ -35,7 +16,7 @@
         </div>
     </div>
 
-    @include('pages.homepage.partials._cyprusmap')
+    @include('homepage.partials._cyprusmap')
 
     <div class="max-w-screen-xl mx-auto py-8 px-4 sm:py-12 sm:px-6 lg:px-8 lg:pb-5">
         <div class="text-center">
