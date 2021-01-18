@@ -59,6 +59,7 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
             'area' => $this->checkForZero($row['dimos_koinotita'] ?? null),
             'phone' => $this->checkForZero($row['tilefono_farmakioy']),
             'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? null),
+            'map_address' => generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? null), $this->city),
         ]);
 
         if (!in_array($pharmacy->id, $this->touchedIds)) {
