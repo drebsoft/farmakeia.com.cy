@@ -15,6 +15,6 @@ if (!function_exists('generateMapAddress')) {
         if ($region != '') {
             $address = $address . ', ' . $region;
         }
-        return Str::of($address)->replace(' ', '+');
+        return Str::of($address)->replace('&', '%26')->replace(' ', '+');
     }
 }
