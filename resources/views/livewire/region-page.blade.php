@@ -45,7 +45,7 @@
                     @foreach($pharmacies as $pharmacy)
                         @include('pharmacies.partials._card', $pharmacy)
                     @endforeach
-                    {{ $pharmacies->links('vendor.pagination.tailwind') }}
+                    {{ $pharmacies->links() }}
                 @else
                     @include('pharmacies.partials._empty')
                 @endif
