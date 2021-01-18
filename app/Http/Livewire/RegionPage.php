@@ -6,9 +6,12 @@ use App\Models\Availability;
 use App\Models\Pharmacy;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class RegionPage extends Component
 {
+    use WithPagination;
+
     protected $regionMap = [
         'lefkosia' => 'Nicosia',
         'lemesos' => 'Limassol',
