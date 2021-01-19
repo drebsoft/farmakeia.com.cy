@@ -1,52 +1,10 @@
 <x-guest-layout>
+    @push('header')
+        <link rel="stylesheet" href="{{ mix('css/map.css') }}">
+    @endpush
+
     <x-slot name="headerSlot">
         <title>Χάρτης φαρμακείων της Κύπρου</title>
-    </x-slot>
-
-    <x-slot name="extrastyles">
-        <style>
-            .custom-default-map-button {
-                background-image: none;
-                background-clip: padding-box;
-                background-color: rgb(255, 255, 255);
-                display: table-cell;
-                border: 0px;
-                margin: 0px;
-                padding: 0px 17px;
-                text-transform: none;
-                -webkit-appearance: none;
-                position: relative;
-                cursor: pointer;
-                -webkit-user-select: none;
-                direction: ltr;
-                overflow: hidden;
-                text-align: center;
-                height: 40px;
-                vertical-align: middle;
-                color: rgb(86, 86, 86);
-                font-family: Roboto, Arial, sans-serif;
-                font-size: 18px;
-                border-bottom-left-radius: 2px;
-                border-top-left-radius: 2px;
-                -webkit-background-clip: padding-box;
-                -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-                box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
-                min-width: 36px;
-                background-position: initial initial;
-                background-repeat: initial initial;
-            }
-
-            .custom-active-map-button {
-                font-weight: 500;
-                color: rgb(0, 0, 0);
-            }
-
-            .custom-default-map-button:hover,
-            .custom-active-map-button:hover {
-                background-color: rgb(235, 235, 235);
-                color: rgb(0, 0, 0);
-            }
-        </style>
     </x-slot>
 
     @if(!empty($maps_api_key))
