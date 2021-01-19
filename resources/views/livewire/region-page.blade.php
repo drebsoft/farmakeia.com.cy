@@ -45,10 +45,7 @@
                     @foreach($pharmacies as $pharmacy)
                         @include('pharmacies.partials._card', $pharmacy)
                     @endforeach
-
-                    <div class="m-3">
-                        {{ $pharmacies->links() }}
-                    </div>
+                    {{ $pharmacies->links() }}
                 @else
                     @include('pharmacies.partials._empty')
                 @endif
