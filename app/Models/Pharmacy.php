@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use GregKos\GreekStrings\GreekString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use Str;
 
 class Pharmacy extends Model
 {
@@ -60,21 +58,6 @@ class Pharmacy extends Model
             case 'Larnaca':
                 return 'larnaka';
         }
-    }
-
-    public function generateMapAddress()
-    {
-        $transliterationHelper = (new GreekString);
-        $address = $transliterationHelper->setString($this->address ?? '')->transliterate();
-        $area = $transliterationHelper->setString($this->area ?? '')->transliterate();
-        $region = $transliterationHelper->setString($this->region ?? '')->transliterate();
-        if ($area != '') {
-            $address = $address . ', ' . $area;
-        }
-        if ($region != '') {
-            $address = $address . ', ' . $region;
-        }
-        return Str::of($address)->replace(' ', '+');
     }
 
     public function getIsAvailableAttribute()
