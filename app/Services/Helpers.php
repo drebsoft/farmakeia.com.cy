@@ -1,9 +1,13 @@
 <?php
 
-use GregKos\GreekStrings\GreekString;
+namespace App\Services;
 
-if (!function_exists('generateMapAddress')) {
-    function generateMapAddress($address = '', $area = '', $region = ''): string
+use GregKos\GreekStrings\GreekString;
+use Str;
+
+class Helpers
+{
+    public static function generateMapAddress($address = '', $area = '', $region = ''): string
     {
         $transliterationHelper = (new GreekString);
         $address = $transliterationHelper->setString($address ?? '')->transliterate();
