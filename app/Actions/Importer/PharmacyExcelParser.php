@@ -4,6 +4,7 @@ namespace App\Actions\Importer;
 
 use App\Models\Availability;
 use App\Models\Pharmacy;
+use App\Services\Helpers;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\OnEachRow;
@@ -59,6 +60,7 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
             'area' => $this->checkForZero($row['dimos_koinotita'] ?? null),
             'phone' => $this->checkForZero($row['tilefono_farmakioy']),
             'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? null),
+            'map_address' => Helpers::generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? null), $this->city),
         ]);
 
         if (!in_array($pharmacy->id, $this->touchedIds)) {

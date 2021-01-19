@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Pharmacy;
+use App\Services\Helpers;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +21,7 @@ class AddMapAddressToPharmaciesTable extends Migration
 
         foreach (Pharmacy::cursor() as $pharmacy) {
             $pharmacy->update([
-                'map_address' => $pharmacy->generateMapAddress()
+                'map_address' => Helpers::generateMapAddress($pharmacy->address, $pharmacy->area, $pharmacy->region)
             ]);
         }
     }
