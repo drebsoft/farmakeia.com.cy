@@ -118,8 +118,8 @@
                 <div class="w-full px-2">
                     <div class="p-2 rounded-lg bg-gray-600 shadow-lg sm:p-3">
                         <div class="flex items-center justify-between flex-wrap">
-                            <div class="w-0 flex-1 flex items-center">
-                                <p class="ml-3 font-medium text-white truncate">
+                            <div class="flex-1 flex items-center">
+                                <p class="mx-2 mb-2 sm:mr-0 sm:mb-0 font-medium text-center text-white">
                                     <span>Δεν σε βολεύει; Μπορείς να δεις όλα τα φαρμακεία της επαρχίας εδώ</span>
                                 </p>
                             </div>
