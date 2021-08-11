@@ -14,8 +14,6 @@ jobs:
     steps:
       - name: Checkout codebase
         uses: actions/checkout@v2
-      - name: Set PHP Version
-        run: sudo update-alternatives --set php /usr/bin/php7.4
       - name: Cache vendor files
         id: cache
         uses: actions/cache@v2
@@ -26,7 +24,7 @@ jobs:
             vendor-
       - name: Install Dependencies
         if: steps.cache.outputs.cache-hit != 'true'
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist --ignore-platform-reqs
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Dump Autoload
         if: steps.cache.outputs.cache-hit == 'true'
         run: composer dump-autoload -q
