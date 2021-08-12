@@ -15,14 +15,16 @@ class UpdatePharmacyAvailability extends Command
 
     public function handle()
     {
-        $files = collect(File::glob(storage_path('app/mohfiles/City_*')));
+        $files = collect(File::glob(storage_path('app/mohfiles/*')));
         $filecount = $files->count();
         $this->info('Found a total of ' . $filecount . ' to parse.');
         $this->info('====================');
         $filesparsed = 0;
         $files->each(function (string $filePath) use (&$filesparsed) {
-            $city = Str::beforeLast(Str::afterLast($filePath, 'City_'), '.csv');
-            $this->info('Parsing file for ' . $city);
+            $fileName = Str::afterLast($filePath, '/');
+            $period = Str::before($fileName, '_');
+            $city = Str::beforeLast(Str::afterLast($fileName, 'City_'), '.csv');
+            $this->info('Parsing file for ' . $city . ' (' . $period . ')');
             $parser = new PharmacyExcelParser($city);
             $parser->withOutput($this->output)->import($filePath, null, \Maatwebsite\Excel\Excel::CSV);
             $counts = $parser->getCounts();

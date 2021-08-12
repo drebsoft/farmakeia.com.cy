@@ -57,10 +57,10 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
             'region' => $this->city,
             'address' => $row['dieuthinsi'],
             'additional_address' => $this->checkForZero($row['simpliromatiki_dieuthinsi']),
-            'area' => $this->checkForZero($row['dimos_koinotita'] ?? null),
-            'phone' => $this->checkForZero($row['tilefono_farmakioy']),
-            'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? null),
-            'map_address' => Helpers::generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? null), $this->city),
+            'area' => $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? null),
+            'phone' => $this->checkForZero($row['tilefono_farmakioy'] ?? $row['til_farmakioy']),
+            'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? $row['til_oikias'] ?? null),
+            'map_address' => Helpers::generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? null), $this->city),
         ]);
 
         if (!in_array($pharmacy->id, $this->touchedIds)) {
@@ -79,7 +79,7 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
 
         $availability = Availability::updateOrCreate([
             'pharmacy_id' => $pharmacy->id,
-            'date' => Carbon::createFromFormat('d/m/y', $row['hmerominia'])->format('Y-m-d'),
+            'date' => Carbon::createFromFormat('d/m/y', trim($row['hmerominia']))->format('Y-m-d'),
         ]);
 
         if ($availability->wasRecentlyCreated) {
