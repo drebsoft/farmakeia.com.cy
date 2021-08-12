@@ -25,12 +25,14 @@
                                 </svg>
                             </div>
                             <input id="search_pharmacy"
-                                   class="form-input block w-full pl-10 transition ease-in-out duration-150 sm:hidden"
+                                   type="text"
+                                   class="border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 block w-full pl-10 transition ease-in-out duration-150 sm:hidden"
                                    placeholder="Αναζήτηση φαρμακείου"
                                    wire:model="search"
                             >
                             <input id="search_pharmacy_mobile"
-                                   class="hidden form-input w-full pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
+                                   type="text"
+                                   class="hidden border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
                                    placeholder="Αναζήτηση φαρμακείου"
                                    wire:model="search"
                             >
