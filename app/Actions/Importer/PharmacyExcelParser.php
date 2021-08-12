@@ -57,10 +57,10 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
             'region' => $this->city,
             'address' => $row['dieuthinsi'],
             'additional_address' => $this->checkForZero($row['simpliromatiki_dieuthinsi']),
-            'area' => $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? null),
+            'area' => $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? $row['dimos'] ?? null),
             'phone' => $this->checkForZero($row['tilefono_farmakioy'] ?? $row['til_farmakioy']),
             'home_phone' => $this->checkForZero($row['tilefono_oikias'] ?? $row['til_oikias'] ?? null),
-            'map_address' => Helpers::generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? null), $this->city),
+            'map_address' => Helpers::generateMapAddress($row['dieuthinsi'], $this->checkForZero($row['dimos_koinotita'] ?? $row['dimos_koinotitas'] ?? $row['dimos'] ?? null), $this->city),
         ]);
 
         if (!in_array($pharmacy->id, $this->touchedIds)) {
