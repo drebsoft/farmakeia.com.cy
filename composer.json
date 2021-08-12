@@ -14,6 +14,7 @@
         "ext-libxml": "*",
         "bugsnag/bugsnag-laravel": "^2.0",
         "doctrine/dbal": "^2.0",
+        "facebook/graph-sdk": "^5.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "gregkos/greek-strings": "^1.0",
