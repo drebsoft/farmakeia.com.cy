@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'locale' => env('FB_POST_LOCALE'),
     'page_id' => env('FB_PAGE_ID'),
     'app_id' => env('FB_APP_ID'),
     'app_secret' => env('FB_APP_SECRET'),

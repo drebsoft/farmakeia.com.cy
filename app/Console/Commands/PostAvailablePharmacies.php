@@ -37,7 +37,7 @@ class PostAvailablePharmacies extends Command
 
         $this->info('Found a total of ' . $result->count() . ' available pharmacies.');
 
-        setlocale(LC_TIME, 'el_GR');
+        setlocale(LC_TIME, config('facebook.locale'));
         $postContent = 'Εφημερεύοντα φαρμακεία - ' . now()->format('d/m/Y') . PHP_EOL . PHP_EOL;
         $postContent .= 'Δείτε όλα τα φαρμακεία που εφημερεύουν σήμερα, ' . now()->formatLocalized('%A %d %B %Y') . '. Πατήστε τον παρακάτω σύνδεσμο για να τα δείτε σε χάρτη, ή διαλέξτε κάποιο από τα παρακάτω φαρμακεία ανά επαρχία για να δείτε την ακριβή διεύθυνση και το τηλέφωνό του.' . PHP_EOL;
         $postContent .= url('/map') . PHP_EOL . PHP_EOL;
