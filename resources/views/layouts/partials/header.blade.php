@@ -23,6 +23,9 @@
                     <a href="{{ route('map') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                         Προβολή Χάρτη
                     </a>
+                    <a href="{{ route('rapid-tests') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                        Χάρτης Rapid Test
+                    </a>
                     <a href="{{ route('how-it-works') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
                         Πώς Λειτουργεί
                     </a>
@@ -60,6 +63,12 @@
                             <a href="{{ route('map') }}" class="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50">
                                 <div class="ml-4 text-base font-medium text-gray-900">
                                     Προβολή Χάρτη
+                                </div>
+                            </a>
+
+                            <a href="{{ route('rapid-tests') }}" class="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50">
+                                <div class="ml-4 text-base font-medium text-gray-900">
+                                    Χάρτης Rapid Test
                                 </div>
                             </a>
 
