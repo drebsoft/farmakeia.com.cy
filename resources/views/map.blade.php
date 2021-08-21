@@ -90,6 +90,7 @@
                             position: latLng,
                             title: 'Φαρμακείο ' + pharmacies[i].name,
                             map: map,
+                            icon: '{{ url('images/pharmacy_map_icon.png') }}'
                         });
                         const content = `
                             <div id="infowindow">
@@ -115,6 +116,7 @@
                             position: latLng,
                             title: 'Φαρμακείο ' + availables[i].name,
                             map: map,
+                            icon: '{{ url('images/pharmacy_map_icon.png') }}'
                         });
                         const content = `
                             <div id="infowindow">
