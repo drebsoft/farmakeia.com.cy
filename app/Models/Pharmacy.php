@@ -19,7 +19,8 @@ class Pharmacy extends Model
     protected $guarded = ['id'];
 
     protected $casts = [
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
+        'does_rapid_tests' => 'boolean',
     ];
 
     protected $appends = ['seo_url'];

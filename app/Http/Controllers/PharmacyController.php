@@ -10,6 +10,8 @@ class PharmacyController extends Controller
     {
         $pharmacy = Pharmacy::where('am', $am)->where('slug', $slug)->first();
 
+        $pharmacy->update(['does_rapid_tests'=>true]);
+
         if (!$pharmacy) {
             return response()->view('pharmacies.not_found', [], 404);
         }
