@@ -27,6 +27,7 @@
                 let allPharmaciesCluster = null;
                 let availablePharmaciesCluster = null;
                 let rapidTestCluster = null;
+                let defaultTab = '{{ $defaultTab }}';
 
                 const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
@@ -68,7 +69,7 @@
                     controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
                     controlText.addEventListener("click", () => {
-                        updateClusterVisibility('available');
+                        updateClusterVisibility('availables');
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(false);
                             document.getElementById('custom-map-button-for-all').className = "custom-default-map-button"
@@ -93,7 +94,7 @@
                             rapidTestCluster.setMap(null)
                             break;
 
-                        case 'available':
+                        case 'availables':
                             allPharmaciesCluster.setMap(null)
                             availablePharmaciesCluster.setMap(map)
                             rapidTestCluster.setMap(null)
@@ -170,9 +171,9 @@
                             infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
-                        @if(!empty($availables) && $availables->count() > 0)
-                        marker.setVisible(false);
-                        @endif
+                        if (defaultTab !== 'all'){
+                            marker.setVisible(false);
+                        }
                         pharmacyMarkers.push(marker);
 
                     }
@@ -197,6 +198,9 @@
                             infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
+                        if (defaultTab !== 'availables'){
+                            marker.setVisible(false);
+                        }
                         availableMarkers.push(marker);
                     }
 
@@ -220,7 +224,9 @@
                             infoWindow.setContent(content);
                             infoWindow.open(map, marker);
                         });
-                        marker.setVisible(false);
+                        if (defaultTab !== 'rapid'){
+                            marker.setVisible(false);
+                        }
                         rapidTestMarkers.push(marker);
                     }
 
@@ -239,17 +245,11 @@
                             "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
                     });
 
-                    updateClusterVisibility('available')
+                    updateClusterVisibility(defaultTab)
 
-                    @if(!empty($availables) && $availables->count() > 0)
-                        ShowPharmaciesControl(centerControlDiv, false);
-                        ShowAvailablesControl(centerControlDiv, true);
-                    @else
-                        ShowPharmaciesControl(centerControlDiv, true);
-                        ShowAvailablesControl(centerControlDiv, false);
-                    @endif
-
-                    ShowRapidTestsControl(centerControlDiv, false)
+                    ShowPharmaciesControl(centerControlDiv, defaultTab==='all');
+                    ShowAvailablesControl(centerControlDiv, defaultTab==='availables');
+                    ShowRapidTestsControl(centerControlDiv, defaultTab==='rapid')
 
                     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
                 }
