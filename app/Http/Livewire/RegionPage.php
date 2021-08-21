@@ -98,4 +98,11 @@ class RegionPage extends Component
             ->orderBy('next_availability')
             ->paginate();
     }
+
+    public function setPage($page)
+    {
+        $this->page = $page;
+
+        $this->emit('pageChanged');
+    }
 }
