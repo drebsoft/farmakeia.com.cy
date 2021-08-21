@@ -15,6 +15,7 @@ class AddRapidTestColumnToPharmaciesTable extends Migration
     {
         Schema::table('pharmacies', function (Blueprint $table) {
             $table->boolean('does_rapid_tests')->after('lng')->default(false);
+            $table->boolean('rapid_test_cost')->after('does_rapid_tests')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddRapidTestColumnToPharmaciesTable extends Migration
     {
         Schema::table('pharmacies', function (Blueprint $table) {
             $table->dropColumn('does_rapid_tests');
+            $table->dropColumn('rapid_test_cost');
         });
     }
 }

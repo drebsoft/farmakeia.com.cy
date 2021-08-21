@@ -32,11 +32,14 @@ class RegionPage extends Component
 
     public $search;
 
+    public $rapid_tests_only = false;
+
     public $page = 1;
 
     protected $queryString = [
         'search' => ['except' => ''],
         'page' => ['except' => 1],
+        'rapid_tests_only' => ['except' => false]
     ];
 
     public $selectedRegion;
@@ -50,6 +53,11 @@ class RegionPage extends Component
     public function updatingSearch()
     {
         $this->resetPage();
+    }
+
+    public function toggleRapidTests()
+    {
+        $this->rapid_tests_only = !$this->rapid_tests_only;
     }
 
     public function render()
@@ -79,10 +87,13 @@ class RegionPage extends Component
             ->tap(function ($query) {
                 if (!empty($this->search)) {
                     $query->where('name', 'like', '%' . $this->search . '%')
-                          ->orWhere('address', 'like', '%' . $this->search . '%');
+                        ->orWhere('address', 'like', '%' . $this->search . '%');
                 }
             })
             ->where('region', $this->regionMap[$this->selectedRegion])
+            ->when($this->rapid_tests_only, function ($query){
+                $query->where('does_rapid_tests', true);
+            })
             ->orderByRaw('CASE WHEN next_availability IS NULL THEN 1 ELSE 0 END')
             ->orderBy('next_availability')
             ->paginate();
