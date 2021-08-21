@@ -86,12 +86,14 @@ class RegionPage extends Component
             ])
             ->tap(function ($query) {
                 if (!empty($this->search)) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('address', 'like', '%' . $this->search . '%');
+                    $query->where(function ($query) {
+                        $query->where('name', 'like', '%' . $this->search . '%')
+                            ->orWhere('address', 'like', '%' . $this->search . '%');
+                    });
                 }
             })
             ->where('region', $this->regionMap[$this->selectedRegion])
-            ->when($this->rapid_tests_only, function ($query){
+            ->when($this->rapid_tests_only, function ($query) {
                 $query->where('does_rapid_tests', true);
             })
             ->orderByRaw('CASE WHEN next_availability IS NULL THEN 1 ELSE 0 END')

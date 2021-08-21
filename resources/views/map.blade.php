@@ -26,6 +26,7 @@
                 let map;
                 let allPharmaciesCluster = null;
                 let availablePharmaciesCluster = null;
+                let rapidTestCluster = null;
 
                 const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
@@ -39,7 +40,7 @@
                     controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
                     controlText.addEventListener("click", () => {
-                        updateClusterVisibility(true);
+                        updateClusterVisibility('all');
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(true);
                             document.getElementById('custom-map-button-for-all').className = "custom-default-map-button custom-active-map-button"
@@ -47,6 +48,10 @@
                         for (let i = 0; i < availableMarkers.length; i++) {
                             availableMarkers[i].setVisible(false);
                             document.getElementById('custom-map-button-for-available').className = "custom-default-map-button"
+                        }
+                        for (let i = 0; i < rapidTestMarkers.length; i++) {
+                            rapidTestMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-rapid').className = "custom-default-map-button"
                         }
                     });
                 }
@@ -63,7 +68,7 @@
                     controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
                     controlText.addEventListener("click", () => {
-                        updateClusterVisibility(false);
+                        updateClusterVisibility('available');
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(false);
                             document.getElementById('custom-map-button-for-all').className = "custom-default-map-button"
@@ -72,17 +77,63 @@
                             availableMarkers[i].setVisible(true);
                             document.getElementById('custom-map-button-for-available').className = "custom-default-map-button custom-active-map-button"
                         }
+                        for (let i = 0; i < rapidTestMarkers.length; i++) {
+                            rapidTestMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-rapid').className = "custom-default-map-button"
+                        }
                     });
                 }
 
-                function updateClusterVisibility(showAllCluster) {
-                    if (showAllCluster) {
-                        allPharmaciesCluster.setMap(map)
-                        availablePharmaciesCluster.setMap(null)
-                    } else {
-                        allPharmaciesCluster.setMap(null)
-                        availablePharmaciesCluster.setMap(map)
+                function updateClusterVisibility(type) {
+
+                    switch (type){
+                        case 'all':
+                            allPharmaciesCluster.setMap(map)
+                            availablePharmaciesCluster.setMap(null)
+                            rapidTestCluster.setMap(null)
+                            break;
+
+                        case 'available':
+                            allPharmaciesCluster.setMap(null)
+                            availablePharmaciesCluster.setMap(map)
+                            rapidTestCluster.setMap(null)
+                            break;
+
+                        case 'rapid':
+                            allPharmaciesCluster.setMap(null)
+                            availablePharmaciesCluster.setMap(null)
+                            rapidTestCluster.setMap(map)
+                            break;
+
                     }
+                }
+
+                const withRapidTests = @json((!empty($withRapidTests) && $withRapidTests->count() > 0) ? $withRapidTests : []);
+                let rapidTestMarkers = [];
+                function ShowRapidTestsControl(controlDiv, setActive) {
+                    // Set CSS for the control interior.
+                    const controlText = document.createElement("div");
+                    controlText.className = setActive ? "custom-default-map-button custom-active-map-button" : "custom-default-map-button";
+                    controlText.id = "custom-map-button-for-rapid";
+                    controlText.innerHTML = "Rapid Tests";
+                    controlText.title = "Πατήστε για προβολή των φαρμακείων που διενεργούν rapid tests";
+                    controlDiv.appendChild(controlText);
+                    // Setup the click event listeners: simply set the map to Chicago.
+                    controlText.addEventListener("click", () => {
+                        updateClusterVisibility('rapid');
+                        for (let i = 0; i < pharmacyMarkers.length; i++) {
+                            pharmacyMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-all').className = "custom-default-map-button"
+                        }
+                        for (let i = 0; i < availableMarkers.length; i++) {
+                            availableMarkers[i].setVisible(false);
+                            document.getElementById('custom-map-button-for-available').className = "custom-default-map-button"
+                        }
+                        for (let i = 0; i < rapidTestMarkers.length; i++) {
+                            rapidTestMarkers[i].setVisible(true);
+                            document.getElementById('custom-map-button-for-rapid').className = "custom-default-map-button custom-active-map-button"
+                        }
+                    });
                 }
 
                 function initMap() {
@@ -149,6 +200,30 @@
                         availableMarkers.push(marker);
                     }
 
+                    for (let i = 0; i < withRapidTests.length; i++) {
+                        const latLng = new google.maps.LatLng(withRapidTests[i].lat, withRapidTests[i].lng);
+                        const marker = new google.maps.Marker({
+                            position: latLng,
+                            title: 'Φαρμακείο ' + withRapidTests[i].name,
+                            map: map,
+                            icon: '{{ url('images/pharmacy_map_icon.png') }}'
+                        });
+                        const content = `
+                            <div id="infowindow">
+                                <span>Φαρμακείο ${withRapidTests[i].name}</span><br>
+                                <a href="${withRapidTests[i].seo_url}" class="text-blue-500">Προβολή</a> |
+                                <a href="tel:${withRapidTests[i].phone}" class="text-blue-500">Τηλέφωνο</a> |
+                                <a href="https://www.google.com/maps/dir/?api=1&destination=${withRapidTests[i].lat},${withRapidTests[i].lng}" target="_blank" class="text-blue-500">Οδηγίες</a>
+                            </div>`;
+                        marker.addListener("click", () => {
+                            infoWindow.close();
+                            infoWindow.setContent(content);
+                            infoWindow.open(map, marker);
+                        });
+                        marker.setVisible(false);
+                        rapidTestMarkers.push(marker);
+                    }
+
                     allPharmaciesCluster = new MarkerClusterer(map, pharmacyMarkers, {
                         imagePath:
                             "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
@@ -159,15 +234,22 @@
                             "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
                     });
 
-                    updateClusterVisibility(false)
+                    rapidTestCluster = new MarkerClusterer(map, rapidTestMarkers, {
+                        imagePath:
+                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    });
+
+                    updateClusterVisibility('available')
 
                     @if(!empty($availables) && $availables->count() > 0)
-                    ShowPharmaciesControl(centerControlDiv, false);
-                    ShowAvailablesControl(centerControlDiv, true);
+                        ShowPharmaciesControl(centerControlDiv, false);
+                        ShowAvailablesControl(centerControlDiv, true);
                     @else
-                    ShowPharmaciesControl(centerControlDiv, true);
-                    ShowAvailablesControl(centerControlDiv, false);
+                        ShowPharmaciesControl(centerControlDiv, true);
+                        ShowAvailablesControl(centerControlDiv, false);
                     @endif
+
+                    ShowRapidTestsControl(centerControlDiv, false)
 
                     map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
                 }
