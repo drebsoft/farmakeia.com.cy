@@ -9,27 +9,24 @@
         <section>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="md:flex md:items-center md:justify-between">
-                    <div class="flex ">
-                        <div class="flex-1 min-w-0">
-                            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
-                                <h1 class="text-3xl font-bold leading-tight text-gray-900">
-                                    Φαρμακείο {{ $pharmacy->name }}
-                                </h1>
-                                @if($pharmacy->does_rapid_tests)
-                                    <div
-                                        class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-pink-100 text-pink-800"
-                                    >
-                                        Διενεργεί Rapid tests
-                                    </div>
-                                @endif
-                            </div>
-                            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
-                                <div class="mt-2 flex items-center text-sm leading-5 text-gray-900 sm:mr-6">
-                                    {{ $pharmacy->address }} @isset($pharmacy->additional_address)({{ $pharmacy->additional_address }})@endisset
+                    <div class="flex-1 min-w-0">
+                        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
+                            <h1 class="text-3xl font-bold leading-tight text-gray-900">
+                                Φαρμακείο {{ $pharmacy->name }}
+                            </h1>
+                            @if($pharmacy->does_rapid_tests)
+                                <div
+                                    class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-pink-100 text-pink-800"
+                                >
+                                    Διενεργεί Rapid tests
                                 </div>
+                            @endif
+                        </div>
+                        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
+                            <div class="mt-2 flex items-center text-sm leading-5 text-gray-900 sm:mr-6">
+                                {{ $pharmacy->address }} @isset($pharmacy->additional_address)({{ $pharmacy->additional_address }})@endisset
                             </div>
                         </div>
-
                     </div>
                     <div class="mt-4 flex md:mt-0 md:ml-4">
                         @if($pharmacy->phone)
@@ -77,7 +74,7 @@
 
                 @if(!empty($nextAvailabilities->first()) && $nextAvailabilities->first()->date->isBefore(now()->addDays(4)))
                     <div
-                        class="my-2 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800">
+                        class="my-4 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800">
                         @if($nextAvailabilities->first()->date->isToday())
                             <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-400" fill="currentColor"
                                  viewBox="0 0 8 8">
@@ -90,17 +87,6 @@
                         @endif
                     </div>
                 @endif
-{{--                @if($pharmacy->does_rapid_tests)--}}
-{{--                    <div--}}
-{{--                        class="my-2 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 bg-pink-100 text-pink-800"--}}
-{{--                    >--}}
-{{--                        <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-pink-400" fill="currentColor"--}}
-{{--                             viewBox="0 0 8 8">--}}
-{{--                            <circle cx="4" cy="4" r="3"></circle>--}}
-{{--                        </svg>--}}
-{{--                        Διενεργεί Rapid tests--}}
-{{--                    </div>--}}
-{{--                @endif--}}
 
                 <div class="flex flex-col md:flex-row px-4 py-8 sm:px-0">
                     <div class="w-full md:w-1/5">
