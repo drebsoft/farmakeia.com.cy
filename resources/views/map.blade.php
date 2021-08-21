@@ -14,6 +14,7 @@
                 src="https://maps.googleapis.com/maps/api/js?key={{ $maps_api_key }}&callback=initMap&libraries=&v=weekly"
                 defer
             ></script>
+            <script src="https://unpkg.com/@google/markerclustererplus@4.0.1/dist/markerclustererplus.min.js"></script>
         </x-slot>
     @endif
 
@@ -23,6 +24,8 @@
         <x-slot name="scripts">
             <script>
                 let map;
+                let allPharmaciesCluster = null;
+                let availablePharmaciesCluster = null;
 
                 const pharmacies = @json((!empty($pharmacies) && $pharmacies->count() > 0) ? $pharmacies : []);
                 let pharmacyMarkers = [];
@@ -36,6 +39,7 @@
                     controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
                     controlText.addEventListener("click", () => {
+                        updateClusterVisibility(true);
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(true);
                             document.getElementById('custom-map-button-for-all').className = "custom-default-map-button custom-active-map-button"
@@ -59,6 +63,7 @@
                     controlDiv.appendChild(controlText);
                     // Setup the click event listeners: simply set the map to Chicago.
                     controlText.addEventListener("click", () => {
+                        updateClusterVisibility(false);
                         for (let i = 0; i < pharmacyMarkers.length; i++) {
                             pharmacyMarkers[i].setVisible(false);
                             document.getElementById('custom-map-button-for-all').className = "custom-default-map-button"
@@ -68,6 +73,16 @@
                             document.getElementById('custom-map-button-for-available').className = "custom-default-map-button custom-active-map-button"
                         }
                     });
+                }
+
+                function updateClusterVisibility(showAllCluster) {
+                    if (showAllCluster) {
+                        allPharmaciesCluster.setMap(map)
+                        availablePharmaciesCluster.setMap(null)
+                    } else {
+                        allPharmaciesCluster.setMap(null)
+                        availablePharmaciesCluster.setMap(map)
+                    }
                 }
 
                 function initMap() {
@@ -108,6 +123,7 @@
                         marker.setVisible(false);
                         @endif
                         pharmacyMarkers.push(marker);
+
                     }
 
                     for (let i = 0; i < availables.length; i++) {
@@ -132,6 +148,18 @@
                         });
                         availableMarkers.push(marker);
                     }
+
+                    allPharmaciesCluster = new MarkerClusterer(map, pharmacyMarkers, {
+                        imagePath:
+                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    });
+
+                    availablePharmaciesCluster = new MarkerClusterer(map, availableMarkers, {
+                        imagePath:
+                            "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
+                    });
+
+                    updateClusterVisibility(false)
 
                     @if(!empty($availables) && $availables->count() > 0)
                     ShowPharmaciesControl(centerControlDiv, false);
