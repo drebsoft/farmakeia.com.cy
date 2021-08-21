@@ -23,6 +23,7 @@ Route::get('/farmakeia-{region}', RegionPage::class)->name('farmakeia');
 
 Route::get('/{am}/farmakeio-{slug}', [PharmacyController::class, 'pharmacy'])->name('farmakeio');
 Route::get('/map', [MapController::class, 'map'])->name('map');
+Route::get('/map/rapid-tests', [MapController::class, 'map'])->name('rapid-tests');
 
 Route::view('/sxetika/pos-leitourgei', 'pos-leitourgei')->name('how-it-works');
 Route::view('/sxetika/politiki-aporritou', 'politiki-aporritou')->name('privacy-policy');

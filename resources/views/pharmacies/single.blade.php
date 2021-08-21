@@ -14,6 +14,13 @@
                             <h1 class="text-3xl font-bold leading-tight text-gray-900">
                                 Φαρμακείο {{ $pharmacy->name }}
                             </h1>
+                            @if($pharmacy->does_rapid_tests)
+                                <div
+                                    class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-pink-100 text-pink-800"
+                                >
+                                    Διενεργεί Rapid tests
+                                </div>
+                            @endif
                         </div>
                         <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
                             <div class="mt-2 flex items-center text-sm leading-5 text-gray-900 sm:mr-6">

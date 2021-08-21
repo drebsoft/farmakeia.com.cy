@@ -12,30 +12,41 @@
                 <h1 class="text-lg leading-6 font-medium text-gray-900">
                     Φαρμακεία {{ __($region . '_with_article') }}
                 </h1>
-                <div>
-                    <label for="search_pharmacy" class="sr-only">Search</label>
-                    <div class="flex rounded-md shadow-sm">
-                        <div class="relative flex-grow focus-within:z-10">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
-                                     viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                          d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                          clip-rule="evenodd"/>
-                                </svg>
+                <div class="flex">
+                    <div class="self-center mr-4">
+                        @php($classes = $this->rapid_tests_only ?  'text-white bg-pink-600 hover:bg-pink-700' : 'text-pink-600 border-2 border-pink-600')
+                        <button type="button"
+                                wire:click="toggleRapidTests"
+                                class="inline-flex items-center px-3.5 py-2 border border-transparent text-sm leading-4 font-medium rounded-full shadow-sm {{ $classes }}"
+                        >
+                            Μόνο όσα διενεργούν Rapid tests
+                        </button>
+                    </div>
+                    <div>
+                        <label for="search_pharmacy" class="sr-only">Search</label>
+                        <div class="flex rounded-md shadow-sm">
+                            <div class="relative flex-grow focus-within:z-10">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                              d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                              clip-rule="evenodd"/>
+                                    </svg>
+                                </div>
+                                <input id="search_pharmacy"
+                                       type="text"
+                                       class="border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 block w-full pl-10 transition ease-in-out duration-150 sm:hidden"
+                                       placeholder="Αναζήτηση φαρμακείου"
+                                       wire:model="search"
+                                >
+                                <input id="search_pharmacy_mobile"
+                                       type="text"
+                                       class="hidden border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
+                                       placeholder="Αναζήτηση φαρμακείου"
+                                       wire:model="search"
+                                >
                             </div>
-                            <input id="search_pharmacy"
-                                   type="text"
-                                   class="border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 block w-full pl-10 transition ease-in-out duration-150 sm:hidden"
-                                   placeholder="Αναζήτηση φαρμακείου"
-                                   wire:model="search"
-                            >
-                            <input id="search_pharmacy_mobile"
-                                   type="text"
-                                   class="hidden border-gray-300 rounded-md focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50 w-full pl-10 transition ease-in-out duration-150 sm:block sm:text-sm sm:leading-5"
-                                   placeholder="Αναζήτηση φαρμακείου"
-                                   wire:model="search"
-                            >
                         </div>
                     </div>
                 </div>

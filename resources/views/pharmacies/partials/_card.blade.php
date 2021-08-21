@@ -25,6 +25,13 @@
                                     Εφημερεύει
                                 </span>
                             @endif
+                            @if($pharmacy->does_rapid_tests)
+                                <span
+                                    class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-pink-100 text-pink-800"
+                                >
+                                    Διενεργεί Rapid tests
+                                </span>
+                            @endif
                         </h2>
                     </a>
                     <p class="text-sm leading-5 text-gray-500">
