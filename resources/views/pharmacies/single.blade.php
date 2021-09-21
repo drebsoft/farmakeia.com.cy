@@ -74,13 +74,19 @@
 
                 @if(!empty($nextAvailabilities->first()) && $nextAvailabilities->first()->date->isBefore(now()->addDays(4)))
                     <div
-                        class="my-4 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800">
+                        class="my-4 w-full inline-flex items-center justify-center px-4 py-2 rounded-md text-sm font-medium leading-5 {{ $nextAvailabilities->first()->date->isToday() ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
                         @if($nextAvailabilities->first()->date->isToday())
                             <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-green-400" fill="currentColor"
                                  viewBox="0 0 8 8">
                                 <circle cx="4" cy="4" r="3"></circle>
                             </svg>
                             <span>Εφημερεύει Σήμερα!</span>
+                        @elseif($nextAvailabilities->first()->date->isTomorrow())
+                            <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-blue-400" fill="currentColor"
+                                 viewBox="0 0 8 8">
+                                <circle cx="4" cy="4" r="3"></circle>
+                            </svg>
+                            <span>Εφημερεύει Αύριο!</span>
                         @else
                             Επόμενη
                             εφημερία: {{ $nextAvailabilities->first()->date->dayName . ', ' . $nextAvailabilities->first()->date->format('d/m/Y') }}
