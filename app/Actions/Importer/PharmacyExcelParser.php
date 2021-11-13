@@ -66,12 +66,10 @@ class PharmacyExcelParser implements OnEachRow, WithHeadingRow, WithProgressBar
         if (!in_array($pharmacy->id, $this->touchedIds)) {
             if ($pharmacy->wasRecentlyCreated) {
                 $this->pharmacyCounts['added']++;
-            }
-
-            if (!$pharmacy->wasRecentlyCreated) {
-                $pharmacy->wasChanged()
-                    ? $this->pharmacyCounts['updated']++
-                    : $this->pharmacyCounts['alreadyFine']++;
+            } else if ($pharmacy->wasChanged()) {
+                $this->pharmacyCounts['updated']++;
+            } else {
+                $this->pharmacyCounts['alreadyFine']++;
             }
 
             $this->touchedIds[] = $pharmacy->id;
