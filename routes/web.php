@@ -35,6 +35,6 @@ Route::prefix('admin')
         Route::resource('pharmacies', AdminPharmacyController::class);
     });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
+Route::view('/dashboard', 'admin.dashboard')
+    ->middleware(['auth:sanctum', 'verified'])
+    ->name('dashboard');

@@ -30,6 +30,22 @@
                         Πώς Λειτουργεί
                     </a>
                 </nav>
+                @auth
+                    <div class="flex items-center md:ml-12">
+                        <a href="{{ route('profile.show') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            {{ auth()->user()->name }}
+                        </a>
+                    </div>
+                @elseauth
+                    <div class="flex items-center md:ml-12">
+                        <a href="{{ route('login') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                            Login
+                        </a>
+                        <a href="{{ route('register') }}" class="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                            Register
+                        </a>
+                    </div>
+                @endauth
             </div>
         </div>
     </div>

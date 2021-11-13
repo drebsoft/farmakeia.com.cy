@@ -1,19 +1,3 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
-
-#nicosia_svg:hover text,
-#limassol_svg:hover text,
-#larnaca_svg:hover text,
-#ammochostos_svg:hover text,
-#paphos_svg:hover text {
-    display: block;
-}
-
-#nicosia_svg:hover path,
-#limassol_svg:hover path,
-#larnaca_svg:hover path,
-#ammochostos_svg:hover path,
-#paphos_svg:hover path {
-    fill: #77b251;
-}
