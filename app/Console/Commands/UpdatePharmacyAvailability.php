@@ -15,7 +15,7 @@ class UpdatePharmacyAvailability extends Command
 
     public function handle()
     {
-        $files = collect(File::glob(storage_path('app/mohfiles/Limassol.csv')));
+        $files = collect(File::glob(storage_path('app/mohfiles/*.csv')));
         $filecount = $files->count();
 
         $this->info('Found a total of ' . $filecount . ' to parse.');
