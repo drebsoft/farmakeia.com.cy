@@ -71,7 +71,7 @@ class Geocoding
 
     private function relayRequest(string $origin)
     {
-        $api_key = config('googlemaps.api_key');
+        $api_key = config('googlemaps.server_api_key');
         $url = 'https://maps.googleapis.com/maps/api/geocode/json?'
             . $origin . '=' . $this->original
             . '&key=' . $api_key;

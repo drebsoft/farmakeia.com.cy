@@ -13,4 +13,5 @@ return [
     */
 
     'api_key' => env('MAPS_API_KEY', ''),
+    'server_api_key' => env('MAPS_SERVER_API_KEY', ''),
 ];
