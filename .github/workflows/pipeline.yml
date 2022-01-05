@@ -48,20 +48,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Update remote project
-        uses: appleboy/ssh-action@master
+      - name: Trigger Forge deployment
+        uses: jbrooksuk/laravel-forge-action@v1.0.2
         with:
-          key: ${{ secrets.SSH_KEY }}
-          username: ${{ secrets.SSH_USERNAME }}
-          host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: |
-            cd ${{ secrets.SSH_PATH }}
-            php artisan down
-            git pull --ff-only
-            composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-            composer dump-autoload -q
-            php artisan optimize
-            php artisan migrate --force
-            php artisan up
+          trigger_url: ${{ secrets.TRIGGER_URL }}
