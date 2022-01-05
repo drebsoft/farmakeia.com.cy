@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\PostAvailablePharmacies;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,7 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command(PostAvailablePharmacies::class, ['region' => 'nicosia'])->dailyAt('06:00');
+        $schedule->command(PostAvailablePharmacies::class, ['region' => 'limassol'])->dailyAt('06:30');
+        $schedule->command(PostAvailablePharmacies::class, ['region' => 'larnaca'])->dailyAt('07:00');
+        $schedule->command(PostAvailablePharmacies::class, ['region' => 'paphos'])->dailyAt('07:30');
+        $schedule->command(PostAvailablePharmacies::class, ['region' => 'paralimni'])->dailyAt('08:00');
     }
 
     /**
