@@ -1,12 +1,12 @@
-<p align="center"><a href="https://farmakeia.com.cy" target="_blank"><img src="https://raw.githubusercontent.com/dodekatheon/zeus/master/public/logo.png" width="100"></a></p>
+<p align="center"><a href="https://farmakeia.com.cy" target="_blank"><img src="https://raw.githubusercontent.com/drebsoft/farmakeia.com.cy/master/public/logo.png" width="100"></a></p>
 
 <p align="center">
-<img src="https://github.com/dodekatheon/zeus/workflows/pipeline/badge.svg" alt="Pipeline Status">
+<img src="https://github.com/drebsoft/farmakeia.com.cy/workflows/pipeline/badge.svg" alt="Pipeline Status">
 </p>
 
-## About Project Zeus
+## About Farmakeia.com.cy
 
-Project Zeus is a webapp that allows its users to quickly find a list of and details about all the previous, current, or future on-call pharmacies across Cyprus. It includes a lot of cool features, such as:
+Farmakeia.com.cy is a webapp that allows its users to quickly find a list of and details about all the previous, current, or future on-call pharmacies across Cyprus. It includes a lot of cool features, such as:
 
 - The ability to search for pharmacies by region
 - The ability to filter a region's pharmacy by name or address
