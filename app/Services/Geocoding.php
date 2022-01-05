@@ -75,18 +75,21 @@ class Geocoding
         $url = 'https://maps.googleapis.com/maps/api/geocode/json?'
             . $origin . '=' . $this->original
             . '&key=' . $api_key;
-        $response = Http::get($url)['results'][0] ?? null;
+        $response = Http::get($url);
 
-        if ($response === null) {
+        $result = $response['results'][0] ?? null;
+
+        if ($result === null) {
+            logger()->debug($response->body());
             return null;
         }
 
         if ($origin === 'address') {
-            return $response['geometry']['location']['lat'] . ',' . $response['geometry']['location']['lng'];
+            return $result['geometry']['location']['lat'] . ',' . $result['geometry']['location']['lng'];
         }
 
         if ($origin === 'latlng') {
-            return $response['formatted_address'];
+            return $result['formatted_address'];
         }
 
         return null;
