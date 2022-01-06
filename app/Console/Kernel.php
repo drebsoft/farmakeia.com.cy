@@ -25,11 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command(PostAvailablePharmacies::class, ['region' => 'nicosia'])->dailyAt('06:00');
-        $schedule->command(PostAvailablePharmacies::class, ['region' => 'limassol'])->dailyAt('06:30');
-        $schedule->command(PostAvailablePharmacies::class, ['region' => 'larnaca'])->dailyAt('07:00');
-        $schedule->command(PostAvailablePharmacies::class, ['region' => 'paphos'])->dailyAt('07:30');
-        $schedule->command(PostAvailablePharmacies::class, ['region' => 'paralimni'])->dailyAt('08:00');
+        $schedule->command(PostAvailablePharmacies::class, ['nicosia'])->dailyAt('06:00');
+        $schedule->command(PostAvailablePharmacies::class, ['limassol'])->dailyAt('06:30');
+        $schedule->command(PostAvailablePharmacies::class, ['larnaca'])->dailyAt('07:00');
+        $schedule->command(PostAvailablePharmacies::class, ['paphos'])->dailyAt('07:30');
+        $schedule->command(PostAvailablePharmacies::class, ['paralimni'])->dailyAt('08:00');
     }
 
     /**
