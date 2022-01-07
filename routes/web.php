@@ -27,14 +27,3 @@ Route::get('/map/rapid-tests', [MapController::class, 'map'])->name('rapid-tests
 
 Route::view('/sxetika/pos-leitourgei', 'pos-leitourgei')->name('how-it-works');
 Route::view('/sxetika/politiki-aporritou', 'politiki-aporritou')->name('privacy-policy');
-
-Route::prefix('admin')
-    ->name('admin.')
-    ->middleware(['auth:sanctum', 'verified'])
-    ->group(function () {
-        Route::resource('pharmacies', AdminPharmacyController::class);
-    });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('dashboard');
