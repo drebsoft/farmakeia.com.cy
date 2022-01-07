@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -48,6 +48,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
 
     /**
@@ -62,5 +63,15 @@ class User extends Authenticatable
     public function pharmacy()
     {
         return $this->hasOne(Pharmacy::class, 'owner_id');
+    }
+
+    public function canAccessFilament(): bool
+    {
+        return $this->is_admin === true;
+    }
+
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name);
     }
 }
