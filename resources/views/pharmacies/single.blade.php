@@ -1,8 +1,8 @@
 <x-guest-layout>
     <x-slot name="headerSlot">
-        <title>Φαρμακείο {{ $pharmacy->name }}</title>
+        <title>{{ __('general.pharmacy') . ' ' . $pharmacy->name }}</title>
         <meta name="description"
-              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} {{ __($pharmacy->region . '_with_article') }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
+              content="Ψάχνεις το φαρμακείο {{ $pharmacy->name }} {{ __('general.' . $pharmacy->region . '_with_article') }}; Δες όλα τα στοιχεία επικοινωνίας και τις επόμενες εφημερίες μέσα απο το farmakeia.com.cy.">
     </x-slot>
 
     <div class="py-10">
@@ -12,7 +12,7 @@
                     <div class="flex-1 min-w-0">
                         <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap">
                             <h1 class="text-3xl font-bold leading-tight text-gray-900">
-                                Φαρμακείο {{ $pharmacy->name }}
+                                {{ __('general.pharmacy') . ' ' . $pharmacy->name }}
                             </h1>
                             @if($pharmacy->does_rapid_tests)
                                 <div
@@ -140,7 +140,7 @@
                                 <div class="rounded-md shadow-sm">
                                     <a href="{{ route('farmakeia', ['region' => $pharmacy->getSeoRegionAlias()]) }}"
                                        class="flex items-center justify-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-800 bg-white hover:text-gray-900 focus:outline-none focus:shadow-outline transition ease-in-out duration-150">
-                                        Φαρμακεία {{ __($pharmacy->region . '_with_article') }}
+                                        Φαρμακεία {{ __('general.' . $pharmacy->region . '_with_article') }}
                                     </a>
                                 </div>
                             </div>

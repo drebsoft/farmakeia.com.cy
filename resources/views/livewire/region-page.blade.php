@@ -1,7 +1,7 @@
 <x-slot name="headerSlot">
-    <title>Φαρμακεία {{ __($region . '_with_article') }}</title>
+    <title>{{ __('general.pharmacies') . ' '. __('general.'.$region . '_with_article') }}</title>
     <meta name="description"
-          content="Ψάχνεις τα εφημερέυοντα φαρμακεία {{ __($region . '_with_article') }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
+          content="Ψάχνεις τα εφημερέυοντα φαρμακεία {{ __('general.'.$region . '_with_article') }}; Δες τα όλα μέσα από το farmakeia.com.cy με ένα κλικ!">
 </x-slot>
 
 <div class="py-12">
@@ -10,7 +10,7 @@
             <div
                 class="pb-5 border-b border-gray-200 space-y-3 sm:flex sm:items-center sm:justify-between sm:space-x-4 sm:space-y-0">
                 <h1 class="text-lg leading-6 font-medium text-gray-900">
-                    Φαρμακεία {{ __($region . '_with_article') }}
+                    {{ __('general.pharmacies') . ' '.__('general.' . $region . '_with_article') }}
                 </h1>
                 <div class="flex">
                     <div class="self-center mr-4">

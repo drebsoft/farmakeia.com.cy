@@ -13,7 +13,7 @@
                 <div class="ml-4">
                     <a href="{{ $pharmacy->seo_url }}">
                         <h2 class="text-lg leading-6 font-medium text-gray-900">
-                            Φαρμακείο {{ $pharmacy->name }}
+                            {{ __('general.pharmacy') . ' ' . $pharmacy->name }}
                             @if($pharmacy->next_availability === now()->format('Y-m-d'))
                                 <span
                                     class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium leading-5 bg-green-100 text-green-800"

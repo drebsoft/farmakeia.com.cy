@@ -46,7 +46,7 @@ class PostAvailablePharmacies extends Command
         foreach ($pharmaciesByRegion as $currentRegion => $pharmacies) {
             $this->info($pharmacies->count() . ' for ' . $currentRegion);
             $postContent .= '------' . PHP_EOL . PHP_EOL;
-            $postContent .= 'Φαρμακεία ' . __($currentRegion . '_with_article') . PHP_EOL;
+            $postContent .= 'Φαρμακεία ' . __('general.' . $currentRegion . '_with_article') . PHP_EOL;
             $postContent .= route('farmakeia', ['region' => $pharmacies->first()->getSeoRegionAlias()]) . PHP_EOL . PHP_EOL;
             foreach ($pharmacies as $pharmacy) {
                 $postContent .= $pharmacy->name . ', ' . $pharmacy->area . PHP_EOL;
