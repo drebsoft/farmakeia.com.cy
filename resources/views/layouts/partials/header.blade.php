@@ -18,16 +18,16 @@
             <div class="hidden md:flex-1 md:flex md:items-center md:justify-between">
                 <nav class="flex space-x-10">
                     <a href="{{ route('homepage') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                        Αρχική
+                        {{ __('menu.home') }}
                     </a>
                     <a href="{{ route('map') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                        Προβολή Χάρτη
+                        {{ __('menu.map') }}
                     </a>
                     <a href="{{ route('rapid-tests') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                        Χάρτης Rapid Test
+                        {{ __('menu.rapid') }}
                     </a>
                     <a href="{{ route('how-it-works') }}" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                        Πώς Λειτουργεί
+                        {{ __('menu.how_it_works') }}
                     </a>
                 </nav>
             </div>
