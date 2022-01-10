@@ -71,7 +71,15 @@ class Pharmacy extends Model
         return route('farmakeio', ['am' => $this->am, 'slug' => $this->slug]);
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getAvatarUrlAttribute()
+    {
+        $parts = explode(' ', $this->name);
+        $name = $parts[0][0] . ($parts[1][0] ?? '');
+
+        return "https://ui-avatars.com/api/?name={$name}&color=7F9CF5&background=EBF4FF";
+    }
+
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')

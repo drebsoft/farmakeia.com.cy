@@ -4,7 +4,7 @@
             <div class="flex items-center">
                 <div class="flex-shrink-0">
                     <img class="h-12 w-12 rounded-full"
-                         src="https://ui-avatars.com/api/?name={{ urlencode($pharmacy->name) }}&color=7F9CF5&background=EBF4FF"
+                         src="{{ $pharmacy->avatar_url }}"
                          alt="{{ $pharmacy->name }}"
                          title="{{ $pharmacy->name }}"
                          loading="lazy"
