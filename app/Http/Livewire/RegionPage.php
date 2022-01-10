@@ -100,4 +100,9 @@ class RegionPage extends Component
             ->orderBy('next_availability')
             ->paginate();
     }
+
+    public function updatedPage()
+    {
+        $this->emit('pageChanged');
+    }
 }
