@@ -74,7 +74,7 @@ class Pharmacy extends Model
 
     public function getAvatarUrlAttribute()
     {
-        $name = preg_replace("/[^a-zA-Z0-9\p{Greek} ]+/u", "", $this->name);
+        $name = preg_replace("/[^a-zA-Z\p{Greek} ]+/u", "", $this->name);
         $name = collect(explode(' ', $name))->filter()->values()->map(function ($part) {
             return Str::substr($part, 0, 1);
         })->take(2)->implode('');
