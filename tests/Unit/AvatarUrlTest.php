@@ -15,7 +15,7 @@ class AvatarUrlTest extends TestCase
         $pharmacy = new Pharmacy;
         $pharmacy->name = $name;
 
-        $this->assertSame($pharmacy->avatar_url, "https://ui-avatars.com/api/?name={$result}&color=7F9CF5&background=EBF4FF");
+        $this->assertSame("https://ui-avatars.com/api/?name={$result}&color=7F9CF5&background=EBF4FF", $pharmacy->avatar_url);
     }
 
     public function provider()
@@ -23,8 +23,14 @@ class AvatarUrlTest extends TestCase
         return [
             ['Test Test', 'TT'],
             ['Test A', 'TA'],
+            ['Test - Test', 'TT'],
+            ['Test A', 'TA'],
             ['Foo Bar (Test)', 'FB'],
             ['A', 'A'],
+            ['Ανδρέας Ανδρέου', 'ΑΑ'],
+            ['Ανδρέας (Ανδρέου)', 'ΑΑ'],
+            ['Ανδρέας - (Ανδρέου) Χρίστου', 'ΑΑ'],
+            ['Γιάννης (Κάτι) Χρίστου', 'ΓΚ'],
         ];
     }
 }

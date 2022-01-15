@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -73,8 +74,10 @@ class Pharmacy extends Model
 
     public function getAvatarUrlAttribute()
     {
-        $parts = explode(' ', $this->name);
-        $name = $parts[0][0] . ($parts[1][0] ?? '');
+        $name = preg_replace("/[^α-ωΑ-Ωa-zA-Z0-9 ]+/", "", $this->name);
+        $name = collect(explode(' ', $name))->filter()->values()->map(function ($part) {
+            return Str::substr($part, 0, 1);
+        })->take(2)->implode('');
 
         return "https://ui-avatars.com/api/?name={$name}&color=7F9CF5&background=EBF4FF";
     }
