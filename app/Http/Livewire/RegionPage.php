@@ -101,10 +101,8 @@ class RegionPage extends Component
             ->paginate();
     }
 
-    public function setPage($page)
+    public function updatedPage()
     {
-        $this->page = $page;
-
         $this->emit('pageChanged');
     }
 }
