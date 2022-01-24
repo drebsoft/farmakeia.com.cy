@@ -74,10 +74,18 @@ class Pharmacy extends Model
 
     public function getAvatarUrlAttribute()
     {
-        $name = preg_replace("/[^a-zA-Z\p{Greek} ]+/u", "", $this->name);
-        $name = collect(explode(' ', $name))->filter()->values()->map(function ($part) {
+        $parts = preg_replace("/[^a-zA-Z\p{Greek} ]+/u", "", $this->name);
+        $parts = collect(explode(' ', $parts))->filter()->values()->map(function ($part) {
             return Str::substr($part, 0, 1);
-        })->take(2)->implode('');
+        })->take(3);
+
+        if ($parts->count() === 2) {
+            $name = $parts->implode('');
+        } elseif ($parts->count() === 3) {
+            $name = $parts->get(0) . $parts->get(2);
+        } else {
+            $name = $parts->take(2)->implode(' ');
+        }
 
         return "https://ui-avatars.com/api/?name={$name}&color=7F9CF5&background=EBF4FF";
     }
