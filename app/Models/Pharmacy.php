@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -71,7 +72,25 @@ class Pharmacy extends Model
         return route('farmakeio', ['am' => $this->am, 'slug' => $this->slug]);
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getAvatarUrlAttribute()
+    {
+        $parts = preg_replace("/[^a-zA-Z\p{Greek} ]+/u", "", $this->name);
+        $parts = collect(explode(' ', $parts))->filter()->values()->map(function ($part) {
+            return Str::substr($part, 0, 1);
+        })->take(3);
+
+        if ($parts->count() === 2) {
+            $name = $parts->implode('');
+        } elseif ($parts->count() === 3) {
+            $name = $parts->get(0) . $parts->get(2);
+        } else {
+            $name = $parts->take(2)->implode(' ');
+        }
+
+        return "https://ui-avatars.com/api/?name={$name}&color=7F9CF5&background=EBF4FF";
+    }
+
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('name')
