@@ -117,13 +117,22 @@
 
                     </div>
                     <div class="w-full md:w-4/5">
-                        @if(!empty(config('googlemaps.api_key')) && !empty($pharmacy->map_address))
-                            <iframe
-                                width="650" height="400"
-                                style="width:100%;border:0"
-                                src="https://www.google.com/maps/embed/v1/place?key={{ config('googlemaps.api_key') }}&q={{ $pharmacy->map_address }}&region=cy"
-                                allowfullscreen>
-                            </iframe>
+                        @if(!empty(config('googlemaps.api_key')))
+                            @if(empty($pharmacy->map_address))
+                                <iframe
+                                    width="650" height="400"
+                                    style="width:100%;border:0"
+                                    src="https://www.google.com/maps/embed/v1/view?key={{ config('googlemaps.api_key') }}&center={{ $pharmacy->lat }},{{ $pharmacy->lng }}&region=cy"
+                                    allowfullscreen>
+                                </iframe>
+                            @else
+                                <iframe
+                                    width="650" height="400"
+                                    style="width:100%;border:0"
+                                    src="https://www.google.com/maps/embed/v1/place?key={{ config('googlemaps.api_key') }}&q={{ $pharmacy->map_address }}&region=cy"
+                                    allowfullscreen>
+                                </iframe>
+                            @endif
                         @endif
                     </div>
                 </div>
