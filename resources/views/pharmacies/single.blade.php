@@ -122,7 +122,7 @@
                                 <iframe
                                     width="650" height="400"
                                     style="width:100%;border:0"
-                                    src="https://www.google.com/maps/embed/v1/view?key={{ config('googlemaps.api_key') }}&center={{ $pharmacy->lat }},{{ $pharmacy->lng }}&region=cy"
+                                    src="https://www.google.com/maps/embed/v1/view?key={{ config('googlemaps.api_key') }}&center={{ $pharmacy->lat }},{{ $pharmacy->lng }}&zoom=18&region=cy"
                                     allowfullscreen>
                                 </iframe>
                             @else
