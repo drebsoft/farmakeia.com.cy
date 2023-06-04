@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class HomepageTests extends TestCase
+class HomepageTest extends TestCase
 {
     /**
      * @test
