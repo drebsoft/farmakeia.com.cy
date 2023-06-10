@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Availability;
-use App\Models\Pharmacy;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
