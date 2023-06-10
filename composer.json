@@ -15,12 +15,11 @@
         "bugsnag/bugsnag-laravel": "^2.0",
         "doctrine/dbal": "^3.2",
         "filament/filament": "^2.0",
-        "fruitcake/laravel-cors": "^2.0",
         "gregkos/greek-strings": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "laravel/framework": "^9.0",
-        "laravel/jetstream": "^1.5",
-        "laravel/sanctum": "^2.6",
+        "laravel/framework": "^10.0",
+        "laravel/jetstream": "^3.0",
+        "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.5",
         "livewire/livewire": "^2.0",
         "maatwebsite/excel": "^3.1",
@@ -31,13 +30,13 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
-        "spatie/laravel-ignition": "^1.0",
+        "spatie/laravel-ignition": "^2.0",
         "fakerphp/faker": "^1.9.1",
         "jasonmccreary/laravel-test-assertions": "^2.0",
         "laravel/sail": "^1.9",
         "mockery/mockery": "^1.4.2",
-        "nunomaduro/collision": "^6.1",
-        "phpunit/phpunit": "^9.3.3"
+        "nunomaduro/collision": "^7.0",
+        "phpunit/phpunit": "^10.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -64,7 +63,6 @@
             "Tests\\": "tests/"
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
         "post-autoload-dump": [
